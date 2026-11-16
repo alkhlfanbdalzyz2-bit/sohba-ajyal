@@ -802,6 +802,12 @@ html{touch-action:pan-x pan-y}
 @media (min-width:900px){ .kgrid{grid-template-columns:repeat(4,1fr)} }
 .hdr{view-transition-name:hdr} .tabs{view-transition-name:tabs}
 ::view-transition-group(hdr),::view-transition-group(tabs){animation:none}
+.gtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:5px;margin-bottom:12px;border-radius:18px;background:var(--card);border:1px solid var(--line2)}
+.gtabs button{height:44px;border-radius:14px;font-family:var(--disp);font-weight:800;font-size:15px;color:var(--t2)}
+.gtabs button small{font-size:11.5px;opacity:.75;margin-inline-start:3px}
+.gtabs button.on{background:var(--gO);color:#fff;box-shadow:0 8px 18px rgba(247,148,29,.3)}
+.ggrid[data-f="img"] .gv,.ggrid[data-f="video"] .gph{display:none}
+.ggrid[data-f="video"] .gv:first-of-type,.ggrid[data-f]:not([data-f="all"]) .f1{grid-column:auto;grid-row:auto}
 ::view-transition-old(root){animation:.42s cubic-bezier(.5,0,.75,0) both vtOut}
 ::view-transition-new(root){animation:.8s var(--lux) .08s both vtIn}
 @keyframes vtOut{to{opacity:0;transform:scale(.93) translateY(-18px);filter:blur(10px)}}
@@ -937,9 +943,10 @@ var CHALLENGES = [
 ];
 var KPH = [];
 for (var _k = 301; _k <= 408; _k++) KPH.push({ type:'img', src:'gal/p'+_k+'.jpg', th:'gal/t'+_k+'.webp' });
+for (var _q = 1; _q <= 253; _q++) KPH.push({ type:'video', src:'media/kv'+_q+'.mp4', poster:'media/kv'+_q+'.webp' });
 
 var COURSE = { id:'khutah', t:'كورس على خطاه', poster:'assets/khutah.webp', parts:[
-  { id:'photos', t:'صور الكورس', s:'لحظات كورس على خطاه', icon:'pic', items:KPH },
+  { id:'photos', t:'صور وفيديو الكورس', s:'لحظات كورس على خطاه', icon:'pic', items:KPH },
   { id:'halaqat', t:'لوحة نقاط حلقة القرآن الكريم', s:'درجات الحلقات كل أسبوع', icon:'board', items:[] },
   { id:'challenges', t:'لوحة تحديات الكورس', s:'أبطال التحديات', icon:'flag', items:[] }
 ]};
@@ -997,7 +1004,7 @@ function courseBlock(){
     { h:'halaqat', ic:'board', t:'لوحة نقاط حلقة القرآن الكريم', s:'تحديث '+HALAQAT.updated, ok:1, c:'' },
     { h:'points', ic:'star', t:'نقاط الكورس', s:'تحديث '+POINTS.updated, ok:1, c:'g' },
     { h:'challenges', ic:'flag', t:'تحديات الكورس', s:CHALLENGES.length+' تحديات', ok:1, c:'b' },
-    { h:'photos', ic:'pic', t:'صور الكورس', s:ph ? ph+' صورة' : 'قريباً', ok:ph, c:'' }
+    { h:'photos', ic:'pic', t:'صور وفيديو الكورس', s:ph ? mediaCount(COURSE.parts.filter(function(x){ return x.id === 'photos'; })[0].items) : 'قريباً', ok:ph, c:'' }
   ];
   return '<div class="kx rv">'+
     '<div class="khead"><div class="karch"><img src="'+COURSE.poster+'" alt="كورس على خطاه ﷺ"><span class="sheen"></span></div>'+
@@ -1041,9 +1048,11 @@ function ptop(icon, small, title, p, img){
 function emptyBox(t){ return '<div class="empty rv"><span class="shp fade"></span><div class="e1"><img src="'+LOGO+'" alt=""></div><b>قريباً</b><span>'+(t||'بننزلها قريباً بإذن الله')+'</span></div>'; }
 function homeBtn(){ return '<a class="homebtn" href="#/">'+I.home+'الرجوع للرئيسية</a>'; }
 function grid(a){
-  return '<div class="ggrid">'+a.items.map(function(m, i){
-    var inner = m.type==='video' ? '<video src="'+m.src+'#t=0.5" '+(m.poster?'poster="'+m.poster+'" ':'')+'muted playsinline preload="none"></video><span class="gp">'+I.play+'</span>' : '<img src="'+(m.th||m.src)+'" alt=""'+(i>5?' loading="lazy"':'')+'>';
-    return '<button type="button" class="gi'+(i===0?' f1':'')+'" data-open="'+a.id+':'+i+'" aria-label="عرض">'+inner+'</button>';
+  var ni = countOf(a.items,'img'), nv = countOf(a.items,'video');
+  var tabs = (ni && nv) ? '<div class="gtabs"><button type="button" class="on" data-gf="all">الكل</button><button type="button" data-gf="img">صور <small>'+ni+'</small></button><button type="button" data-gf="video">فيديو <small>'+nv+'</small></button></div>' : '';
+  return tabs+'<div class="ggrid" data-f="all">'+a.items.map(function(m, i){
+    var inner = m.type==='video' ? '<img src="'+(m.poster||'')+'" alt="" loading="lazy"><span class="gp">'+I.play+'</span>' : '<img src="'+(m.th||m.src)+'" alt=""'+(i>5?' loading="lazy"':'')+'>';
+    return '<button type="button" class="gi'+(i===0?' f1':'')+(m.type==='video'?' gv':' gph')+'" data-open="'+a.id+':'+i+'" aria-label="عرض">'+inner+'</button>';
   }).join('')+'</div>';
 }
 function albumPage(id){
