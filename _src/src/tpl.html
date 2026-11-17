@@ -275,6 +275,19 @@ footer .wrap{position:relative;z-index:1}
 .empty .e1 img{width:100%;height:100%;object-fit:contain}
 .empty b{position:relative;display:block;font-family:var(--cal);font-weight:700;font-size:34px;line-height:1.4}
 .empty span{position:relative;color:var(--t2);font-weight:600}
+.navbtns{display:grid;grid-template-columns:1.25fr 1fr;gap:10px;margin-top:18px}
+.navbtns.one{grid-template-columns:1fr}
+.navbtns .homebtn{margin-top:0}
+.upbtn{display:flex;align-items:center;justify-content:center;gap:6px;height:56px;border-radius:18px;background:var(--navy);color:#fff;border:2px solid var(--or);font-family:var(--disp);font-weight:800;font-size:15px;box-shadow:0 12px 28px rgba(0,37,94,.3)}
+.upbtn svg{width:20px;height:20px;flex:none}
+#fback{position:fixed;z-index:111;right:14px;bottom:calc(88px + var(--safeB));display:none;align-items:center;gap:4px;height:48px;padding:0 18px 0 14px;border-radius:99px;background:var(--gO);color:#fff;font-family:var(--disp);font-weight:800;font-size:15px;box-shadow:0 10px 26px rgba(247,148,29,.45),0 0 0 3px rgba(255,255,255,.85);transition:transform .3s var(--lux),opacity .3s}
+#fback svg{width:20px;height:20px}
+body.deep #fback{display:inline-flex}
+body.deep.endv #fback{opacity:0;transform:translateY(16px);pointer-events:none}
+html.noscroll #fback{opacity:0;pointer-events:none}
+@media (min-width:900px){ #fback{display:none!important} }
+.back{height:46px!important;padding:0 16px 0 12px!important;font-size:15.5px!important}
+.back svg{width:20px!important;height:20px!important}
 .homebtn{display:flex;align-items:center;justify-content:center;gap:8px;height:56px;margin-top:18px;border-radius:18px;background:var(--gO);color:#fff;font-family:var(--disp);font-weight:800;font-size:16px;box-shadow:0 12px 28px rgba(247,148,29,.3)}
 .homebtn svg{width:20px;height:20px}
 .ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -913,13 +926,13 @@ html{touch-action:pan-x pan-y}
 </head>
 <body>
 <div id="splash" aria-hidden="true"><span class="sp-bg"></span><span class="sp-beam"></span><span class="sp-flash"></span><span class="sp-pt"></span><span class="sp-fr"></span><div class="c"><div class="d"><span class="sring"></span><span class="sring r2"></span><span class="sring r3"></span><img src="assets/ajyal.webp" alt=""></div><b><span>صحبة</span> <em>أجيال</em> <span>القرآن</span></b><i class="ln"></i><small>نادي أجيال القرآن الكريم · القرين</small></div></div>
-<div class="sprog" aria-hidden="true"></div><div id="wipe" aria-hidden="true"></div><div id="cur" aria-hidden="true"><i class="k1"></i><i class="k2"></i><span class="cl"><img src="assets/ajyal.webp" alt=""></span><span class="cln"></span></div>
+<div class="sprog" aria-hidden="true"></div><div id="wipe" aria-hidden="true"></div><a id="fback" href="#/" aria-label="رجوع"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>رجوع</a><div id="cur" aria-hidden="true"><i class="k1"></i><i class="k2"></i><span class="cl"><img src="assets/ajyal.webp" alt=""></span><span class="cln"></span></div>
 
 <header class="hdr"><div class="wrap">
   <a class="brand" href="#/" aria-label="الرئيسية"><span class="lg"><img src="assets/ajyal.webp" alt="شعار نادي أجيال"></span><span><b>صحبة أجيال</b><small>نادي أجيال القرآن الكريم</small></span></a>
   <div class="hbtns">
-    <nav class="nav" aria-label="الأقسام"><a href="#/" data-t="">الرئيسية</a><a href="#/khutah" data-t="khutah">الكورس</a><a href="#/videos" data-t="videos">الفيديو</a><a href="#/gallery" data-t="gallery">المعرض</a></nav>
-    <a class="back" href="#/" aria-label="الرجوع للرئيسية"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>الرئيسية</a>
+    <nav class="nav" aria-label="الأقسام"><a href="#/" data-t="">الرئيسية</a><a href="#/khutah" data-t="khutah">الكورس</a><a href="#/memories" data-t="mem">الذكريات</a><a href="#/favs" data-t="favs">المفضلة</a></nav>
+    <a class="back" href="#/" aria-label="رجوع"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg><span class="bk-t">الرئيسية</span></a>
     <button class="ib" type="button" id="themeB" aria-label="تبديل الوضع الفاتح والداكن">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M2 12h2.2M19.8 12H22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
@@ -945,8 +958,8 @@ html{touch-action:pan-x pan-y}
 <nav class="tabs" aria-label="التنقل">
   <a href="#/" data-t=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>الرئيسية</a>
   <a href="#/khutah" data-t="khutah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3.5 5v13.5c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5V20"/></svg>الكورس</a>
-  <a href="#/videos" data-t="videos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg>الفيديو</a>
-  <a href="#/gallery" data-t="gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-9 9"/></svg>المعرض</a>
+  <a href="#/memories" data-t="mem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="15" height="13" rx="2.5"/><path d="M3 7.5v10A3.5 3.5 0 006.5 21h10"/><path d="M12 7.2v5.6l4.4-2.8z" fill="currentColor"/></svg>الذكريات</a>
+  <a href="#/favs" data-t="favs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2.1 0 3.6 1.2 5.1 3 1.5-1.8 3-3 5.1-3 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg>المفضلة</a>
 </nav>
 
 <div id="vw" hidden role="dialog" aria-modal="true" aria-label="عارض الصور والفيديو">
@@ -1083,9 +1096,9 @@ function home(){
     '<h1>صحبة <span>أجيال</span> القرآن</h1><div class="sub">نادي أجيال القرآن الكريم · القرين</div>'+
     '<div class="tags"><span>قرآني</span><span>تربوي</span><span>ترفيهي</span></div>'+
     '<figure class="grp"><img src="assets/hero.webp" alt="شباب صحبة أجيال" fetchpriority="high"></figure></div></section>'+
-  '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>'+
-  '<section class="band"><div class="wrap">'+sh('','معرض الصحبة')+library()+'<div class="ccs stg" style="margin-top:10px">'+favRow()+'</div>'+'</div></section>'+
+  '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
+  '<section class="band"><div class="wrap">'+sh('','الذكريات')+library()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','إنجازاتنا','والقادم أفضل بإذن الله')+
     '<div class="ccs stg">'+row({ href:'#/awards', img:'assets/cv-awards.webp', k:'الدرع الحصين ١٠ · المركز الثالث', t:'منصة التتويج', c:'g', ok:1, st:AW.length+' تتويج' })+'</div>'+
     '<div class="stats rv"><div><b class="cnt" data-to="'+AW.length+'">0</b><span>تتويج</span></div><div><b class="cnt" data-to="46">0</b><span>مشارك</span></div></div>'+
@@ -1099,7 +1112,9 @@ function ptop(icon, small, title, p, img){
   return '<section class="ptop"><span class="shp"></span><div class="wrap"><span class="pi">'+(img?'<img src="'+img+'" alt="">':I[icon])+'</span><div><small>'+small+'</small><h1>'+title+'</h1>'+(p?'<p>'+p+'</p>':'')+'</div></div></section>';
 }
 function emptyBox(t){ return '<div class="empty rv"><span class="shp fade"></span><div class="e1"><img src="'+LOGO+'" alt=""></div><b>قريباً</b><span>'+(t||'بننزلها قريباً بإذن الله')+'</span></div>'; }
-function homeBtn(){ return '<a class="homebtn" href="#/">'+I.home+'الرجوع للرئيسية</a>'; }
+var UP = { h:'#/', t:'الرئيسية' };
+function homeBtn(){ var bk = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+  return '<div class="navbtns'+(UP.h === '#/' ? ' one' : '')+'">'+(UP.h !== '#/' ? '<a class="upbtn" href="'+UP.h+'">'+bk+'رجوع إلى '+UP.t+'</a>' : '')+'<a class="homebtn" href="#/">'+I.home+'الرئيسية</a></div>'; }
 function grid(a){
   var ni = countOf(a.items,'img'), nv = countOf(a.items,'video');
   var tabs = (ni && nv) ? '<div class="gtabs"><button type="button" class="on" data-gf="all">الكل</button><button type="button" data-gf="img">صور <small>'+ni+'</small></button><button type="button" data-gf="video">فيديو <small>'+nv+'</small></button></div>' : '';
@@ -1111,7 +1126,7 @@ function grid(a){
 function albumPage(id){
   var a = albumById(id); if (!a) return null;
   var sub = a.items.length ? mediaCount(a.items) : a.s;
-  return '<div class="page">'+ptop(a.icon, a.course ? 'كورس على خطاه ﷺ' : 'المعرض', a.t, sub)+
+  return '<div class="page">'+ptop(a.icon, a.course ? 'كورس على خطاه ﷺ' : 'الذكريات', a.t, sub)+
     '<section class="band" style="padding-top:16px"><div class="wrap">'+(a.items.length ? grid(a) : emptyBox())+homeBtn()+'</div></section></div>';
 }
 
@@ -1163,10 +1178,10 @@ function challengesPage(){
     }).join('')+'</div>'+homeBtn()+'</div></section></div>';
 }
 function coursePage(){
-  return '<div class="page">'+ptop('book','الكورس الحالي','كورس على خطاه ﷺ','',COURSE.poster)+'<section class="band" style="padding-top:16px"><div class="wrap">'+courseBlock()+'</div></section><section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+homeBtn()+'</div></section></div>';
+  return '<div class="page">'+ptop('book','الكورس الحالي','كورس على خطاه ﷺ','',COURSE.poster)+'<section class="band" style="padding-top:16px"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section><section class="band"><div class="wrap">'+courseBlock()+homeBtn()+'</div></section></div>';
 }
 function galleryPage(){
-  return '<div class="page">'+ptop('pic','صحبة أجيال','المعرض','الكورسات السابقة وصور الصحبة')+'<section class="band" style="padding-top:16px"><div class="wrap">'+'<div class="ccs stg" style="margin-bottom:10px">'+favRow()+'</div>'+library(['p','m'])+homeBtn()+'</div></section></div>';
+  return '<div class="page">'+ptop('pic','صحبة أجيال','الذكريات','الدروس والفلوقات والكورسات وصور الصحبة')+'<section class="band" style="padding-top:16px"><div class="wrap">'+library()+homeBtn()+'</div></section></div>';
 }
 function videosHub(){
   return '<div class="page">'+ptop('film','صحبة أجيال','الفيديو','الدروس وفلوقات الصحبة')+'<section class="band" style="padding-top:16px"><div class="wrap">'+library(['v'])+homeBtn()+'</div></section></div>';
@@ -1178,7 +1193,7 @@ function videoPage(id){
       return '<button type="button" class="vl" data-vid="'+id+':'+i+'"><span class="vl-ph"><img src="'+th+'" alt="" loading="lazy"><span class="vl-pl">'+I.play+'</span>'+(x.d?'<span class="vl-du">'+x.d+'</span>':'')+(isNew(x)?'<span class="vl-nw">جديد</span>':'')+'</span>'+
         '<span class="vl-bd"><b>'+e(x.t)+'</b><small>'+(x.date||'').split(' · ').map(function(s){ return '<span>'+e(s)+'</span>'; }).join('')+'</small></span>'+(pos > 5 && dur ? '<span class="vl-pr"><span style="width:'+Math.min(100, pos/dur*100)+'%"></span></span>' : '')+'</button>';
     }).join('')+'</div>' : emptyBox('بننزل '+v.t+' قريباً بإذن الله');
-  return '<div class="page">'+ptop('film','الفيديو',v.t,v.items.length ? v.items.length+' فيديو' : v.s)+'<section class="band" style="padding-top:16px"><div class="wrap">'+list+homeBtn()+'</div></section></div>';
+  return '<div class="page">'+ptop('film','الذكريات',v.t,v.items.length ? v.items.length+' فيديو' : v.s)+'<section class="band" style="padding-top:16px"><div class="wrap">'+list+homeBtn()+'</div></section></div>';
 }
 function awCard(a, i){
   return '<article class="aw'+(a.big?' big':'')+'"><button type="button" class="ph" data-aw="'+i+'" aria-label="عرض الصورة"><img src="gal/t'+a.p+'.webp" alt="" loading="lazy">'+medal(a.r)+'</button>'+
@@ -1535,7 +1550,7 @@ function favAlbum(){ var map = allItems(); return { id:'favs', t:'المفضلة
 function favRow(){ var n = favAlbum().items.length; return row({ href:'#/favs', ic:'<span class="hrt">'+HEART+'</span>', k:'المعرض', t:'المفضلة', c:'fvr', ok:n, st: n ? n+' محفوظة' : 'اضغط ♥ على أي صورة' }); }
 function favPage(){
   var a = favAlbum();
-  return '<div class="page">'+ptop('pic','المعرض','المفضلة', a.items.length ? mediaCount(a.items) : 'الصور والفيديوهات المفضلة في مكان واحد')+
+  return '<div class="page">'+ptop('pic','صحبة أجيال','المفضلة', a.items.length ? mediaCount(a.items) : 'الصور والفيديوهات المفضلة في مكان واحد')+
     '<section class="band" style="padding-top:16px"><div class="wrap">'+(a.items.length ? grid(a) : '<div class="fvnote rv"><span class="fh">'+HEART+'</span><p>افتح الصورة أو الفيديو اللي يعجبك<br>واضغط <b>❤️</b> وبتلقاها هني</p><em>مع تحيات بو عمر</em></div>')+homeBtn()+'</div></section></div>';
 }
 
@@ -1599,21 +1614,28 @@ function meetStart(){ clearInterval(CDT); CDT = 0; if (document.getElementById('
 var app = document.getElementById('app'), curRoute = null;
 function routeNow(){
   var id = (location.hash||'').replace(/^#\/?/,''), html = null, title = 'صحبة أجيال القرآن الكريم', tab = '';
+  UP = (id.indexOf('album/') === 0 || id.indexOf('videos/') === 0) ? { h:'#/memories', t:'الذكريات' } : (id.indexOf('khutah/') === 0 ? { h:'#/khutah', t:'الكورس' } : (id === 'awards' ? { h:'#/', t:'الرئيسية' } : { h:'#/', t:'الرئيسية' }));
+  if (id.indexOf('khutah/') === 0 && albumById('khutah-'+id.slice(7))) UP = { h:'#/khutah', t:'الكورس' };
   if (id === 'awards'){ html = awardsPage(); title = 'منصة التتويج'; }
   else if (id === 'khutah'){ html = coursePage(); title = 'كورس على خطاه ﷺ'; tab = 'khutah'; }
   else if (id === 'khutah/points'){ html = pointsPage(); tab = 'khutah'; title = 'نقاط الكورس'; }
   else if (id === 'khutah/challenges'){ html = challengesPage(); tab = 'khutah'; title = 'تحديات الكورس'; }
   else if (id === 'khutah/halaqat'){ html = halaqatPage(); tab = 'khutah'; title = 'لوحة نقاط حلقة القرآن الكريم'; }
   else if (id.indexOf('khutah/') === 0){ html = albumPage('khutah-'+id.slice(7)); tab = 'khutah'; if (html) title = albumById('khutah-'+id.slice(7)).t; }
-  else if (id === 'gallery'){ html = galleryPage(); title = 'المعرض'; tab = 'gallery'; }
-  else if (id === 'favs'){ html = favPage(); title = 'المفضلة'; tab = 'gallery'; }
-  else if (id.indexOf('album/') === 0){ html = albumPage(id.slice(6)); tab = 'gallery'; if (html) title = albumById(id.slice(6)).t; }
-  else if (id === 'videos'){ html = videosHub(); title = 'الفيديو'; tab = 'videos'; }
-  else if (id.indexOf('videos/') === 0){ html = videoPage(id.slice(7)); tab = 'videos'; if (html) title = VIDEOS[id.slice(7)].t; }
+  else if (id === 'memories' || id === 'gallery' || id === 'videos'){ html = galleryPage(); title = 'الذكريات'; tab = 'mem'; }
+  else if (id === 'favs'){ html = favPage(); title = 'المفضلة'; tab = 'favs'; }
+  else if (id.indexOf('album/') === 0){ html = albumPage(id.slice(6)); tab = 'mem'; if (html) title = albumById(id.slice(6)).t; }
+  else if (id.indexOf('videos/') === 0){ html = videoPage(id.slice(7)); tab = 'mem'; if (html) title = VIDEOS[id.slice(7)].t; }
   if (!html){ id = ''; html = home(); if (location.hash && location.hash !== '#/' && history.replaceState) history.replaceState(null, '', location.pathname + location.search); }
+  if (!id) UP = { h:'#/', t:'الرئيسية' };
+  var bk = document.querySelector('.back'); bk.setAttribute('href', UP.h); bk.querySelector('.bk-t').textContent = UP.t;
+  var fb = document.getElementById('fback'); fb.setAttribute('href', UP.h);
   curRoute = id; app.innerHTML = html; document.title = id ? title+' | صحبة أجيال' : title;
   document.body.classList.toggle('inner', id !== '');
   Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(a){ a.classList.toggle('on', a.getAttribute('data-t') === tab && (tab !== '' || id === '')); });
+  document.body.classList.toggle('deep', UP.h !== '#/'); document.body.classList.remove('endv');
+  var nb = app.querySelector('.navbtns'); if (window.FBIO) FBIO.disconnect();
+  if (nb && 'IntersectionObserver' in window){ window.FBIO = new IntersectionObserver(function(es){ document.body.classList.toggle('endv', es[0].isIntersecting); }); FBIO.observe(nb); }
   window.scrollTo(0,0); reveal(); meetStart();
 }
 function route(){
