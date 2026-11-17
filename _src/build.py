@@ -7,7 +7,7 @@ json.dump({"name":"صحبة أجيال القرآن الكريم","short_name":"
   open('deploy/manifest.webmanifest','w',encoding='utf-8'),ensure_ascii=False,indent=1)
 open('deploy/sw.js','w',encoding='utf-8').write("""/* صحبة أجيال — يخلي الموقع يفتح بسرعة وبدون إنترنت */
 var C = 'sohba-"""+ver+"""';
-var CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './apple-touch-icon.png', './assets/ajyal.webp', './assets/shield.webp', './assets/sohba-d.webp', './assets/sohba-l.webp', './assets/hero.webp', './assets/shapes.png', './assets/khutah.webp', './assets/cv-dir3.webp', './assets/cv-group.webp', './assets/cv-khutah.webp', './assets/cv-awards.webp', './assets/cv-khutah-ph.webp', './assets/cv-designs.webp', './assets/cv-rattil.webp'];
+var CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './apple-touch-icon.png', './assets/ajyal.webp', './assets/shield.webp', './assets/sohba-d.webp', './assets/sohba-l.webp', './assets/hero.webp', './assets/shapes.png', './assets/khutah.webp', './assets/cv-dir3.webp', './assets/cv-group.webp', './assets/cv-khutah.webp', './assets/cv-awards.webp', './assets/cv-khutah-ph.webp', './assets/cv-designs.webp', './assets/cv-rattil.webp', './assets/cv-basira.webp'];
 self.addEventListener('install', function(e){ e.waitUntil(caches.open(C).then(function(c){ return c.addAll(CORE); }).then(function(){ return self.skipWaiting(); })); });
 self.addEventListener('activate', function(e){ e.waitUntil(caches.keys().then(function(ks){ return Promise.all(ks.filter(function(k){ return k !== C; }).map(function(k){ return caches.delete(k); })); }).then(function(){ return self.clients.claim(); })); });
 self.addEventListener('fetch', function(e){
