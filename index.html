@@ -1000,7 +1000,7 @@ var VIDEOS = {
 };
 function albumById(id){ var L = PAST.concat(MORE).concat(COURSE.parts.map(function(p){ return { id:'khutah-'+p.id, t:p.t, s:p.s, icon:p.icon, items:p.items, course:true }; })); return L.filter(function(a){ return a.id===id; })[0]; }
 function countOf(list, t){ return list.filter(function(m){ return m.type===t; }).length; }
-function isNew(a){ if (!a.new) return false; var d = (Date.now() - new Date(a.new).getTime())/864e5; return d >= 0 && d < 14; }
+function isNew(a){ return false; if (!a.new) return false; var d = (Date.now() - new Date(a.new).getTime())/864e5; return d >= 0 && d < 14; }
 
 var AW = [
   { r:3, t:'المركز الثالث في مهرجان الدرع الحصين ١٠', n:['نادي أجيال القرآن الكريم'], p:44, big:true },
