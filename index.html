@@ -280,12 +280,6 @@ footer .wrap{position:relative;z-index:1}
 .navbtns .homebtn{margin-top:0}
 .upbtn{display:flex;align-items:center;justify-content:center;gap:6px;height:56px;border-radius:18px;background:var(--navy);color:#fff;border:2px solid var(--or);font-family:var(--disp);font-weight:800;font-size:15px;box-shadow:0 12px 28px rgba(0,37,94,.3)}
 .upbtn svg{width:20px;height:20px;flex:none}
-#fback{position:fixed;z-index:111;right:14px;bottom:calc(88px + var(--safeB));display:none;align-items:center;gap:4px;height:48px;padding:0 18px 0 14px;border-radius:99px;background:var(--gO);color:#fff;font-family:var(--disp);font-weight:800;font-size:15px;box-shadow:0 10px 26px rgba(247,148,29,.45),0 0 0 3px rgba(255,255,255,.85);transition:transform .3s var(--lux),opacity .3s}
-#fback svg{width:20px;height:20px}
-body.deep #fback{display:inline-flex}
-body.deep.endv #fback{opacity:0;transform:translateY(16px);pointer-events:none}
-html.noscroll #fback{opacity:0;pointer-events:none}
-@media (min-width:900px){ #fback{display:none!important} }
 .back{height:46px!important;padding:0 16px 0 12px!important;font-size:15.5px!important}
 .back svg{width:20px!important;height:20px!important}
 .homebtn{display:flex;align-items:center;justify-content:center;gap:8px;height:56px;margin-top:18px;border-radius:18px;background:var(--gO);color:#fff;font-family:var(--disp);font-weight:800;font-size:16px;box-shadow:0 12px 28px rgba(247,148,29,.3)}
@@ -949,7 +943,7 @@ html{touch-action:pan-x pan-y}
 </head>
 <body>
 <div id="splash" aria-hidden="true"><span class="sp-bg"></span><span class="sp-beam"></span><span class="sp-flash"></span><span class="sp-pt"></span><span class="sp-fr"></span><div class="c"><div class="d"><span class="sring"></span><span class="sring r2"></span><span class="sring r3"></span><img src="assets/ajyal.webp" alt=""></div><b><span>صحبة</span> <em>أجيال</em> <span>القرآن</span></b><i class="ln"></i><small>نادي أجيال القرآن الكريم · القرين</small></div></div>
-<div class="sprog" aria-hidden="true"></div><div id="wipe" aria-hidden="true"></div><a id="fback" href="#/" aria-label="رجوع"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>رجوع</a><div id="cur" aria-hidden="true"><i class="k1"></i><i class="k2"></i><span class="cl"><img src="assets/ajyal.webp" alt=""></span><span class="cln"></span></div>
+<div class="sprog" aria-hidden="true"></div><div id="wipe" aria-hidden="true"></div><div id="cur" aria-hidden="true"><i class="k1"></i><i class="k2"></i><span class="cl"><img src="assets/ajyal.webp" alt=""></span><span class="cln"></span></div>
 
 <header class="hdr"><div class="wrap">
   <a class="brand" href="#/" aria-label="الرئيسية"><span class="lg"><img src="assets/ajyal.webp" alt="شعار نادي أجيال"></span><span><b>صحبة أجيال</b><small>نادي أجيال القرآن الكريم</small></span></a>
@@ -1695,14 +1689,11 @@ function routeNow(){
   if (!html){ id = ''; html = home(); if (location.hash && location.hash !== '#/' && history.replaceState) history.replaceState(null, '', location.pathname + location.search); }
   if (!id) UP = { h:'#/', t:'الرئيسية' };
   var bk = document.querySelector('.back'); bk.setAttribute('href', UP.h); bk.querySelector('.bk-t').textContent = UP.t;
-  var fb = document.getElementById('fback'); fb.setAttribute('href', UP.h);
   curRoute = id; app.innerHTML = html; document.title = id ? title+' | صحبة أجيال' : title;
   document.body.classList.toggle('inner', id !== '');
   Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(a){ a.classList.toggle('on', a.getAttribute('data-t') === tab && (tab !== '' || id === '')); });
-  document.body.classList.toggle('deep', UP.h !== '#/'); document.body.classList.remove('endv');
-  var nb = app.querySelector('.navbtns'); if (window.FBIO) FBIO.disconnect();
-  if (nb && 'IntersectionObserver' in window){ window.FBIO = new IntersectionObserver(function(es){ document.body.classList.toggle('endv', es[0].isIntersecting); }); FBIO.observe(nb); }
-  window.scrollTo(0,0); reveal(); meetStart();
+  var de = document.documentElement, sb = de.style.scrollBehavior; de.style.scrollBehavior = 'auto'; window.scrollTo(0,0); de.scrollTop = 0; document.body.scrollTop = 0; de.style.scrollBehavior = sb;
+  reveal(); meetStart();
 }
 function route(){
   if (RM || curRoute === null){ routeNow(); return; }
@@ -1711,6 +1702,7 @@ function route(){
   route.t1 = setTimeout(function(){ routeNow(); app.classList.remove('pg'); void app.offsetWidth; app.classList.add('pg'); }, 480);
   route.t2 = setTimeout(function(){ c.classList.remove('go'); }, 1200);
 }
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.addEventListener('hashchange', route);
 route();
 
