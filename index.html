@@ -63,7 +63,7 @@
   color-scheme:light;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:80px}
+html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
 html.noscroll,html.noscroll body{overflow:hidden}
 body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.75;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--tab) + var(--safeB));transition:background-color .4s,color .4s}
 img,svg,video,iframe{display:block;max-width:100%}
@@ -1694,11 +1694,14 @@ function routeNow(){
   curRoute = id; app.innerHTML = html; document.title = id ? title+' | صحبة أجيال' : title;
   document.body.classList.toggle('inner', id !== '');
   Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(a){ a.classList.toggle('on', a.getAttribute('data-t') === tab && (tab !== '' || id === '')); });
-  var de = document.documentElement, sb = de.style.scrollBehavior; de.style.scrollBehavior = 'auto'; window.scrollTo(0,0); de.scrollTop = 0; document.body.scrollTop = 0; de.style.scrollBehavior = sb;
+  toTop(); requestAnimationFrame(toTop); setTimeout(toTop, 120); setTimeout(toTop, 400);
   reveal(); meetStart();
 }
+function toTop(){ if (VW.open || VP.open) return; var de = document.documentElement; window.scrollTo(0,0); de.scrollTop = 0; document.body.scrollTop = 0; }
+function stopMomentum(){ var de = document.documentElement; if (VW.open || VP.open) return; de.classList.add('noscroll'); window.scrollTo(0,0); requestAnimationFrame(function(){ if (!VW.open && !VP.open) de.classList.remove('noscroll'); toTop(); }); }
 function route(){
   if (RM || curRoute === null){ routeNow(); return; }
+  stopMomentum();
   var c = document.getElementById('cur'); clearTimeout(route.t1); clearTimeout(route.t2);
   c.classList.remove('go'); void c.offsetWidth; c.classList.add('go');
   route.t1 = setTimeout(function(){ routeNow(); app.classList.remove('pg'); void app.offsetWidth; app.classList.add('pg'); }, 480);
