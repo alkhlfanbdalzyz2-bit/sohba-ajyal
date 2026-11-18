@@ -878,6 +878,24 @@ html{touch-action:pan-x pan-y}
 .gi .fv{position:absolute;top:6px;left:6px;width:24px;height:24px;border-radius:50%;display:none;place-items:center;background:rgba(247,72,92,.92);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .gi .fv svg{width:13px;height:13px;fill:#fff}
 .gi.is-fv .fv{display:grid}
+/* ===== بطاقة تفعيل الإشعارات ===== */
+#pushSlot:empty{display:none}
+.pushc{position:relative;display:flex;align-items:center;gap:12px;margin:18px 0 0;padding:14px 14px 14px 12px;border-radius:22px;color:#fff;background:radial-gradient(120% 120% at 100% 0%,rgba(247,148,29,.28),transparent 60%),linear-gradient(160deg,#0a2f73,#002560 60%,#001a46);border:2px solid var(--or);box-shadow:0 14px 34px rgba(0,37,94,.35);animation:pcIn .9s var(--lux) both}
+@keyframes pcIn{from{opacity:0;transform:translateY(16px) scale(.97);filter:blur(6px)}}
+.pushc .pb{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--gO);box-shadow:0 0 0 5px rgba(247,148,29,.18)}
+.pushc .pb svg{width:22px;height:22px;animation:bell 2.4s ease-in-out infinite;transform-origin:50% 10%}
+@keyframes bell{0%,70%,100%{transform:none}75%{transform:rotate(14deg)}80%{transform:rotate(-12deg)}85%{transform:rotate(8deg)}90%{transform:rotate(-5deg)}}
+.pushc .pt{flex:1;min-width:0}
+.pushc .pt b{display:block;font-family:var(--disp);font-weight:800;font-size:16px}
+.pushc .pt span{display:block;font-size:13px;line-height:1.6;color:rgba(255,255,255,.78)}
+.pushc button{flex:none;height:42px;padding:0 16px;border-radius:14px;border:0;background:#fff;color:#002560;font-family:var(--disp);font-weight:800;font-size:15px;cursor:pointer}
+.pushc button[disabled]{opacity:.6}
+.pushc .px{position:absolute;top:-10px;left:-8px;width:28px;height:28px;border:2px solid var(--or);border-radius:50%;background:#002560;color:#fff;font-size:16px;line-height:22px;padding:0;cursor:pointer}
+.pushc.done{border-color:#3ecf8e}
+.pushc.done .pb{background:linear-gradient(135deg,#3ecf8e,#1f9d6a)}
+.pushc.done .pb svg{animation:none}
+@media (prefers-reduced-motion:reduce){.pushc .pb svg{animation:none}}
+
 .fvnote{position:relative;margin-bottom:14px;padding:18px 16px 14px;border-radius:24px;text-align:center;color:#fff;background:radial-gradient(120% 100% at 50% 0%,rgba(247,148,29,.2),transparent 60%),linear-gradient(160deg,#00307a,#002560 60%,#001a46);border:2.5px solid var(--or);box-shadow:var(--shadow)}
 .fvnote .fh{display:grid;place-items:center;width:44px;height:44px;margin:0 auto 8px;border-radius:50%;background:linear-gradient(135deg,#ff6b81,#e8344e);box-shadow:0 0 0 5px rgba(255,107,129,.18)}
 .fvnote .fh svg{width:22px;height:22px;fill:#fff;stroke:#fff}
@@ -1158,6 +1176,7 @@ function home(){
     '<h1>صحبة <span>أجيال</span> القرآن</h1><div class="sub">نادي أجيال القرآن الكريم · القرين</div>'+
     '<div class="tags"><span>قرآني</span><span>تربوي</span><span>ترفيهي</span></div>'+
     '<figure class="grp"><img src="assets/hero.webp" alt="شباب صحبة أجيال" fetchpriority="high"></figure></div></section>'+
+  '<div id="pushSlot" class="wrap"></div>'+
   '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','الذكريات')+library()+'</div></section>'+
@@ -1672,6 +1691,55 @@ function meetTick(){
 }
 function meetStart(){ clearInterval(CDT); CDT = 0; if (document.getElementById('cdn')){ meetTick(); CDT = setInterval(meetTick, 1000); } }
 
+
+/* ===================== الإشعارات (للي مثبتين الموقع) ===================== */
+var PUSH = { api:'/.netlify/functions/' };
+function isStandalone(){ return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
+function pushOK(){ return 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window && (location.protocol === 'https:' || location.hostname === 'localhost'); }
+function u8(b64){ var p = '='.repeat((4 - b64.length % 4) % 4), s = atob((b64 + p).replace(/-/g,'+').replace(/_/g,'/')), a = new Uint8Array(s.length); for (var i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
+function pushSend(sub){ return fetch(PUSH.api + 'push-subscribe', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(sub.toJSON ? sub.toJSON() : sub) }).then(function(r){ if (!r.ok) throw 0; }); }
+var BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>';
+var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function pushCard(){
+  var slot = document.getElementById('pushSlot'); if (!slot) return;
+  if (!pushOK() || !isStandalone() || Notification.permission === 'denied' || store('pushOn') || store('pushHide')){ slot.innerHTML = ''; return; }
+  slot.innerHTML = '<div class="pushc" id="pushc"><button class="px" type="button" data-pushx aria-label="إخفاء">×</button><span class="pb">'+BELL+'</span><span class="pt"><b>فعّل الإشعارات</b><span>يوصلك تنبيه كل ما نضيف صور أو فيديو أو نقاط جديدة</span></span><button type="button" data-pushon>فعّل</button></div>';
+}
+function pushEnable(btn){
+  btn.disabled = true; btn.textContent = '...';
+  Notification.requestPermission().then(function(p){
+    if (p !== 'granted') throw 'denied';
+    return Promise.all([navigator.serviceWorker.ready, fetch(PUSH.api + 'push-key', { cache:'no-store' }).then(function(r){ return r.json(); })]);
+  }).then(function(x){
+    var reg = x[0], key = u8(x[1].key);
+    return reg.pushManager.getSubscription().then(function(old){ return old || reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:key }); });
+  }).then(pushSend).then(function(){
+    store('pushOn', Date.now());
+    var c = document.getElementById('pushc'); if (!c) return;
+    c.classList.add('done'); c.querySelector('.pb').innerHTML = CHECK; c.querySelector('.pt').innerHTML = '<b>تم التفعيل ✅</b><span>بيوصلك كل جديد بالموقع إن شاء الله</span>'; btn.remove();
+    setTimeout(function(){ var s = document.getElementById('pushSlot'); if (s) s.innerHTML = ''; }, 3500);
+  }).catch(function(err){
+    var c = document.getElementById('pushc'); if (!c) return;
+    btn.disabled = false; btn.textContent = 'فعّل';
+    c.querySelector('.pt span').textContent = err === 'denied' ? 'ما تم السماح بالإشعارات. تقدر تفعلها من إعدادات الجوال' : 'صار خطأ بالاتصال، جرّب مرة ثانية';
+  });
+}
+/* تجديد الاشتراك بهدوء مرة كل يوم */
+function pushRefresh(){
+  if (!pushOK() || Notification.permission !== 'granted') return;
+  var last = store('pushSync') || 0; if (Date.now() - last < 864e5) return;
+  navigator.serviceWorker.ready.then(function(reg){ return reg.pushManager.getSubscription(); }).then(function(sub){
+    if (!sub){ store('pushOn', null); return; }
+    return pushSend(sub).then(function(){ store('pushSync', Date.now()); store('pushOn', store('pushOn') || Date.now()); });
+  }).catch(function(){});
+}
+document.addEventListener('click', function(ev){
+  var t = ev.target; if (!t.closest) return;
+  var on = t.closest('[data-pushon]'); if (on){ pushEnable(on); return; }
+  if (t.closest('[data-pushx]')){ store('pushHide', Date.now()); var s = document.getElementById('pushSlot'); if (s) s.innerHTML = ''; }
+});
+window.addEventListener('load', function(){ setTimeout(pushRefresh, 3000); });
+
 /* ===================== التنقل ===================== */
 var app = document.getElementById('app'), curRoute = null;
 function routeNow(){
@@ -1695,7 +1763,7 @@ function routeNow(){
   document.body.classList.toggle('inner', id !== '');
   Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(a){ a.classList.toggle('on', a.getAttribute('data-t') === tab && (tab !== '' || id === '')); });
   toTop(); requestAnimationFrame(toTop); setTimeout(toTop, 120); setTimeout(toTop, 400);
-  reveal(); meetStart();
+  reveal(); meetStart(); pushCard();
 }
 function toTop(){ if (VW.open || VP.open) return; var de = document.documentElement; window.scrollTo(0,0); de.scrollTop = 0; document.body.scrollTop = 0; }
 function stopMomentum(){ var de = document.documentElement; if (VW.open || VP.open) return; de.classList.add('noscroll'); window.scrollTo(0,0); requestAnimationFrame(function(){ if (!VW.open && !VP.open) de.classList.remove('noscroll'); toTop(); }); }
