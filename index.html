@@ -677,7 +677,7 @@ html{touch-action:pan-x pan-y}
 .ccs.stg.in>.cc .cbg{animation:bgIn 1.8s var(--lux) both}
 @keyframes bgIn{from{transform:scale(1.18)}}
 /* الإحصائيات والرسالة */
-.stats{max-width:760px;margin:14px auto 0;grid-template-columns:1fr 1fr}
+.stats{max-width:760px;margin:14px auto 0;grid-template-columns:repeat(3,minmax(0,1fr))}
 .stats div{border:2px solid rgba(247,148,29,.7);background:linear-gradient(160deg,#0a2a63,#04163a)}
 .stats div::before{display:none}
 .stats span{color:rgba(255,255,255,.75)}
@@ -1182,7 +1182,7 @@ function home(){
   '<section class="band"><div class="wrap">'+sh('','الذكريات')+library()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','إنجازاتنا','والقادم أفضل بإذن الله')+
     '<div class="ccs stg">'+row({ href:'#/awards', img:'assets/cv-awards.webp', k:'الدرع الحصين ١٠ · المركز الثالث', t:'منصة التتويج', c:'g', ok:1, st:AW.length+' تتويج' })+'</div>'+
-    '<div class="stats rv"><div><b class="cnt" data-to="'+AW.length+'">0</b><span>تتويج</span></div><div><b class="cnt" data-to="46">0</b><span>مشارك</span></div></div>'+
+    '<div class="stats rv"><div><b class="cnt" data-to="'+AW.length+'">0</b><span>تتويج</span></div><div><b class="cnt" data-to="46">0</b><span>مشارك</span></div>'+(function(t){ return '<div><b class="cnt" data-to="'+(t.i+t.v)+'">0</b><span>صورة وفيديو</span></div>'; })(mediaTotals())+'</div>'+
   '</div></section>'+
   '<section class="band" id="about"><div class="wrap">'+sh('','من نحن')+
     '<div class="mission frame rv"><span class="lbl">رسالتنا</span><h2>نحو بناء جيل <em>صالح بنفسه</em><br>مُصلح لغيره</h2>'+
@@ -1626,6 +1626,13 @@ function allItems(){
   var L = PAST.concat(MORE).concat(COURSE.parts.map(function(p){ return { items:p.items }; })), map = {};
   L.forEach(function(a){ (a.items||[]).forEach(function(m){ if (!map[m.src]) map[m.src] = m; }); });
   return map;
+}
+function mediaTotals(){
+  var map = allItems(), i = 0, v = 0;
+  Object.keys(map).forEach(function(k){ if (map[k].type === 'img') i++; else v++; });
+  AW.forEach(function(a){ if (a.p && !map['gal/p'+a.p+'.jpg']) i++; });
+  Object.keys(VIDEOS).forEach(function(k){ v += VIDEOS[k].items.length; });
+  return { i:i, v:v };
 }
 function favAlbum(){ var map = allItems(); return { id:'favs', t:'المفضلة', icon:'pic', items: favList().map(function(k){ return map[k]; }).filter(Boolean) }; }
 function favRow(){ var n = favAlbum().items.length; return row({ href:'#/favs', ic:'<span class="hrt">'+HEART+'</span>', k:'المعرض', t:'المفضلة', c:'fvr', ok:n, st: n ? n+' محفوظة' : 'اضغط ♥ على أي صورة' }); }
