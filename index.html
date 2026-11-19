@@ -1165,7 +1165,7 @@ function row(o){
 }
 function mediaCount(L){ var im = countOf(L,'img'), vd = countOf(L,'video'); return [im ? im+' صورة' : '', vd ? vd+' فيديو' : ''].filter(Boolean).join(' · '); }
 function albRow(a, k){ var n = a.items.length; return row({ href:'#/album/'+a.id, ic:I[a.icon], img:a.cover, k:k, t:a.t, c:a.c, ok:n, st: isNew(a) ? 'جديد' : n ? '' : 'قريباً' }); }
-function vidRow(id, c){ var v = VIDEOS[id], n = v.items.length, nw = v.items.some(isNew); return row({ href:'#/videos/'+id, ic:I.film, img:v.items[0] && v.items[0].poster, k:'فيديو', t:v.t, c:c, ok:n, play:1, st: nw ? 'جديد' : n ? '' : 'قريباً' }); }
+function vidRow(id, c){ var v = VIDEOS[id], n = v.items.length, nw = v.items.some(isNew); return row({ href:'#/videos/'+id, ic:I.film, img:(v.items.filter(function(x){ return x.poster; })[0] || {}).poster, k:'فيديو', t:v.t, c:c, ok:n, play:1, st: nw ? 'جديد' : n ? '' : 'قريباً' }); }
 function library(parts){
   parts = parts || ['v','p','m'];
   var g = { v: vidRow('lessons','b')+vidRow('vlogs'), p: row({ href:'#/khutah/photos', img:'assets/cv-khutah-ph.webp', k:'الكورس الحالي', t:'كورس على خطاه ﷺ', ok:1, st:'' })+PAST.map(function(a){ return albRow(a, a.id==='dir3' ? '' : 'كورس سابق'); }).join(''), m: MORE.map(function(a){ return albRow(a,'ألبوم'); }).join('') };
