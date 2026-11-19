@@ -821,6 +821,9 @@ html{touch-action:pan-x pan-y}
 .cdn h2{font-family:var(--cal);font-weight:700;font-size:clamp(34px,10vw,52px);line-height:1.5;margin:2px 0 0;text-shadow:0 6px 24px rgba(0,0,0,.35)}
 .cdn h2 em{font-style:normal;color:var(--am)}
 .cdn .when{display:inline-flex;align-items:center;gap:8px;margin-top:2px;padding:6px 16px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-family:var(--disp);font-weight:700;font-size:14px}
+.cdn .ppost{display:block;position:relative;width:min(100%,300px);margin:16px auto 0;padding:0;border:0;border-radius:18px;overflow:hidden;background:none;cursor:zoom-in;box-shadow:0 14px 36px rgba(0,0,0,.4),0 0 0 2px rgba(247,148,29,.7)}
+.cdn .ppost img{display:block;width:100%;height:auto}
+.cdn .ppost span{position:absolute;inset:auto 0 0;padding:22px 8px 9px;font-family:var(--disp);font-weight:700;font-size:13px;color:#fff;background:linear-gradient(transparent,rgba(0,20,60,.85))}
 .cdn .when i{width:7px;height:7px;border-radius:50%;background:var(--or);box-shadow:0 0 0 4px rgba(247,148,29,.25)}
 .cdn .cdb{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px auto 0;max-width:460px;direction:rtl}
 .cdn .cdb div{padding:12px 4px 8px;border-radius:16px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
@@ -1581,7 +1584,7 @@ function favPage(){
 /* ===================== إعلان البرنامج + العد التنازلي =====================
    PROG = null → يطلع «ترقبوا إعلان برنامج <اليوم الجاي>» بس.
    لما يوصل إعلان: نعبّي PROG (اليوم والتاريخ ووقت الحضور والختام والمكان والفقرات) فيطلع إعلان كبير بالرئيسية وبصفحة الكورس مع عد تنازلي لوقت الحضور. */
-var PROG = { day:'السبت', date:'2026-11-21', arrive:'12:30' };
+var PROG = { day:'السبت', date:'2026-11-21', arrive:'12:00', end:'21:30', place:'بالمركز', img:'assets/prog-sat-2111.webp', th:'assets/prog-sat-2111-t.webp', items:[['quran','حلقة قرآن'],['bowl','بولينغ'],['guest','استضافة تربوية'],['vball','كرة طائرة']] };
 /* مثال:
 var PROG = { day:'الثلاثاء', date:'2026-11-24', arrive:'16:50', end:'21:30', place:'بالمركز', items:[['quran','حلقة قرآن'],['lesson','درس'],['ball','لعب قدم']] };
 */
@@ -1592,6 +1595,9 @@ var PIC = {
   ball:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5l3.5 2.6-1.3 4.1H9.8l-1.3-4.1z"/><path d="M12 3v4.5M20.6 9.5l-5.1.6M17.3 19.4l-3.1-5.2M6.7 19.4l3.1-5.2M3.4 9.5l5.1.6"/></svg>',
   trip:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16V8a3 3 0 013-3h10a3 3 0 013 3v8"/><path d="M3 16h18v2H3zM7 18v2M17 18v2M4 11h16"/></svg>',
   food:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18a9 9 0 01-18 0zM12 3v3M8 4.5l1 2M16 4.5l-1 2"/></svg>',
+  bowl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="15" r="6"/><circle cx="7.5" cy="13" r=".6" fill="currentColor"/><circle cx="10" cy="12.5" r=".6" fill="currentColor"/><circle cx="9" cy="15" r=".6" fill="currentColor"/><path d="M18 3c-1.2 0-1.8 1-1.6 2.3l.4 2.2c-.9 1.5-1.4 3.4-1 5.6.3 1.7.8 3.5 1 5.9h2.4c.2-2.4.7-4.2 1-5.9.4-2.2-.1-4.1-1-5.6l.4-2.2C19.8 4 19.2 3 18 3z"/><path d="M16.9 8h2.2"/></svg>',
+  guest:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="6" r="2.5"/><path d="M3 21v-6a4 4 0 014-4h1l4-3"/><rect x="12" y="3" width="9" height="7" rx="1"/><path d="M15 6h3"/><circle cx="17" cy="15" r="2"/><path d="M13.5 21a3.5 3.5 0 017 0"/></svg>',
+  vball:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c-1 4 0 7.5 3 10M21 12c-4-1.5-7.5-1-10 1.5M7 19.5c1.5-3.5 4-6 8-6.5"/></svg>',
   star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>'
 };
 function ar(n){ return String(n).replace(/\d/g, function(c){ return '٠١٢٣٤٥٦٧٨٩'[c]; }); }
@@ -1619,7 +1625,9 @@ function meetBlock(){
     '<div class="when"><i></i><span>'+PROG.day+' · '+ar(+d[2]+'-'+(+d[1])+'-'+d[0])+'</span></div>'+
     (PROG.items && PROG.items.length ? '<div class="pit">'+PROG.items.map(function(x, i){ return (i ? '<span class="pls">+</span>' : '')+'<span class="pi1"><span>'+(PIC[x[0]]||PIC.star)+'</span>'+x[1]+'</span>'; }).join('')+'</div>' : '')+
     (PROG.end || PROG.place ? '<div class="ptm'+(PROG.end ? '' : ' one')+'"><div><small>الحضور</small><b>'+t12(PROG.arrive)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>'+(PROG.end ? '<div class="o"><small>الختام</small><b>'+t12(PROG.end)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>' : '')+'</div>' : '')+
-    '<div class="cdx"></div><div class="nxt">ترقبوا إعلان برنامج '+(PROG.end || PROG.place || (PROG.items && PROG.items.length) ? nextDayName(progEnd()) : PROG.day)+'</div></div>';
+    '<div class="cdx"></div>'+
+    (PROG.img ? '<button type="button" class="ppost" data-progimg><img src="'+(PROG.th||PROG.img)+'" alt="إعلان برنامج '+PROG.day+'" loading="lazy"><span>اضغط لعرض الإعلان</span></button>' : '')+
+    '<div class="nxt">ترقبوا إعلان برنامج '+(PROG.end || PROG.place || (PROG.items && PROG.items.length) ? nextDayName(progEnd()) : PROG.day)+'</div></div>';
 }
 var CDT = 0;
 function meetTick(){
@@ -1677,6 +1685,7 @@ function pushRefresh(){
   }).catch(function(){});
 }
 document.addEventListener('click', function(ev){
+  var pg = ev.target.closest && ev.target.closest('[data-progimg]'); if (pg && PROG && PROG.img){ vwOpenList([{ type:'img', src:PROG.img, th:PROG.th || PROG.img }], 0); return; }
   var t = ev.target; if (!t.closest) return;
   var on = t.closest('[data-pushon]'); if (on){ pushEnable(on); return; }
   if (t.closest('[data-pushx]')){ store('pushHide', Date.now()); var s = document.getElementById('pushSlot'); if (s) s.innerHTML = ''; }
