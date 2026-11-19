@@ -958,6 +958,53 @@ html{touch-action:pan-x pan-y}
 .ggrid .gi:nth-child(1){animation-delay:.35s}.ggrid .gi:nth-child(2){animation-delay:.42s}.ggrid .gi:nth-child(3){animation-delay:.49s}.ggrid .gi:nth-child(4){animation-delay:.56s}.ggrid .gi:nth-child(5){animation-delay:.63s}.ggrid .gi:nth-child(6){animation-delay:.7s}.ggrid .gi:nth-child(7){animation-delay:.77s}.ggrid .gi:nth-child(8){animation-delay:.84s}.ggrid .gi:nth-child(9){animation-delay:.91s}.ggrid .gi:nth-child(n+10){animation-delay:.95s}
 .cdn.in .cdb div{animation:cdIn .9s var(--lux) both}
 .cdn.in .cdb div:nth-child(2){animation-delay:.1s}.cdn.in .cdb div:nth-child(3){animation-delay:.2s}.cdn.in .cdb div:nth-child(4){animation-delay:.3s}
+/* ===== إعلان البرنامج (فخم) ===== */
+.cdn.full{padding:26px 16px 22px;background:
+  radial-gradient(90% 55% at 50% -8%,rgba(251,176,59,.38),transparent 62%),
+  radial-gradient(60% 40% at 0% 100%,rgba(242,107,29,.18),transparent 70%),
+  radial-gradient(60% 40% at 100% 100%,rgba(60,130,255,.18),transparent 70%),
+  linear-gradient(165deg,#003a8c,#002566 45%,#00153d)}
+.cdn.full::before{inset:7px;border:1px solid rgba(243,212,138,.35);border-radius:21px;box-shadow:inset 0 0 0 4px rgba(0,0,0,.08),inset 0 0 0 5px rgba(243,212,138,.12)}
+.cdn.full::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.07;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23fff' stroke-width='1'%3E%3Cpath d='M24 4l6 14 14 6-14 6-6 14-6-14-14-6 14-6z'/%3E%3Ccircle cx='24' cy='24' r='5'/%3E%3C/g%3E%3C/svg%3E");background-size:48px 48px}
+.cdn .cglow{position:absolute;left:50%;top:-60px;width:260px;height:160px;transform:translateX(-50%);z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(255,214,140,.55),transparent);filter:blur(8px);animation:cgl 4s ease-in-out infinite alternate}
+@keyframes cgl{to{opacity:.55}}
+.cdn .cbadge{display:inline-flex;align-items:center;gap:10px;margin-bottom:8px;padding:6px 16px;border-radius:99px;font-family:var(--disp);font-weight:800;font-size:12.5px;color:#1a1200;background:linear-gradient(135deg,#ffe7a8,#f3c66a 45%,#d6a54a);box-shadow:0 6px 18px rgba(214,165,74,.35),inset 0 1px 0 rgba(255,255,255,.6)}
+.cdn .cbadge i{width:6px;height:6px;transform:rotate(45deg);background:#1a1200;opacity:.75}
+.cdn.full .lbl{display:block;font-size:13px}
+.cdn .chd small{display:block;margin-top:2px;font-family:var(--disp);font-weight:700;font-size:clamp(18px,5.2vw,24px);color:rgba(255,255,255,.88)}
+.cdn .chd h2{margin:-4px 0 4px;font-size:clamp(58px,18vw,92px);line-height:1.25;background:linear-gradient(180deg,#fff6dc 0%,#ffd27a 45%,#f7941d 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 8px 26px rgba(247,148,29,.45))}
+.cdn.full .when{background:rgba(0,0,0,.22);border-color:rgba(243,212,138,.35)}
+.cdn .cttl{display:flex;align-items:center;gap:12px;margin:20px auto 10px;max-width:460px;font-family:var(--disp);font-weight:800;font-size:14px;color:var(--gold2)}
+.cdn .cttl::before,.cdn .cttl::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(243,212,138,.55))}
+.cdn .cttl::after{background:linear-gradient(270deg,transparent,rgba(243,212,138,.55))}
+.cdn .pgr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:460px;margin:0 auto}
+.cdn .pgr.odd .pg1:last-child{grid-column:1/-1}
+.cdn .pg1{position:relative;display:flex;align-items:center;gap:10px;padding:12px 12px 12px 20px;border-radius:18px;text-align:right;background:linear-gradient(160deg,rgba(255,255,255,.13),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 10px 24px rgba(0,0,0,.18)}
+.cdn .pg1 .pic{flex:none;width:40px;height:40px;border-radius:13px;display:grid;place-items:center;color:#fff;background:var(--gO);box-shadow:0 6px 16px rgba(247,148,29,.4),inset 0 1px 0 rgba(255,255,255,.35)}
+.cdn .pg1 .pic svg{width:22px;height:22px}
+.cdn .pg1 b{min-width:0;font-family:var(--disp);font-weight:800;font-size:clamp(14px,4vw,16px);line-height:1.35}
+.cdn .pg1 .pn{position:absolute;top:7px;left:10px;font-family:var(--disp);font-weight:800;font-size:11px;color:rgba(243,212,138,.75)}
+.cdn .tkt{position:relative;display:flex;align-items:stretch;max-width:460px;margin:14px auto 0;border-radius:20px;background:linear-gradient(135deg,rgba(251,176,59,.2),rgba(247,148,29,.08));border:1.5px solid rgba(243,212,138,.55);box-shadow:0 12px 30px rgba(0,0,0,.22)}
+.cdn .tkt>div{flex:1;padding:12px 6px 10px}
+.cdn .tkt small{display:block;font-size:12.5px;font-weight:800;color:var(--gold2)}
+.cdn .tkt b{display:block;font-family:var(--disp);font-weight:800;font-size:clamp(22px,6.6vw,28px);line-height:1.3;color:#fff}
+.cdn .tkt span{display:block;font-size:12px;color:rgba(255,255,255,.72)}
+.cdn .tsep{position:relative;width:0;border-right:2px dashed rgba(243,212,138,.45);margin:12px 0}
+.cdn .tsep::before,.cdn .tsep::after{content:"";position:absolute;right:-12px;width:22px;height:22px;border-radius:50%;background:#002566}
+.cdn .tsep::before{top:-24px}.cdn .tsep::after{bottom:-24px}
+.cdn .tkt.one{max-width:240px}
+.cdn.full .cdb{margin-top:0}
+.cdn.full .cdb div{position:relative;overflow:hidden;padding:14px 4px 10px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(0,0,0,.25));border:1px solid rgba(243,212,138,.3)}
+.cdn.full .cdb div::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--gO)}
+.cdn.full .cdb b{font-size:clamp(30px,9vw,42px);filter:drop-shadow(0 4px 14px rgba(255,200,110,.35))}
+.cdn.full .cdb span{color:var(--gold2);font-weight:700}
+.cdn .ppost{width:min(100%,320px);margin:20px auto 0;border-radius:20px;box-shadow:0 18px 44px rgba(0,0,0,.45),0 0 0 2px #e9b95a,0 0 0 6px rgba(233,185,90,.18)}
+.cdn .ppost::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);transform:translateX(-120%);animation:psh 4.5s ease-in-out 1.2s infinite}
+@keyframes psh{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.cdn .ppost em{position:absolute;inset:auto 0 0;z-index:1;padding:26px 8px 10px;font-style:normal;font-family:var(--disp);font-weight:800;font-size:13.5px;color:#fff;background:linear-gradient(transparent,rgba(0,20,60,.9))}
+.cdn.full .nxt{margin-top:16px}
+.cdn.in .pg1{animation:cdIn .8s var(--lux) both;animation-delay:calc(var(--i)*.08s)}
+@media (prefers-reduced-motion:reduce){.cdn .cglow,.cdn .ppost::after{animation:none}}
 @keyframes cdIn{from{opacity:0;transform:translateY(20px) scale(.8);filter:blur(6px)}}
 @media (prefers-reduced-motion:reduce){ #cur{display:none} *,*::before,*::after{animation:none!important;transition:none!important} .rv,.stg>*{opacity:1;transform:none} }
 </style>
@@ -1687,12 +1734,17 @@ function meetBlock(){
     return '<div class="cdn tease frame rv" id="cdn"><span class="lbl">كورس على خطاه ﷺ</span><h2>ترقبوا <em>إعلان</em></h2><div class="tz">برنامج '+nd+'</div><div class="dots3"><i></i><i></i><i></i></div></div>';
   }
   var d = PROG.date.split('-');
-  return '<div class="cdn frame rv" id="cdn"><span class="lbl">كورس على خطاه ﷺ</span><h2>برنامجنا يوم <em>'+PROG.day+'</em></h2>'+
+  var tm = PROG.end || PROG.place;
+  return '<div class="cdn full frame rv" id="cdn"><span class="cglow"></span>'+
+    '<div class="cbadge"><i></i>إعلان البرنامج<i></i></div>'+
+    '<span class="lbl">كورس على خطاه ﷺ</span>'+
+    '<div class="chd"><small>برنامجنا يوم</small><h2>'+PROG.day+'</h2></div>'+
     '<div class="when"><i></i><span>'+PROG.day+' · '+ar(+d[2]+'-'+(+d[1])+'-'+d[0])+'</span></div>'+
-    (PROG.items && PROG.items.length ? '<div class="pit">'+PROG.items.map(function(x, i){ return (i ? '<span class="pls">+</span>' : '')+'<span class="pi1"><span>'+(PIC[x[0]]||PIC.star)+'</span>'+x[1]+'</span>'; }).join('')+'</div>' : '')+
-    (PROG.end || PROG.place ? '<div class="ptm'+(PROG.end ? '' : ' one')+'"><div><small>الحضور</small><b>'+t12(PROG.arrive)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>'+(PROG.end ? '<div class="o"><small>الختام</small><b>'+t12(PROG.end)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>' : '')+'</div>' : '')+
+    (PROG.items && PROG.items.length ? '<div class="cttl"><span>الفقرات</span></div><div class="pgr'+(PROG.items.length % 2 ? ' odd' : '')+'">'+PROG.items.map(function(x, i){ return '<div class="pg1" style="--i:'+i+'"><span class="pn">'+ar(i+1)+'</span><span class="pic">'+(PIC[x[0]]||PIC.star)+'</span><b>'+x[1]+'</b></div>'; }).join('')+'</div>' : '')+
+    (tm ? '<div class="tkt'+(PROG.end ? '' : ' one')+'"><div><small>الحضور</small><b>'+t12(PROG.arrive)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>'+(PROG.end ? '<i class="tsep"></i><div><small>الختام</small><b>'+t12(PROG.end)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>' : '')+'</div>' : '')+
+    '<div class="cttl"><span>باقي على البرنامج</span></div>'+
     '<div class="cdx"></div>'+
-    (PROG.img ? '<button type="button" class="ppost" data-progimg><img src="'+(PROG.th||PROG.img)+'" alt="إعلان برنامج '+PROG.day+'" loading="lazy"><span>اضغط لعرض الإعلان</span></button>' : '')+
+    (PROG.img ? '<button type="button" class="ppost" data-progimg><img src="'+(PROG.th||PROG.img)+'" alt="إعلان برنامج '+PROG.day+'" loading="lazy"><em>اضغط لعرض الإعلان</em></button>' : '')+
     '<div class="nxt">ترقبوا إعلان برنامج '+(PROG.end || PROG.place || (PROG.items && PROG.items.length) ? nextDayName(progEnd()) : PROG.day)+'</div></div>';
 }
 var CDT = 0;
