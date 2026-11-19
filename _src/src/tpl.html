@@ -982,6 +982,29 @@ html{touch-action:pan-x pan-y}
 .cdn.full .nxt{margin-top:16px}
 .cdn.in .pg1{animation:cdIn .8s var(--lux) both;animation-delay:calc(var(--i)*.08s)}
 @media (prefers-reduced-motion:reduce){.cdn .cglow,.cdn .ppost::after{animation:none}}
+/* ===== إعلان البرنامج: نسخة مختصرة ===== */
+.cdn.full{padding:20px 14px 16px}
+.cdn .chd{margin:0;font-size:clamp(28px,8.6vw,42px);line-height:1.45}
+.cdn .chd em{font-style:normal;background:linear-gradient(180deg,#fff6dc,#ffd27a 45%,#f7941d);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 16px rgba(247,148,29,.45))}
+.cdn.full .when{margin-top:0;padding:4px 14px;font-size:13px}
+.cdn .pgr{gap:8px;margin-top:14px}
+.cdn .pg1{gap:8px;padding:8px 10px;border-radius:14px}
+.cdn .pg1 .pic{width:32px;height:32px;border-radius:10px}
+.cdn .pg1 .pic svg{width:18px;height:18px}
+.cdn .pg1 b{font-size:clamp(13px,3.7vw,15px)}
+.cdn .tkt{margin-top:10px;border-radius:16px}
+.cdn .tkt>div{padding:8px 6px 7px}
+.cdn .tkt b{font-size:clamp(19px,5.6vw,24px);line-height:1.25}
+.cdn .tkt small{font-size:11.5px}
+.cdn .tkt span{font-size:11px}
+.cdn .tsep{margin:10px 0}
+.cdn .tsep::before{top:-20px}.cdn .tsep::after{bottom:-20px}
+.cdn.full .cdb{margin-top:10px;gap:6px}
+.cdn.full .cdb div{padding:9px 2px 6px;border-radius:14px}
+.cdn.full .cdb b{font-size:clamp(24px,7.4vw,32px)}
+.cdn.full .cdb span{margin-top:2px;font-size:11px}
+.cdn.full .ppost{margin-top:14px}
+.cdn.full .nxt{margin-top:12px;font-size:12px}
 @keyframes cdIn{from{opacity:0;transform:translateY(20px) scale(.8);filter:blur(6px)}}
 @media (prefers-reduced-motion:reduce){ #cur{display:none} *,*::before,*::after{animation:none!important;transition:none!important} .rv,.stg>*{opacity:1;transform:none} }
 </style>
@@ -1670,13 +1693,11 @@ function meetBlock(){
   var d = PROG.date.split('-');
   var tm = PROG.end || PROG.place;
   return '<div class="cdn full frame rv" id="cdn"><span class="cglow"></span>'+
-    '<div class="cbadge"><i></i>إعلان البرنامج<i></i></div>'+
     '<span class="lbl">كورس على خطاه ﷺ</span>'+
-    '<div class="chd"><small>برنامجنا يوم</small><h2>'+PROG.day+'</h2></div>'+
+    '<h2 class="chd">برنامجنا يوم <em>'+PROG.day+'</em></h2>'+
     '<div class="when"><i></i><span>'+PROG.day+' · '+ar(+d[2]+'-'+(+d[1])+'-'+d[0])+'</span></div>'+
-    (PROG.items && PROG.items.length ? '<div class="cttl"><span>الفقرات</span></div><div class="pgr'+(PROG.items.length % 2 ? ' odd' : '')+'">'+PROG.items.map(function(x, i){ return '<div class="pg1" style="--i:'+i+'"><span class="pn">'+ar(i+1)+'</span><span class="pic">'+(PIC[x[0]]||PIC.star)+'</span><b>'+x[1]+'</b></div>'; }).join('')+'</div>' : '')+
+    (PROG.items && PROG.items.length ? '<div class="pgr'+(PROG.items.length % 2 ? ' odd' : '')+'">'+PROG.items.map(function(x, i){ return '<div class="pg1" style="--i:'+i+'"><span class="pic">'+(PIC[x[0]]||PIC.star)+'</span><b>'+x[1]+'</b></div>'; }).join('')+'</div>' : '')+
     (tm ? '<div class="tkt'+(PROG.end ? '' : ' one')+'"><div><small>الحضور</small><b>'+t12(PROG.arrive)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>'+(PROG.end ? '<i class="tsep"></i><div><small>الختام</small><b>'+t12(PROG.end)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>' : '')+'</div>' : '')+
-    '<div class="cttl"><span>باقي على البرنامج</span></div>'+
     '<div class="cdx"></div>'+
     (PROG.img ? '<button type="button" class="ppost" data-progimg><img src="'+(PROG.th||PROG.img)+'" alt="إعلان برنامج '+PROG.day+'" loading="lazy"><em>اضغط لعرض الإعلان</em></button>' : '')+
     '<div class="nxt">ترقبوا إعلان برنامج '+(PROG.end || PROG.place || (PROG.items && PROG.items.length) ? nextDayName(progEnd()) : PROG.day)+'</div></div>';
