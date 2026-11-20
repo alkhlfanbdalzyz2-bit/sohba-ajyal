@@ -1004,6 +1004,19 @@ html{touch-action:pan-x pan-y}
 .cdn.full .cdb b{font-size:clamp(24px,7.4vw,32px)}
 .cdn.full .cdb span{margin-top:2px;font-size:11px}
 .cdn.full .ppost{margin-top:14px}
+.tmpc{position:relative;overflow:hidden;text-align:center;padding:20px 16px 18px;border-radius:22px;background:radial-gradient(120% 80% at 85% 0%,rgba(242,153,46,.22),transparent 60%),radial-gradient(100% 70% at 0% 100%,rgba(47,128,237,.2),transparent 60%),linear-gradient(160deg,#0f1630,#0a0f22);color:#fff;border:1px solid rgba(242,153,46,.45)}
+.tmpc .lbl{display:inline-block;font-size:12px;font-weight:800;color:#f5a83a;letter-spacing:.3px;margin-bottom:4px}
+.tmpc .chd{margin:0;font-size:24px;font-weight:900;color:#fff}
+.tmpc .tsub{margin-top:6px;font-family:var(--disp);font-weight:700;letter-spacing:0;font-size:14px;color:#dfe6ff}
+.tmpc .ppost{display:block;position:relative;width:min(100%,300px);margin:16px auto 0;padding:0;border:0;border-radius:18px;overflow:hidden;background:none;cursor:zoom-in;box-shadow:0 14px 36px rgba(0,0,0,.4),0 0 0 2px rgba(247,148,29,.7)}
+.tmpc .ppost img{display:block;width:100%;height:auto}
+.tmpc .cglow{position:absolute;left:50%;top:-60px;width:260px;height:160px;transform:translateX(-50%);z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(255,214,140,.55),transparent);filter:blur(8px);animation:cgl 4s ease-in-out infinite alternate}
+.tmpc .ppost{width:min(100%,320px);margin:20px auto 0;border-radius:20px;box-shadow:0 18px 44px rgba(0,0,0,.45),0 0 0 2px #e9b95a,0 0 0 6px rgba(233,185,90,.18)}
+.tmpc .ppost::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);transform:translateX(-120%);animation:psh 4.5s ease-in-out 1.2s infinite}
+.tmpc .ppost em{position:absolute;inset:auto 0 0;z-index:1;padding:26px 8px 10px;font-style:normal;font-family:var(--disp);font-weight:800;font-size:13.5px;color:#fff;background:linear-gradient(transparent,rgba(0,20,60,.9))}
+.tmpc{isolation:isolate}
+.tmpc .ppost{margin-top:14px}
+@media (prefers-reduced-motion:reduce){.tmpc .cglow,.tmpc .ppost::after{animation:none}}
 .cdn.full .nxt{margin-top:12px;font-size:12px}
 @keyframes cdIn{from{opacity:0;transform:translateY(20px) scale(.8);filter:blur(6px)}}
 @media (prefers-reduced-motion:reduce){ #cur{display:none} *,*::before,*::after{animation:none!important;transition:none!important} .rv,.stg>*{opacity:1;transform:none} }
@@ -1186,6 +1199,7 @@ function home(){
     '<div class="tags"><span>قرآني</span><span>تربوي</span><span>ترفيهي</span></div>'+
     '<figure class="grp"><img src="assets/hero.webp" alt="شباب صحبة أجيال" fetchpriority="high"></figure></div></section>'+
   '<div id="pushSlot" class="wrap"></div>'+
+  tempBlock()+
   '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','الذكريات')+library()+'</div></section>'+
@@ -1651,6 +1665,13 @@ function favPage(){
     '<section class="band" style="padding-top:16px"><div class="wrap">'+(a.items.length ? grid(a) : '<div class="fvnote rv"><span class="fh">'+HEART+'</span><p>افتح الصورة أو الفيديو اللي يعجبك<br>واضغط <b>❤️</b> وبتلقاها هني</p><em>مع تحيات بو عمر</em></div>')+homeBtn()+'</div></section></div>';
 }
 
+/* ===================== تذكير مؤقت (يختفي تلقائياً عند until) ===================== */
+var TEMP = { until:'2026-11-20T16:51:00+03:00', lbl:'سيّد الأيام', t:'سنن يوم الجمعة', sub:'لا تنسون الكهف والصلاة على النبي ﷺ', img:'assets/jumuah-2011.jpg', th:'assets/jumuah-2011-t.jpg' };
+function tempOn(){ return TEMP && Date.now() < new Date(TEMP.until).getTime(); }
+function tempBlock(){ if (!tempOn()) return '';
+  return '<section class="band" id="tmpB"><div class="wrap"><div class="tmpc frame rv"><span class="cglow"></span><span class="lbl">'+TEMP.lbl+'</span><h2 class="chd">'+TEMP.t+'</h2><div class="tsub">'+TEMP.sub+'</div>'+
+    '<button type="button" class="ppost" data-tempimg><img src="'+TEMP.th+'" alt="'+TEMP.t+'" loading="lazy"><em>اضغط لعرض الصورة</em></button></div></div></section>'; }
+setInterval(function(){ if (!tempOn()){ var b = document.getElementById('tmpB'); if (b) b.remove(); } }, 30000);
 /* ===================== إعلان البرنامج + العد التنازلي =====================
    PROG = null → يطلع «ترقبوا إعلان برنامج <اليوم الجاي>» بس.
    لما يوصل إعلان: نعبّي PROG (اليوم والتاريخ ووقت الحضور والختام والمكان والفقرات) فيطلع إعلان كبير بالرئيسية وبصفحة الكورس مع عد تنازلي لوقت الحضور. */
@@ -1758,6 +1779,7 @@ function pushRefresh(){
   }).catch(function(){});
 }
 document.addEventListener('click', function(ev){
+  var tq = ev.target.closest && ev.target.closest('[data-tempimg]'); if (tq && TEMP){ vwOpenList([{ type:'img', src:TEMP.img, th:TEMP.th }], 0); return; }
   var pg = ev.target.closest && ev.target.closest('[data-progimg]'); if (pg && PROG && PROG.img){ vwOpenList([{ type:'img', src:PROG.img, th:PROG.th || PROG.img }], 0); return; }
   var t = ev.target; if (!t.closest) return;
   var on = t.closest('[data-pushon]'); if (on){ pushEnable(on); return; }
