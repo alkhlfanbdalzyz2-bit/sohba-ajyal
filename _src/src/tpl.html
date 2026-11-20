@@ -871,6 +871,19 @@ html{touch-action:pan-x pan-y}
 .pushc button{flex:none;height:42px;padding:0 16px;border-radius:14px;border:0;background:#fff;color:#002560;font-family:var(--disp);font-weight:800;font-size:15px;cursor:pointer}
 .pushc button[disabled]{opacity:.6}
 .pushc .px{position:absolute;top:-10px;left:-8px;width:28px;height:28px;border:2px solid var(--or);border-radius:50%;background:#002560;color:#fff;font-size:16px;line-height:22px;padding:0;cursor:pointer}
+.bellb{position:relative}
+.bellb .bdot{position:absolute;top:9px;right:10px;width:9px;height:9px;border-radius:50%;background:var(--or);box-shadow:0 0 0 2px var(--chip);display:none}
+.bellb.off .bdot{display:block}
+.nsh{position:fixed;inset:0;z-index:170;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,10,30,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;transition:opacity .25s}
+.nsh.on{opacity:1}
+.nsh .nsc{width:min(100%,520px);padding:12px 16px calc(22px + env(safe-area-inset-bottom));border-radius:26px 26px 0 0;background:var(--bg,#0b1430);transform:translateY(40px);transition:transform .3s var(--lux)}
+.nsh.on .nsc{transform:none}
+.nsh .ngr{display:block;width:44px;height:5px;margin:0 auto 4px;border-radius:9px;background:var(--line2)}
+.nsh .pushc{margin-top:14px;animation:none}
+.nsh .pushc.dim{border-color:rgba(255,255,255,.35)}
+.nsh .pushc.dim .pb{background:rgba(255,255,255,.16);box-shadow:none}
+.nsh .pushc.dim .pb svg{animation:none}
+.nsh .nx{display:block;width:100%;height:46px;margin-top:12px;border-radius:14px;border:1px solid var(--line2);background:var(--chip);color:var(--ink);font-family:var(--disp);font-weight:800;font-size:15px;cursor:pointer}
 .pushc.done{border-color:#3ecf8e}
 .pushc.done .pb{background:linear-gradient(135deg,#3ecf8e,#1f9d6a)}
 .pushc.done .pb svg{animation:none}
@@ -1031,6 +1044,7 @@ html{touch-action:pan-x pan-y}
   <div class="hbtns">
     <nav class="nav" aria-label="الأقسام"><a href="#/" data-t="">الرئيسية</a><a href="#/khutah" data-t="khutah">الكورس</a><a href="#/memories" data-t="mem">الذكريات</a><a href="#/favs" data-t="favs">المفضلة</a></nav>
     <a class="back" href="#/" aria-label="رجوع"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg><span class="bk-t">الرئيسية</span></a>
+    <button class="ib bellb" type="button" id="bellB" aria-label="الإشعارات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg><i class="bdot"></i></button>
     <button class="ib" type="button" id="themeB" aria-label="تبديل الوضع الفاتح والداكن">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M2 12h2.2M19.8 12H22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
@@ -1760,15 +1774,45 @@ function pushEnable(btn){
     return reg.pushManager.getSubscription().then(function(old){ return old || reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey:key }); });
   }).then(pushSend).then(function(){
     store('pushOn', Date.now());
-    var c = document.getElementById('pushc'); if (!c) return;
+    bellSync(); var c = btn.closest('.pushc') || document.getElementById('pushc'); if (!c) return;
     c.classList.add('done'); c.querySelector('.pb').innerHTML = CHECK; c.querySelector('.pt').innerHTML = '<b>تم التفعيل ✅</b><span>بيوصلك كل جديد بالموقع إن شاء الله</span>'; btn.remove();
+    var ps = document.getElementById('pushSlot'); if (ps && !ps.contains(c)) ps.innerHTML = '';
     setTimeout(function(){ var s = document.getElementById('pushSlot'); if (s) s.innerHTML = ''; }, 3500);
   }).catch(function(err){
-    var c = document.getElementById('pushc'); if (!c) return;
+    var c = btn.closest('.pushc') || document.getElementById('pushc'); if (!c) return;
     btn.disabled = false; btn.textContent = 'فعّل';
     c.querySelector('.pt span').textContent = err === 'denied' ? 'ما تم السماح بالإشعارات. تقدر تفعلها من إعدادات الجوال' : 'صار خطأ بالاتصال، جرّب مرة ثانية';
   });
 }
+/* زر الجرس بالهيدر: يبين حالة الإشعارات ويخلي التفعيل متاح دايم (حتى لو انضغط ×) */
+function pushState(){
+  if (!isStandalone()) return 'install';
+  if (!pushOK()) return 'nosup';
+  if (Notification.permission === 'denied') return 'denied';
+  if (Notification.permission === 'granted' && store('pushOn')) return 'on';
+  return 'off';
+}
+function bellSync(){ var b = document.getElementById('bellB'); if (b) b.classList.toggle('off', pushState() === 'off'); }
+var BELLX = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/><path d="M3 3l18 18"/></svg>';
+var SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 11v8a2 2 0 002 2h10a2 2 0 002-2v-8"/></svg>';
+function bellOpen(){
+  var st = pushState(), card;
+  if (st === 'on') card = '<div class="pushc done"><span class="pb">'+CHECK+'</span><span class="pt"><b>الإشعارات مفعّلة ✅</b><span>بيوصلك كل جديد بالموقع إن شاء الله</span></span></div>';
+  else if (st === 'off') card = '<div class="pushc"><span class="pb">'+BELL+'</span><span class="pt"><b>فعّل الإشعارات</b><span>يوصلك تنبيه كل ما نضيف صور أو فيديو أو نقاط جديدة</span></span><button type="button" data-pushon>فعّل</button></div>';
+  else if (st === 'denied') card = '<div class="pushc dim"><span class="pb">'+BELLX+'</span><span class="pt"><b>الإشعارات مقفلة</b><span>فعّلها من إعدادات الجوال ← الإشعارات ← صحبة أجيال</span></span></div>';
+  else if (st === 'nosup') card = '<div class="pushc dim"><span class="pb">'+BELLX+'</span><span class="pt"><b>الإشعارات غير مدعومة</b><span>حدّث نظام الجوال لآخر إصدار وجرّب مرة ثانية</span></span></div>';
+  else card = '<div class="pushc"><span class="pb">'+SHARE+'</span><span class="pt"><b>ثبّت الموقع أول</b><span>من سفاري اضغط زر المشاركة ثم «إضافة إلى الشاشة الرئيسية»، وافتح الموقع من الأيقونة وفعّل الإشعارات من هالجرس</span></span></div>';
+  var w = document.createElement('div'); w.className = 'nsh'; w.id = 'nsh';
+  w.innerHTML = '<div class="nsc" role="dialog" aria-label="الإشعارات"><span class="ngr"></span>'+card+'<button type="button" class="nx" data-nshx>إغلاق</button></div>';
+  document.body.appendChild(w); requestAnimationFrame(function(){ w.classList.add('on'); });
+}
+function bellClose(){ var w = document.getElementById('nsh'); if (!w) return; w.classList.remove('on'); setTimeout(function(){ w.remove(); }, 280); bellSync(); }
+document.addEventListener('click', function(ev){
+  var t = ev.target; if (!t.closest) return;
+  if (t.closest('#bellB')){ bellOpen(); return; }
+  if (t.closest('[data-nshx]') || t.id === 'nsh') bellClose();
+});
+window.addEventListener('load', function(){ bellSync(); setTimeout(bellSync, 3500); });
 /* تجديد الاشتراك بهدوء مرة كل يوم */
 function pushRefresh(){
   if (!pushOK() || Notification.permission !== 'granted') return;
