@@ -9,5 +9,6 @@ exports.handler = async (event) => {
   try { connectLambda(event); } catch(_){}
   const s = getStore('suggest'), t = Date.now();
   await s.setJSON('m/' + t + '-' + Math.random().toString(36).slice(2, 8), { m, t });
+  console.log('SUG ' + JSON.stringify({ m, t }));
   return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: '{"ok":true}' };
 };
