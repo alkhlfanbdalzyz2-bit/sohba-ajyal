@@ -104,6 +104,7 @@ p{text-wrap:pretty}
 .back{display:none;align-items:center;gap:6px;height:44px;padding:0 16px 0 12px;border-radius:14px;background:var(--gO);color:#fff;font-family:var(--disp);font-weight:700;font-size:15px;box-shadow:0 8px 20px rgba(247,148,29,.35)}
 .back svg{width:18px;height:18px}
 body.inner .back{display:inline-flex}
+body.inner .brand > span:not(.lg){display:none}
 .hbtns{display:flex;gap:8px;margin-inline-start:auto;align-items:center}
 .ib{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--chip);border:1px solid var(--line2);color:var(--ink)}
 .ib svg{width:20px;height:20px}
@@ -894,6 +895,15 @@ html{touch-action:pan-x pan-y}
 .pushc button{flex:none;height:42px;padding:0 16px;border-radius:14px;border:0;background:#fff;color:#002560;font-family:var(--disp);font-weight:800;font-size:15px;cursor:pointer}
 .pushc button[disabled]{opacity:.6}
 .pushc .px{position:absolute;top:-10px;left:-8px;width:28px;height:28px;border:2px solid var(--or);border-radius:50%;background:#002560;color:#fff;font-size:16px;line-height:22px;padding:0;cursor:pointer}
+.sugc{margin:0;cursor:pointer;animation:none;text-align:right;width:100%;font:inherit}
+.sugc .pb svg{animation:none}
+.nsh .sgt{display:block;width:100%;min-height:140px;margin-top:14px;padding:14px;border-radius:16px;border:1.5px solid var(--line2);background:var(--chip);color:var(--ink);font:inherit;font-size:16px;line-height:1.8;resize:vertical;box-sizing:border-box}
+.nsh .sgt:focus{outline:none;border-color:var(--or)}
+.nsh .sgm{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:12.5px;color:var(--mut,#8a93a8)}
+.nsh .sgs{display:block;width:100%;height:50px;margin-top:12px;border:0;border-radius:14px;background:var(--gO);color:#fff;font-family:var(--disp);font-weight:800;font-size:16px;cursor:pointer}
+.nsh .sgs[disabled]{opacity:.55}
+.nsh .sgh{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+@media (max-width:380px){.hbtns{gap:6px}.hbtns .ib{width:38px;height:38px;border-radius:12px}.hbtns .ib svg{width:18px;height:18px}.brand{gap:8px}.brand .lg{width:38px;height:38px}.brand b{font-size:18px}.brand small{font-size:10px}.bellb .bdot{top:7px;right:8px}}
 .bellb{position:relative}
 .bellb .bdot{position:absolute;top:9px;right:10px;width:9px;height:9px;border-radius:50%;background:var(--or);box-shadow:0 0 0 2px var(--chip);display:none}
 .bellb.off .bdot{display:block}
@@ -1067,6 +1077,7 @@ html{touch-action:pan-x pan-y}
   <div class="hbtns">
     <nav class="nav" aria-label="الأقسام"><a href="#/" data-t="">الرئيسية</a><a href="#/khutah" data-t="khutah">الكورس</a><a href="#/memories" data-t="mem">الذكريات</a><a href="#/favs" data-t="favs">المفضلة</a></nav>
     <a class="back" href="#/" aria-label="رجوع"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg><span class="bk-t">الرئيسية</span></a>
+    <button class="ib" type="button" data-sug aria-label="صندوق الاقتراحات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg></button>
     <button class="ib bellb" type="button" id="bellB" aria-label="الإشعارات"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg><i class="bdot"></i></button>
     <button class="ib" type="button" id="themeB" aria-label="تبديل الوضع الفاتح والداكن">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
@@ -1879,6 +1890,33 @@ document.addEventListener('click', function(ev){
   if (t.closest('[data-nshx]') || t.id === 'nsh') bellClose();
 });
 window.addEventListener('load', function(){ bellSync(); setTimeout(bellSync, 3500); });
+/* ===================== صندوق الاقتراحات (بدون اسم) ===================== */
+var MAILI = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>';
+function sugCard(){ return '<button type="button" class="pushc sugc rv" data-sug><span class="pb">'+MAILI+'</span><span class="pt"><b>📮 صندوق الاقتراحات</b><span>عندك فكرة أو اقتراح للصحبة؟ أرسله بدون ذكر اسمك 🤍</span></span></button>'; }
+function sugOpen(){
+  var w = document.createElement('div'); w.className = 'nsh'; w.id = 'nsh';
+  w.innerHTML = '<div class="nsc" role="dialog" aria-label="صندوق الاقتراحات"><span class="ngr"></span>'+
+    '<div class="pushc"><span class="pb">'+MAILI+'</span><span class="pt"><b>صندوق الاقتراحات</b><span>رسالتك توصل بدون اسمك ولا رقمك 🤍</span></span></div>'+
+    '<textarea class="sgt" id="sgT" maxlength="1500" placeholder="اكتب اقتراحك أو فكرتك هني…"></textarea><input class="sgh" id="sgH" tabindex="-1" autocomplete="off" aria-hidden="true">'+
+    '<div class="sgm"><span>بدون اسم 🔒</span><span id="sgN">٠ / ١٥٠٠</span></div>'+
+    '<button type="button" class="sgs" data-sugsend disabled>أرسل</button><button type="button" class="nx" data-nshx>إغلاق</button></div>';
+  document.body.appendChild(w); requestAnimationFrame(function(){ w.classList.add('on'); });
+  var ta = w.querySelector('#sgT'), bt = w.querySelector('[data-sugsend]'), n = w.querySelector('#sgN');
+  ta.addEventListener('input', function(){ n.textContent = ar(ta.value.length)+' / ١٥٠٠'; bt.disabled = ta.value.trim().length < 2; });
+}
+function sugSend(bt){
+  var w = document.getElementById('nsh'), ta = w && w.querySelector('#sgT'); if (!ta) return;
+  bt.disabled = true; bt.textContent = '...';
+  fetch(PUSH.api + 'suggest', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ m: ta.value, hp: w.querySelector('#sgH').value }) })
+    .then(function(r){ if (!r.ok) throw 0;
+      w.querySelector('.nsc').innerHTML = '<span class="ngr"></span><div class="pushc done"><span class="pb">'+CHECK+'</span><span class="pt"><b>وصلت رسالتك ✅</b><span>جزاك الله خير، نقرأ كل اقتراح إن شاء الله</span></span></div><button type="button" class="nx" data-nshx>إغلاق</button>'; })
+    .catch(function(){ bt.disabled = false; bt.textContent = 'أرسل'; w.querySelector('#sgN').textContent = 'صار خطأ بالاتصال، جرّب مرة ثانية'; });
+}
+document.addEventListener('click', function(ev){
+  var t = ev.target; if (!t.closest) return;
+  if (t.closest('[data-sug]')){ sugOpen(); return; }
+  var sb = t.closest('[data-sugsend]'); if (sb){ sugSend(sb); return; }
+});
 /* تجديد الاشتراك بهدوء مرة كل يوم */
 function pushRefresh(){
   if (!pushOK() || Notification.permission !== 'granted') return;
