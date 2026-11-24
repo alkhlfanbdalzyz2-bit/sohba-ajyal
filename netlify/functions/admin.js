@@ -3,11 +3,13 @@ const { getStore, connectLambda } = require('@netlify/blobs');
 const { store, vapid } = require('../lib/store');
 const { send } = require('../lib/push');
 const { broadcast } = require('../lib/broadcast');
-const page = require('../lib/dash-page');
 const H = 'ec8ba1457c7f0046ac9afbcde66cbf4bd48ad3f102e254bcaf38f86010264a0b';
 const URLOK = u => /^\.\/(\?sug=1)?(#\/[\w\/-]*)?$/.test(u);
 const kd = off => new Date(Date.now() + 3 * 3600e3 - off * 864e5).toISOString().slice(0, 10);
-const J = (o, c) => ({ statusCode: c || 200, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }, body: JSON.stringify(o) });
+// API فقط — الواجهة بموقع منفصل (sohba-admin.netlify.app)
+const ORIG = 'https://sohba-admin.netlify.app';
+const CORS = { 'Access-Control-Allow-Origin': ORIG, 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, X-Key', 'Access-Control-Max-Age': '86400', Vary: 'Origin' };
+const J = (o, c) => ({ statusCode: c || 200, headers: Object.assign({ 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' }, CORS), body: JSON.stringify(o) });
 async function logPush(ps, e){ const log = (await ps.get('admin-log', { type: 'json' })) || []; log.unshift(e); await ps.setJSON('admin-log', log.slice(0, 40)); }
 async function loadAll(st, pre){ const { blobs } = await st.list({ prefix: pre });
   return (await Promise.all(blobs.map(async b => { const v = await st.get(b.key, { type: 'json' }); return v && Object.assign({ id: b.key.slice(pre.length) }, v); }))).filter(Boolean); }
@@ -31,13 +33,11 @@ async function data(event){
   return { stats: { today: daily[29][1], week: week.size, all, subs }, daily, hours, pages, clicks, rem, items, trash, log, sched, cfg };
 }
 exports.handler = async (event) => {
-  const q = event.queryStringParameters || {};
-  if (require('crypto').createHash('sha256').update(String(q.k || '')).digest('hex') !== H) return { statusCode: 404, body: 'Not found' };
+  if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers: CORS, body: '' };
+  const hk = (event.headers || {})['x-key'] || (event.headers || {})['X-Key'] || '';
+  if (require('crypto').createHash('sha256').update(String(hk)).digest('hex') !== H) return J({ err: 'key' }, 401);
   try { connectLambda(event); } catch(_){}
-  if (event.httpMethod === 'GET') {
-    if (q.f === 'data') return J(await data(event));
-    return { statusCode: 200, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' }, body: page() };
-  }
+  if (event.httpMethod === 'GET') return J(await data(event));
   let b; try { b = JSON.parse(event.body || '{}'); } catch(_){ return J({}, 400); }
   const ps = store(event), ss = getStore('suggest'), a = b.a;
   const sid = String(b.id || ''); const idOk = /^[0-9]+-[a-z0-9]+$/.test(sid);

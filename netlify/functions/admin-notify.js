@@ -1,5 +1,2 @@
-// انتقلت للوحة التحكم الموحدة
-exports.handler = async (event) => {
-  const k = encodeURIComponent((event.queryStringParameters || {}).k || '');
-  return { statusCode: 302, headers: { Location: '/.netlify/functions/admin?k=' + k, 'Cache-Control': 'no-store' }, body: '' };
-};
+// لوحة التحكم انتقلت لموقع منفصل
+exports.handler = async () => ({ statusCode: 302, headers: { Location: 'https://sohba-admin.netlify.app/', 'Cache-Control': 'no-store' }, body: '' });
