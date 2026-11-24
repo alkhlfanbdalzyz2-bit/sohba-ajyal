@@ -2314,6 +2314,9 @@ document.addEventListener('click', function(ev){
 });
 function sugShowReplies(w){ var box = w.querySelector('#sgRep'); if (!box) return; box.innerHTML = sugRepliesHTML();
   if (SUGR && SUGR.length){ var mx = Math.max.apply(null, SUGR.map(function(x){ return x.rt || 0; }).concat([store('sugSeen') || 0])); store('sugSeen', mx); sugSync(); } }
+(function(){ try { var v = store('vid'); if (!v){ v = (Date.now().toString(36) + Math.random().toString(36).slice(2, 12)).replace(/[^a-z0-9]/g, ''); store('vid', v); }
+  var d = new Date(Date.now() + 3*3600e3).toISOString().slice(0, 10); if (store('vday') === d) return;
+  setTimeout(function(){ fetch(PUSH.api + 'visit', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ v:v, pwa: isStandalone() ? 1 : 0 }) }).then(function(r){ if (r.ok) store('vday', d); }).catch(function(){}); }, 1500); } catch(_){} })();
 window.addEventListener('load', function(){ sugEP();
   if (/[?&]sug=1/.test(location.search)){ try { history.replaceState(null, '', location.pathname + location.hash); } catch(_){} setTimeout(sugOpen, 600); }
   else setTimeout(function(){ sugFetch(); }, 2500); });
