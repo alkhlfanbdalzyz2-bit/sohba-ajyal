@@ -1355,8 +1355,9 @@ function halaqatBoard(ci){ return boardHTML(HALAQAT.cats[ci].rows); }
 function boardHTML(rows){
   var L = rankRows(rows), max = Math.max.apply(null, L.map(function(o){ return o.s; })) || 1;
   var top = L.filter(function(o){ return o.r <= 3; }), rest = L.filter(function(o){ return o.r > 3; });
-  var pod = [2,1,3].map(function(r){ var g = top.filter(function(o){ return o.r === r; }); if (!g.length) return '';
-    return '<div class="hp hp'+r+'"><span class="hm">'+r+'</span>'+g.map(function(o){ return '<b>'+e(o.n)+'</b>'; }).join('')+'<em>'+fmtS(g[0].d!=null?g[0].d:g[0].s)+'</em><small>'+ordTxt(g[0])+'</small><i></i></div>'; }).join('');
+  var t3 = L.slice(0, 3).filter(function(o){ return o.r <= 3; });
+  var pod = [1,0,2].map(function(k){ var o = t3[k]; if (!o) return '';
+    return '<div class="hp hp'+o.r+'"><span class="hm">'+o.r+'</span><b>'+e(o.n)+'</b><em>'+fmtS(o.d!=null?o.d:o.s)+'</em><small>'+ordTxt(o)+'</small><i></i></div>'; }).join('');
   return '<div class="hpod">'+pod+'</div>'+
     '<div class="hlist">'+L.map(function(o){ var w = Math.max(2, o.s/max*100);
       return '<div class="hr'+(o.r<=3?' t'+o.r:'')+'"><span class="hn">'+o.r+'</span><span class="hb"><b>'+e(o.n)+'</b><small>'+ordTxt(o)+'</small><span class="hbar"><span style="width:'+w+'%"></span></span></span><span class="hs">'+fmtS(o.d!=null?o.d:o.s)+'</span></div>'; }).join('')+'</div>';
