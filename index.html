@@ -20,7 +20,7 @@
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Tajawal:wght@400;500;700;800;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Tajawal:wght@400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/hero.webp">
 <script>
 (function(){
@@ -933,6 +933,7 @@ html{touch-action:pan-x pan-y}
 .adp{display:block;height:6px;border-radius:9px;background:rgba(255,255,255,.22);overflow:hidden;margin-top:6px}
 .adp i{display:block;height:100%;border-radius:9px;background:#fff;transition:width .4s var(--lux)}
 .adp.big{flex:1;height:8px;background:var(--line2);margin:0}
+.adp{display:flex!important;justify-content:flex-start}.adp i{flex:none}
 .adp.big i{background:var(--gO)}
 .rmb{margin-top:18px;padding:16px;border-radius:22px;background:var(--card);border:1px solid var(--line2)}
 .rmh b{display:block;font-family:var(--disp);font-size:17px;font-weight:800;color:var(--ink)}
@@ -949,6 +950,43 @@ html{touch-action:pan-x pan-y}
 .rmi input:checked+.tg::after{transform:translateX(-20px)}
 .rms{min-height:18px;font-size:12.5px;color:var(--mut,#8a93a8);text-align:center;margin-top:6px}
 .adtop{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.adhero{position:relative;color:#fff;padding:22px 0 26px;overflow:hidden}
+.adhero::after{content:"";position:absolute;inset:auto -20% -60% -20%;height:120%;background:radial-gradient(closest-side,rgba(255,255,255,.18),transparent);pointer-events:none}
+.adhero.sun{background:linear-gradient(160deg,#f7b733,#f26a21)} .adhero.moon{background:linear-gradient(160deg,#3b4fb8,#141b4d)}
+.adhero.mosque{background:linear-gradient(160deg,#159a6b,#0b4d3a)} .adhero.bed{background:linear-gradient(160deg,#5b4bb7,#1e1446)}
+.adhr{display:flex;align-items:center;gap:16px}
+.adhr small{font-size:12.5px;font-weight:800;opacity:.85}
+.adhr h1{margin:2px 0 4px;font-family:var(--disp);font-weight:800;font-size:26px;line-height:1.3}
+.adhr p{margin:0;font-size:12.5px;opacity:.9;line-height:1.7}
+.adcnt{display:inline-block;margin-top:8px;padding:3px 12px;border-radius:99px;background:rgba(255,255,255,.2);font-size:12.5px;font-weight:800}
+.adring{position:relative;flex:none;width:86px;height:86px}
+.adring svg{width:100%;height:100%}
+.adring .rb{stroke:rgba(255,255,255,.25)} .adring .rf{stroke:#fff;transition:stroke-dashoffset .5s var(--lux)}
+.adring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--disp);font-weight:800;font-size:18px}
+.adbar{position:sticky;top:calc(64px + var(--safeT,0px));z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 0}
+.adbar .wrap{display:flex;align-items:center;gap:8px}
+.adfs,.adrs{flex:none;min-width:38px;height:34px;border:1px solid var(--line2);background:var(--chip);color:var(--ink);font:inherit;font-size:14px;font-weight:800;padding:0 10px;border-radius:11px;cursor:pointer}
+.adrs.sure{background:#e5484d;color:#fff;border-color:#e5484d;font-size:12.5px}
+.adi{gap:12px;padding:16px 16px 14px;border-radius:22px;box-shadow:0 10px 26px -18px rgba(0,0,0,.45)}
+.adh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.adx{min-width:26px;height:26px;padding:0 6px;border-radius:9px;display:inline-grid;place-items:center;background:var(--chip);font-family:var(--disp);font-weight:800;font-size:13px;color:var(--mut,#8a93a8)}
+.adh em{font-style:normal;font-size:12px;font-weight:800;color:var(--or)}
+.adtm{margin-inline-start:auto;padding:3px 10px;border-radius:99px;background:rgba(247,148,29,.14);color:var(--or);font-size:12px;font-weight:800}
+.adi .adt{font-family:'Amiri','Noto Naskh Arabic',serif;font-size:21px;line-height:2.05;font-weight:400;color:var(--ink)}
+.adi.q .adt{font-family:var(--disp);font-size:20px;font-weight:800}
+.fs-1 .adi .adt{font-size:18px} .fs1 .adi .adt{font-size:24px} .fs2 .adi .adt{font-size:27px}
+.adn{position:relative;width:58px;height:58px;flex:none;margin-inline-start:auto}
+.adn .adr{position:absolute;inset:0}.adn .adr svg{width:100%;height:100%}
+.adn .adr .rb{stroke:var(--line2)} .adn .adr .rf{stroke:var(--or);transition:stroke-dashoffset .3s var(--lux)}
+.adn i{position:absolute;inset:7px;min-width:0;height:auto;padding:0;font-size:17px}
+.adi.done{opacity:.6}
+.adi.done .adn .adr .rf{stroke:#3ecf8e}
+.adend{display:flex;flex-direction:column;align-items:center;gap:4px;padding:22px 16px}
+.adend .adok{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#3ecf8e;color:#fff;font-size:28px;font-weight:800;animation:adOk .6s var(--lux)}
+@keyframes adOk{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.12)}100%{transform:none;opacity:1}}
+.adend b{font-size:19px} .adend small{font-size:13px;font-weight:600;color:var(--mut,#8a93a8);font-family:inherit}
+.adnx{margin-top:10px;padding:10px 18px;border-radius:14px;background:var(--gO);color:#fff;font-size:15px;font-weight:800}
+
 .adrs{flex:none;border:1px solid var(--line2);background:var(--chip);color:var(--ink);font:inherit;font-size:13px;font-weight:700;padding:7px 12px;border-radius:12px;cursor:pointer}
 .adl{display:grid;gap:10px}
 .adi{display:flex;flex-direction:column;gap:10px;width:100%;text-align:right;padding:16px;border-radius:20px;background:var(--card);border:1px solid var(--line2);color:var(--ink);font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .3s,border-color .3s}
@@ -2082,7 +2120,7 @@ var ADHKAR = {
 };
 var ADK = ['sabah','masa','salah','nawm'];
 var REMS = [['sabah','☀️ أذكار الصباح','بعد الفجر بنص ساعة'],['masa','🌙 أذكار المساء','بعد العصر بنص ساعة'],['nawm','🛏️ أذكار النوم','الساعة ١٠:٣٠ بالليل'],
-  ['kahf','📖 سورة الكهف','يوم الجمعة الساعة ٩ الصبح'],['istijaba','🤍 ساعة الاستجابة','يوم الجمعة قبل المغرب بساعة'],['siyam','🌙 صيام الاثنين والخميس','الليلة اللي قبله الساعة ٩']];
+  ['kahf','📖 سورة الكهف','يوم الجمعة الساعة ٩ الصبح'],['istijaba','🤍 ساعة الاستجابة','يوم الجمعة قبل المغرب بساعة'],['siyam','🌙 صيام الاثنين والخميس','الليلة اللي قبله الساعة ٩'],['witr','🌙 الوتر والثلث الأخير','أول ما يبدأ الثلث الأخير من الليل']];
 function kwDate(){ var t = new Date(Date.now() + 3*3600e3); return t.getUTCFullYear()+'-'+(t.getUTCMonth()+1)+'-'+t.getUTCDate(); }
 function adkState(k){ var key = 'adk-'+k, s = store(key); if (!s || s.d !== kwDate() || !s.r || s.r.length !== ADHKAR[k].items.length) s = { d:kwDate(), r:ADHKAR[k].items.map(function(x){ return x[1]; }) }; return s; }
 function adkProg(k){ var s = adkState(k), tot = 0, left = 0; ADHKAR[k].items.forEach(function(x,i){ tot += x[1]; left += Math.max(0, s.r[i]); }); return tot ? Math.round((tot-left)/tot*100) : 0; }
@@ -2108,24 +2146,44 @@ document.addEventListener('change', function(ev){ var c = ev.target; if (!c.matc
   var st = document.getElementById('rmSt'); if (st) st.textContent = '...';
   fetch(PUSH.api + 'reminder-prefs', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ ep: SUGEP, p: p }) })
     .then(function(r){ if (!r.ok) throw 0; if (st) st.textContent = 'انحفظ ✅'; }).catch(function(){ if (st) st.textContent = 'صار خطأ، جرّب مرة ثانية'; c.checked = !c.checked; }); });
-function adhkarPage(k){ var a = ADHKAR[k]; if (!a) return null; var s = adkState(k);
-  return '<div class="page">'+ptop('beads','أذكاري',a.t,a.when)+
-    '<section class="band" style="padding-top:16px"><div class="wrap"><div class="adtop"><span class="adp big"><i id="adBar" style="width:'+adkProg(k)+'%"></i></span><button type="button" class="adrs" data-adrs="'+k+'">↺ من جديد</button></div>'+
-    '<div class="adl" data-adk="'+k+'">'+a.items.map(function(x,i){ var left = s.r[i], done = left <= 0;
-      return '<button type="button" class="adi'+(x[3] ? ' q' : '')+(done ? ' done' : '')+'" data-adi="'+i+'"><span class="adt">'+(x[3] ? '<em>📖 اقرأ</em>' : '')+x[0]+'</span>'+
-        '<span class="adf"><small>'+(x[2] || '')+'</small><span class="adn"><i>'+(done ? '✓' : ar(left))+'</i>'+(x[1] > 1 ? '<s>من '+ar(x[1])+'</s>' : '')+'</span></span></button>'; }).join('')+'</div>'+
-    '<div class="adend" id="adEnd"'+(adkProg(k) >= 100 ? '' : ' hidden')+'>🤍 تقبّل الله منك، خلصت '+a.t+'</div>'+
+function adkCnt(k){ var s = adkState(k), d = 0; ADHKAR[k].items.forEach(function(x,i){ if (s.r[i] <= 0) d++; }); return d; }
+function ring(p, r, w){ var c = 2*Math.PI*r; return '<svg viewBox="0 0 '+(2*r+w)+' '+(2*r+w)+'"><circle cx="'+(r+w/2)+'" cy="'+(r+w/2)+'" r="'+r+'" fill="none" stroke-width="'+w+'" class="rb"/><circle cx="'+(r+w/2)+'" cy="'+(r+w/2)+'" r="'+r+'" fill="none" stroke-width="'+w+'" stroke-linecap="round" class="rf" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-p/100)).toFixed(1)+'" transform="rotate(-90 '+(r+w/2)+' '+(r+w/2)+')"/></svg>'; }
+function adkNext(k){ var i = ADK.indexOf(k); return ADK[(i+1) % ADK.length]; }
+function adhkarPage(k){ var a = ADHKAR[k]; if (!a) return null; var s = adkState(k), p = adkProg(k), n = a.items.length, d = adkCnt(k), fs = store('adkFs') || 0, nx = ADHKAR[adkNext(k)];
+  return '<div class="page adpg fs'+fs+'" data-adpg="'+k+'">'+
+    '<section class="adhero '+a.c+'"><div class="wrap"><div class="adhr"><span class="adring" id="adRing">'+ring(p, 34, 7)+'<b id="adPct">'+ar(p)+'٪</b></span>'+
+      '<div><small>أذكاري</small><h1>'+a.e+' '+a.t+'</h1><p>'+a.when+'</p><span class="adcnt" id="adCnt">'+ar(d)+' من '+ar(n)+' ذكر</span></div></div></div></section>'+
+    '<div class="adbar"><div class="wrap"><span class="adp big"><i id="adBar" style="width:'+p+'%"></i></span>'+
+      '<button type="button" class="adfs" data-adfs="-1" aria-label="تصغير الخط">أ−</button><button type="button" class="adfs" data-adfs="1" aria-label="تكبير الخط">أ+</button>'+
+      '<button type="button" class="adrs" data-adrs="'+k+'">↺</button></div></div>'+
+    '<section class="band" style="padding-top:12px"><div class="wrap"><div class="adl" data-adk="'+k+'">'+a.items.map(function(x,i){ var left = s.r[i], done = left <= 0, pc = Math.round((x[1]-Math.max(0,left))/x[1]*100);
+      return '<button type="button" class="adi'+(x[3] ? ' q' : '')+(done ? ' done' : '')+'" data-adi="'+i+'">'+
+        '<span class="adh"><span class="adx">'+ar(i+1)+'</span>'+(x[3] ? '<em>📖 من القرآن الكريم</em>' : '')+(x[1] > 1 ? '<span class="adtm">'+(x[1] === 3 ? 'ثلاث مرات' : x[1] === 4 ? 'أربع مرات' : x[1] === 7 ? 'سبع مرات' : x[1] === 10 ? 'عشر مرات' : x[1] === 100 ? 'مئة مرة' : ar(x[1])+' مرة')+'</span>' : '<span class="adtm">مرة واحدة</span>')+'</span>'+
+        '<span class="adt">'+x[0]+'</span>'+
+        '<span class="adf"><small>'+(x[2] || '')+'</small><span class="adn"><span class="adr">'+ring(pc, 25, 4)+'</span><i>'+(done ? '✓' : ar(left))+'</i></span></span></button>'; }).join('')+'</div>'+
+    '<div class="adend" id="adEnd"'+(p >= 100 ? '' : ' hidden')+'><span class="adok">✓</span><b>تقبّل الله منك 🤍</b><small>خلصت '+a.t+' اليوم</small>'+
+      '<a class="adnx" href="#/adhkar/'+adkNext(k)+'">'+nx.e+' '+nx.t+' ‹</a></div>'+
     '<a class="mego adback" href="#/me">‹ رجوع لصفحتي</a>'+homeBtn()+'</div></section></div>'; }
+function adkPaint(k){ var p = adkProg(k), c = 2*Math.PI*34;
+  var rf = document.querySelector('#adRing .rf'); if (rf) rf.setAttribute('stroke-dashoffset', (c*(1-p/100)).toFixed(1));
+  var t = document.getElementById('adPct'); if (t) t.textContent = ar(p)+'٪';
+  var b = document.getElementById('adBar'); if (b) b.style.width = p+'%';
+  var n = document.getElementById('adCnt'); if (n) n.textContent = ar(adkCnt(k))+' من '+ar(ADHKAR[k].items.length)+' ذكر'; return p; }
 document.addEventListener('click', function(ev){ var t = ev.target; if (!t.closest) return;
-  var rs = t.closest('[data-adrs]'); if (rs){ var k0 = rs.getAttribute('data-adrs'); store('adk-'+k0, null); route(); return; }
-  var b = t.closest('[data-adi]'); if (!b) return; var l = b.closest('[data-adk]'), k = l.getAttribute('data-adk'), i = +b.getAttribute('data-adi'), s = adkState(k);
+  var f = t.closest('[data-adfs]'); if (f){ var v = Math.max(-1, Math.min(2, (store('adkFs') || 0) + (+f.getAttribute('data-adfs')))); store('adkFs', v);
+    var pg = document.querySelector('.adpg'); if (pg) pg.className = pg.className.replace(/\bfs-?\d\b/, 'fs'+v); return; }
+  var rs = t.closest('[data-adrs]'); if (rs){ if (!rs.classList.contains('sure')){ rs.classList.add('sure'); rs.textContent = 'نبدأ من جديد؟'; setTimeout(function(){ if (document.body.contains(rs)){ rs.classList.remove('sure'); rs.textContent = '↺'; } }, 3000); return; }
+    store('adk-'+rs.getAttribute('data-adrs'), null); route(); return; }
+  var b = t.closest('[data-adi]'); if (!b) return; var l = b.closest('[data-adk]'), k = l.getAttribute('data-adk'), i = +b.getAttribute('data-adi'), s = adkState(k), x = ADHKAR[k].items[i];
   if (s.r[i] <= 0) return; s.r[i]--; store('adk-'+k, s);
-  var n = b.querySelector('.adn i'); n.textContent = s.r[i] <= 0 ? '✓' : ar(s.r[i]); b.classList.remove('tap'); void b.offsetWidth; b.classList.add('tap');
+  var n = b.querySelector('.adn i'); n.textContent = s.r[i] <= 0 ? '✓' : ar(s.r[i]);
+  var rf2 = b.querySelector('.adr .rf'), c2 = 2*Math.PI*25; if (rf2) rf2.setAttribute('stroke-dashoffset', (c2*(1-(x[1]-s.r[i])/x[1])).toFixed(1));
+  b.classList.remove('tap'); void b.offsetWidth; b.classList.add('tap');
   if (navigator.vibrate) try { navigator.vibrate(s.r[i] <= 0 ? [20,40,20] : 12); } catch(_){}
-  var bar = document.getElementById('adBar'); if (bar) bar.style.width = adkProg(k)+'%';
+  var p = adkPaint(k);
   if (s.r[i] <= 0){ b.classList.add('done'); var nx = b.nextElementSibling; while (nx && nx.classList.contains('done')) nx = nx.nextElementSibling;
-    if (nx) setTimeout(function(){ nx.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block:'center' }); }, 250); }
-  if (adkProg(k) >= 100){ var e2 = document.getElementById('adEnd'); if (e2){ e2.hidden = false; setTimeout(function(){ e2.scrollIntoView({ behavior:'smooth', block:'center' }); }, 300); } }
+    if (nx) setTimeout(function(){ nx.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block:'center' }); }, 280); }
+  if (p >= 100){ var e2 = document.getElementById('adEnd'); if (e2 && e2.hidden){ e2.hidden = false; setTimeout(function(){ e2.scrollIntoView({ behavior:'smooth', block:'center' }); }, 350); } }
 });
 
 /* ===================== صفحتي ===================== */

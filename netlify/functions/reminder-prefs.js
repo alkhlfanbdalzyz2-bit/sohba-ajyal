@@ -1,6 +1,6 @@
 // تفضيلات التذكيرات لكل جهاز مشترك بالإشعارات (مربوطة بعنوان الإشعارات، بدون أي اسم)
 const { store, keyOf } = require('../lib/store');
-const KEYS = ['sabah', 'masa', 'kahf', 'istijaba', 'siyam', 'nawm'];
+const KEYS = ['sabah', 'masa', 'kahf', 'istijaba', 'siyam', 'nawm', 'witr'];
 const J = (c, o) => ({ statusCode: c, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(o) });
 exports.handler = async (event) => {
   let b = {}; if (event.httpMethod === 'POST') { try { b = JSON.parse(event.body || '{}'); } catch(_){ return J(400, {}); } }
