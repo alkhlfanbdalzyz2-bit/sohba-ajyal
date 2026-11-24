@@ -13,5 +13,6 @@ exports.handler = async (event) => {
   await s.set('last-id', String(n.id));
   const payload = JSON.stringify({ title: n.title, body: n.body || '', url: n.url || '/', tag: String(n.id) });
   const r = await require('../lib/broadcast').broadcast(s, payload);
+  try { const log = (await s.get('admin-log', { type: 'json' })) || []; log.unshift({ title: n.title, body: n.body || '', url: n.url || '/', tag: String(n.id), at: Date.now(), sent: r.sent, dep: 1 }); await s.setJSON('admin-log', log.slice(0, 40)); } catch(_){}
   return { statusCode: 200, body: JSON.stringify(r) };
 };

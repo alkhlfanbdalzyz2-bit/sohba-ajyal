@@ -24,6 +24,7 @@ self.addEventListener('push', function(e){
 });
 self.addEventListener('notificationclick', function(e){
   e.notification.close(); var url = new URL((e.notification.data && e.notification.data.url) || './', self.registration.scope).href;
+  try { fetch(new URL('.netlify/functions/visit', self.registration.scope).href, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ c: e.notification.tag || '' }), keepalive: true }).catch(function(){}); } catch(_){}
   e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(cs){
     for (var i = 0; i < cs.length; i++){ if ('focus' in cs[i]){ if (cs[i].navigate) cs[i].navigate(url); return cs[i].focus(); } }
     return self.clients.openWindow(url);

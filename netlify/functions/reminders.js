@@ -11,7 +11,17 @@ const R = {
   witr:     { title: '🌙 الوتر والثلث الأخير', body: 'لا تفوّت صلاة الوتر، والحين الثلث الأخير من الليل وقت نزول ربنا سبحانه إلى السماء الدنيا، اغتنمه بالدعاء 🤍', url: './#/me' },
   nawm:     { title: '🛏️ أذكار النوم', body: 'قبل لا تنام، لا تنسى أذكار النوم 🤍', url: './#/adhkar/nawm' }
 };
+async function runSched(s){
+  const { blobs } = await s.list({ prefix: 'sched/' }); const out = [];
+  for (const b of blobs){ const it = await s.get(b.key, { type: 'json' }); if (!it || it.at > Date.now()) continue;
+    await s.delete(b.key); const tag = 'sch-' + it.at;
+    const r = await broadcast(s, JSON.stringify({ title: it.title, body: it.body, url: it.url, tag }));
+    const log = (await s.get('admin-log', { type: 'json' })) || []; log.unshift({ title: it.title, body: it.body, url: it.url, tag, at: Date.now(), sent: r.sent, sched: 1 }); await s.setJSON('admin-log', log.slice(0, 40));
+    out.push(r); }
+  return out;
+}
 exports.handler = async (event) => {
+  try { await runSched(store(event)); } catch(_){}
   const n = kwNow(), t = times(n.y, n.m, n.d), date = n.y + '-' + n.m + '-' + n.d;
   // dow: 0 الأحد ... 5 الجمعة
   const due = [];

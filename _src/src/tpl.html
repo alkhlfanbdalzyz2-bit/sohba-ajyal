@@ -397,6 +397,10 @@ footer .wrap{position:relative;z-index:1}
 #splash.v2 .sp-cr b>*{animation:none;opacity:1}
 #splash.v2 .sp-skip{position:absolute;left:0;right:0;bottom:calc(16px + var(--safeB));text-align:center;font-size:11.5px;color:rgba(255,255,255,.4);animation:upIn 1.28s 4.8s both}
 .cdn.trip .cdx{margin-top:14px}
+.cban{display:flex;align-items:flex-start;gap:10px;margin-top:14px;padding:12px 14px;border-radius:18px;background:rgba(39,170,225,.14);border:1px solid rgba(39,170,225,.45);color:var(--ink)}
+.cban.warn{background:rgba(247,148,29,.15);border-color:rgba(247,148,29,.6)}
+.cban span{font-size:20px;line-height:1.4}.cban p{margin:0;font-weight:700;font-size:15px;line-height:1.7}
+.pnote{margin:12px auto 0;max-width:420px;padding:8px 14px;border-radius:14px;background:rgba(247,148,29,.16);border:1px solid rgba(247,148,29,.5);font-weight:800;font-size:14px;text-align:center;color:#fff}
 .cdn.trip .tsub{margin-top:10px;font-size:13px;opacity:.8;text-align:center}
 #splash.v2.out{animation-duration:1.6s!important}
 #splash.v2.out .c{animation-duration:1.1s!important}
@@ -1395,6 +1399,7 @@ function home(){
     '<h1>صحبة <span>أجيال</span> القرآن</h1><div class="sub">نادي أجيال القرآن الكريم · القرين</div>'+
     '<div class="tags"><span>قرآني</span><span>تربوي</span><span>ترفيهي</span></div>'+
     '<figure class="grp"><img src="assets/hero.webp" alt="شباب صحبة أجيال" fetchpriority="high"></figure></div></section>'+
+  '<div id="cfgBan" class="wrap">'+cfgBanner()+'</div>'+
   '<div id="pushSlot" class="wrap"></div>'+
   tempBlock()+
   '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>'+
@@ -1930,10 +1935,23 @@ function meetBlock(){
     '<div class="when"><i></i><span>'+PROG.day+' · '+ar(+d[2]+'-'+(+d[1])+'-'+d[0])+'</span></div>'+
     (PROG.items && PROG.items.length ? '<div class="pgr'+(PROG.items.length % 2 ? ' odd' : '')+'">'+PROG.items.map(function(x, i){ return '<div class="pg1" style="--i:'+i+'"><span class="pic">'+(PIC[x[0]]||PIC.star)+'</span><b>'+x[1]+'</b></div>'; }).join('')+'</div>' : '')+
     (tm ? '<div class="tkt'+(PROG.end ? '' : ' one')+'"><div><small>الحضور</small><b>'+t12(PROG.arrive)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>'+(PROG.end ? '<i class="tsep"></i><div><small>الختام</small><b>'+t12(PROG.end)+'</b>'+(PROG.place ? '<span>'+PROG.place+'</span>' : '')+'</div>' : '')+'</div>' : '')+
+    (PROG.note ? '<div class="pnote">'+e(PROG.note)+'</div>' : '')+
     '<div class="cdx"></div>'+
     (PROG.img ? '<button type="button" class="ppost" data-progimg><img src="'+(PROG.th||PROG.img)+'" alt="إعلان برنامج '+PROG.day+'" loading="lazy"><em>اضغط لعرض الإعلان</em></button>' : '')+
     '<div class="nxt">ترقبوا إعلان برنامج '+(PROG.end || PROG.place || (PROG.items && PROG.items.length) ? nextDayName(progEnd()) : PROG.day)+'</div></div>';
 }
+/* إعدادات من لوحة التحكم (بدون نشر): شريط تنبيه + تعديل وقت البرنامج */
+var CFG = {}, PROG0 = JSON.parse(JSON.stringify(PROG));
+function cfgBanner(){ var b = CFG.banner; if (!b || !b.t) return ''; return '<div class="cban '+(b.tone === 'warn' ? 'warn' : '')+'"><span>'+(b.tone === 'warn' ? '⚠️' : '📢')+'</span><p>'+e(b.t)+'</p></div>'; }
+function cfgApply(){ PROG = JSON.parse(JSON.stringify(PROG0)); var p = CFG.prog; if (p){ ['date','arrive','end','place','note'].forEach(function(k){ if (p[k]) PROG[k] = p[k]; }); }
+  var bn = document.getElementById('cfgBan'); if (bn) bn.innerHTML = cfgBanner();
+  var cd = document.getElementById('cdn'); if (cd){ cd.outerHTML = meetBlock(); var n = document.getElementById('cdn'); if (n) n.classList.add('in'); meetStart(); } }
+function cfgLoad(){ fetch(PUSH.api + 'cfg', { cache:'no-cache' }).then(function(r){ return r.ok ? r.json() : {}; }).then(function(c){ CFG = c || {}; try { store('cfg', CFG); } catch(_){} cfgApply(); }).catch(function(){}); }
+try { CFG = store('cfg') || {}; } catch(_){} (function(){ var p = CFG.prog; if (p){ ['date','arrive','end','place','note'].forEach(function(k){ if (p[k]) PROG[k] = p[k]; }); } })();
+function pvKey(id){ if (!id) return 'home'; var a = id.split('/'); if (a[0] === 'khutah' && a[1]) return a[1].replace(/[^a-z-]/g,''); return a[0].replace(/[^a-z-]/g,''); }
+function pvSend(id){ try { var v = store('vid'), k = pvKey(id), d = new Date(Date.now() + 3*3600e3).toISOString().slice(0, 10), m = store('pvd') || {}; if (!v || !k) return;
+  if (m.d !== d) m = { d:d }; if (m[k]) return; m[k] = 1; store('pvd', m);
+  fetch(PUSH.api + 'visit', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ v:v, p:k }), keepalive:true }).catch(function(){}); } catch(_){} }
 var CDT = 0;
 function meetTick(){
   var el = document.getElementById('cdn'); if (!el){ clearInterval(CDT); CDT = 0; return; }
@@ -2251,7 +2269,7 @@ function sugShowReplies(w){ var box = w.querySelector('#sgRep'); if (!box) retur
 (function(){ try { var v = store('vid'); if (!v){ v = (Date.now().toString(36) + Math.random().toString(36).slice(2, 12)).replace(/[^a-z0-9]/g, ''); store('vid', v); }
   var d = new Date(Date.now() + 3*3600e3).toISOString().slice(0, 10); if (store('vday') === d) return;
   setTimeout(function(){ fetch(PUSH.api + 'visit', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ v:v, pwa: isStandalone() ? 1 : 0 }) }).then(function(r){ if (r.ok) store('vday', d); }).catch(function(){}); }, 1500); } catch(_){} })();
-window.addEventListener('load', function(){ sugEP();
+window.addEventListener('load', function(){ cfgLoad(); sugEP();
   if (/[?&]sug=1/.test(location.search)){ try { history.replaceState(null, '', location.pathname + location.hash); } catch(_){} setTimeout(sugOpen, 600); }
   else setTimeout(function(){ sugFetch(); }, 2500); });
 function sugOpen(){
@@ -2324,7 +2342,7 @@ function routeNow(){
   document.body.classList.toggle('inner', id !== '');
   Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(a){ a.classList.toggle('on', a.getAttribute('data-t') === tab && (tab !== '' || id === '')); });
   toTop(); requestAnimationFrame(toTop); setTimeout(toTop, 120); setTimeout(toTop, 400);
-  reveal(); meetStart(); pushCard(); if (id === 'adhkar' || id === 'me') remLoad(); if (id === 'adhkar'){ var ab = document.getElementById('adSec'); if (ab) setTimeout(function(){ ab.scrollIntoView({ block:'start' }); }, 150); }
+  reveal(); meetStart(); pushCard(); pvSend(id); if (id === 'adhkar' || id === 'me') remLoad(); if (id === 'adhkar'){ var ab = document.getElementById('adSec'); if (ab) setTimeout(function(){ ab.scrollIntoView({ block:'start' }); }, 150); }
 }
 function toTop(){ if (VW.open || VP.open) return; var de = document.documentElement; window.scrollTo(0,0); de.scrollTop = 0; document.body.scrollTop = 0; }
 function stopMomentum(){ var de = document.documentElement; if (VW.open || VP.open) return; de.classList.add('noscroll'); window.scrollTo(0,0); requestAnimationFrame(function(){ if (!VW.open && !VP.open) de.classList.remove('noscroll'); toTop(); }); }
