@@ -908,7 +908,7 @@ html{touch-action:pan-x pan-y}
 .bellb .bdot{position:absolute;top:9px;right:10px;width:9px;height:9px;border-radius:50%;background:var(--or);box-shadow:0 0 0 2px var(--chip);display:none}
 .bellb.off .bdot{display:block}
 .sugb.new .bdot{display:block}
-.nsh .nsc{max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.nsh .nsc{max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .nsh .sgr{margin-top:18px}
 .nsh .sgr h4{margin:0 0 10px;font-family:var(--disp);font-size:15px;font-weight:800;color:var(--ink)}
 .nsh .sgi{padding:12px 14px;border-radius:16px;border:1px solid var(--line2);background:var(--chip);margin-bottom:10px;line-height:1.75}
@@ -1894,6 +1894,14 @@ function bellOpen(){
   w.innerHTML = '<div class="nsc" role="dialog" aria-label="الإشعارات"><span class="ngr"></span>'+card+'<button type="button" class="nx" data-nshx>إغلاق</button></div>';
   document.body.appendChild(w); requestAnimationFrame(function(){ w.classList.add('on'); });
 }
+/* تثبيت الصفحة اللي ورا النافذة (آيفون يتجاهل overflow:hidden) */
+var NSHY = null;
+function nshLock(){ if (NSHY !== null) return; NSHY = window.scrollY || 0; var b = document.body.style;
+  b.position = 'fixed'; b.top = (-NSHY) + 'px'; b.left = '0'; b.right = '0'; b.width = '100%'; document.documentElement.classList.add('noscroll'); }
+function nshUnlock(){ if (NSHY === null) return; var y = NSHY, b = document.body.style; NSHY = null;
+  b.position = b.top = b.left = b.right = b.width = ''; document.documentElement.classList.remove('noscroll'); window.scrollTo(0, y); }
+new MutationObserver(function(){ if (document.getElementById('nsh')) nshLock(); else nshUnlock(); }).observe(document.body, { childList:true });
+document.addEventListener('touchmove', function(e){ var w = document.getElementById('nsh'); if (w && !e.target.closest('.nsc')) e.preventDefault(); }, { passive:false });
 function bellClose(){ var w = document.getElementById('nsh'); if (!w) return; w.classList.remove('on'); setTimeout(function(){ w.remove(); }, 280); bellSync(); }
 document.addEventListener('click', function(ev){
   var t = ev.target; if (!t.closest) return;
