@@ -909,14 +909,14 @@ html{touch-action:pan-x pan-y}
 .bellb.off .bdot{display:block}
 .sugb.new .bdot{display:block}
 .nsh .nsc{max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
-.nsh .sgr{margin-top:18px}
-.nsh .sgr h4{margin:0 0 10px;font-family:var(--disp);font-size:15px;font-weight:800;color:var(--ink)}
-.nsh .sgi{padding:12px 14px;border-radius:16px;border:1px solid var(--line2);background:var(--chip);margin-bottom:10px;line-height:1.75}
+.nsh .sgr{margin-top:22px}
+.nsh .sgh4{margin:0 2px 10px;font-family:var(--disp);font-size:15px;font-weight:800;color:var(--ink)}
+.nsh .sgi{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:18px;background:var(--chip);border:1px solid var(--line2);margin-bottom:10px}
 .nsh .sgi.nw{border-color:var(--or)}
-.nsh .sgq{font-size:14px;color:var(--mut,#8a93a8);white-space:pre-wrap}
-.nsh .sga{margin-top:8px;padding:10px 12px;border-radius:12px;background:rgba(247,148,29,.1);border-inline-start:3px solid var(--or);font-size:15px;color:var(--ink);white-space:pre-wrap}
-.nsh .sga b{display:block;font-size:12px;color:var(--or);margin-bottom:2px}
-.nsh .sgw{font-size:12.5px;color:var(--mut,#8a93a8);margin-top:6px}
+.nsh .bq{align-self:flex-start;max-width:90%;padding:9px 13px;border-radius:16px 16px 16px 4px;background:#1d3a8a;color:#fff;font-size:14.5px;line-height:1.7;white-space:pre-wrap}
+.nsh .bb{align-self:flex-end;max-width:90%;padding:9px 13px;border-radius:16px 16px 4px 16px;background:rgba(247,148,29,.16);color:var(--ink);font-size:14.5px;line-height:1.7;white-space:pre-wrap}
+.nsh .bb b{display:block;font-size:12px;font-weight:800;color:var(--or)}
+.nsh .bw{align-self:flex-end;font-size:12.5px;color:var(--mut,#8a93a8)}
 .nsh{position:fixed;inset:0;z-index:170;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,10,30,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;transition:opacity .25s}
 .nsh.on{opacity:1}
 .nsh .nsc{width:min(100%,520px);padding:12px 16px calc(22px + env(safe-area-inset-bottom));border-radius:26px 26px 0 0;background:var(--bg,#0b1430);transform:translateY(40px);transition:transform .3s var(--lux)}
@@ -1919,17 +1919,23 @@ function sugTok(){ var t = store('sugTok'); if (t) return t;
 var SUGR = null;
 function sugSync(){ var b = document.getElementById('sugB'); if (!b || !SUGR) return; var seen = store('sugSeen') || 0;
   b.classList.toggle('new', SUGR.some(function(x){ return x.rt && x.rt > seen; })); }
+var SUGEP = '';
+function sugEP(){ try { if (!('serviceWorker' in navigator) || !('PushManager' in window)) return Promise.resolve('');
+  var p = navigator.serviceWorker.ready.then(function(r){ return r.pushManager.getSubscription(); }).then(function(sb){ SUGEP = sb ? sb.endpoint : ''; return SUGEP; }).catch(function(){ return ''; });
+  return Promise.race([p, new Promise(function(res){ setTimeout(function(){ res(SUGEP); }, 1500); })]); } catch(_){ return Promise.resolve(''); } }
 function sugFetch(force){ var t = store('sugTok'); if (!t) return Promise.resolve(null);
   var last = store('sugChk') || 0; if (!force && SUGR && Date.now() - last < 6e5) return Promise.resolve(SUGR);
-  return fetch(PUSH.api + 'suggest-replies?t=' + encodeURIComponent(t), { cache:'no-store' }).then(function(r){ return r.ok ? r.json() : null; })
+  return sugEP().then(function(ep){ return fetch(PUSH.api + 'suggest-replies?t=' + encodeURIComponent(t) + (ep ? '&e=' + encodeURIComponent(ep) : ''), { cache:'no-store' }); }).then(function(r){ return r.ok ? r.json() : null; })
     .then(function(d){ if (d){ SUGR = d; store('sugChk', Date.now()); sugSync(); } return SUGR; }).catch(function(){ return SUGR; }); }
 function sugRepliesHTML(){ if (!SUGR || !SUGR.length) return ''; var seen = store('sugSeen') || 0;
-  return '<div class="sgr"><h4>💬 ردود على اقتراحاتك</h4>' + SUGR.map(function(x){
-    return '<div class="sgi'+(x.rt && x.rt > seen ? ' nw' : '')+'"><div class="sgq">'+esc(x.m)+'</div>'+
-      (x.r ? '<div class="sga"><b>رد إدارة الصحبة</b>'+esc(x.r)+'</div>' : '<div class="sgw">⏳ وصل اقتراحك، وبيوصلك الرد هني إن شاء الله</div>')+'</div>'; }).join('') + '</div>'; }
+  return '<div class="sgr"><div class="sgh4">💬 ردود على اقتراحاتك</div>' + SUGR.map(function(x){
+    return '<div class="sgi'+(x.rt && x.rt > seen ? ' nw' : '')+'"><div class="bq">'+esc(x.m)+'</div>'+
+      (x.r ? '<div class="bb"><b>إدارة الصحبة</b>'+esc(x.r)+'</div>' : '<div class="bw">⏳ بانتظار الرد</div>')+'</div>'; }).join('') + '</div>'; }
 function sugShowReplies(w){ var box = w.querySelector('#sgRep'); if (!box) return; box.innerHTML = sugRepliesHTML();
   if (SUGR && SUGR.length){ var mx = Math.max.apply(null, SUGR.map(function(x){ return x.rt || 0; }).concat([store('sugSeen') || 0])); store('sugSeen', mx); sugSync(); } }
-window.addEventListener('load', function(){ setTimeout(function(){ sugFetch(); }, 2500); });
+window.addEventListener('load', function(){ sugEP();
+  if (/[?&]sug=1/.test(location.search)){ try { history.replaceState(null, '', location.pathname + location.hash); } catch(_){} setTimeout(sugOpen, 600); }
+  else setTimeout(function(){ sugFetch(); }, 2500); });
 function sugOpen(){
   var w = document.createElement('div'); w.className = 'nsh'; w.id = 'nsh';
   w.innerHTML = '<div class="nsc" role="dialog" aria-label="صندوق الاقتراحات"><span class="ngr"></span>'+
@@ -1945,7 +1951,7 @@ function sugOpen(){
 function sugSend(bt){
   var w = document.getElementById('nsh'), ta = w && w.querySelector('#sgT'); if (!ta) return;
   bt.disabled = true; bt.textContent = '...';
-  fetch(PUSH.api + 'suggest', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ m: ta.value, hp: w.querySelector('#sgH').value, tok: sugTok() }) })
+  fetch(PUSH.api + 'suggest', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ m: ta.value, hp: w.querySelector('#sgH').value, tok: sugTok(), ep: SUGEP }) })
     .then(function(r){ if (!r.ok) throw 0;
       w.querySelector('.nsc').innerHTML = '<span class="ngr"></span><div class="pushc done"><span class="pb">'+CHECK+'</span><span class="pt"><b>وصلت رسالتك ✅</b><span>جزاك الله خير، ولما نرد عليك بيطلع لك الرد هني بزر ✉️</span></span></div><div id="sgRep"></div><button type="button" class="nx" data-nshx>إغلاق</button>'; sugFetch(true).then(function(){ if (document.body.contains(w)) sugShowReplies(w); }); })
     .catch(function(){ bt.disabled = false; bt.textContent = 'أرسل'; w.querySelector('#sgN').textContent = 'صار خطأ بالاتصال، جرّب مرة ثانية'; });

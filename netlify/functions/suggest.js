@@ -12,6 +12,7 @@ exports.handler = async (event) => {
   try { connectLambda(event); } catch(_){}
   const s = getStore('suggest'), t = Date.now();
   const rec = { m, t }; if (th) rec.th = th;
+  const ep = String(b.ep || ''); if (th && /^https:\/\//.test(ep) && ep.length < 1000) rec.pk = require('../lib/store').keyOf(ep);
   await s.setJSON('m/' + t + '-' + Math.random().toString(36).slice(2, 8), rec);
   console.log('SUG ' + JSON.stringify({ m, t }));
   return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: '{"ok":true}' };
