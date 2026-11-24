@@ -699,6 +699,15 @@ html{touch-action:pan-x pan-y}
 .hr.t3 .hn{color:#3e1f05;background:linear-gradient(135deg,#ffd2a1,#cd7f32 55%,#7a4416)}
 .hb{flex:1;min-width:0}
 .hlist>.hr{min-width:0;max-width:100%} .hlist{grid-template-columns:minmax(0,1fr)}
+.hr.hx{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hcv{flex:none;width:9px;height:9px;border-inline-start:2px solid var(--mut,#8a93a8);border-bottom:2px solid var(--mut,#8a93a8);transform:rotate(-45deg);margin-inline-start:2px;transition:transform .25s}
+.hr.open .hcv{transform:rotate(135deg)}
+.hdet{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:-2px 6px 6px;padding:10px;border-radius:0 0 16px 16px;background:var(--chip);border:1px solid var(--line2);border-top:0}
+.hr.open+.hdet{display:grid}
+.hr.open{border-bottom-left-radius:8px;border-bottom-right-radius:8px}
+.hdet div{padding:8px 10px;border-radius:12px;background:var(--card);display:flex;flex-direction:column;gap:2px;min-width:0}
+.hdet small{font-size:11.5px;color:var(--mut,#8a93a8)}
+.hdet b{font-family:var(--disp);font-size:15px;font-weight:800;color:var(--ink)}
 .hb b{display:block;font-family:var(--disp);font-weight:800;font-size:15.5px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hb small{display:block;font-size:12px;font-weight:700;color:var(--t3)}
 .hbar{display:block;height:5px;border-radius:5px;background:var(--line);margin-top:6px;overflow:hidden}
@@ -1151,7 +1160,7 @@ for (var _j = 108; _j <= 300; _j++) if (!HIDE[_j]) GROUP.push({ type:'img', src:
 var DESIGNS = [];
 for (var _d = 1; _d <= 27; _d++) DESIGNS.push({ type:'video', src:'media/d'+_d+'.mp4', poster:'media/d'+_d+'.webp' });
 
-var HALAQAT = { updated:'٢٤-١١-٢٠٢٦', week:'النتائج النهائية', cats:[{"k": "الجزء", "rows": [["عثمان يوسف الطويل", 100], ["عمر عبدالرحمن", 100], ["عبدالرحمن ناصر", 22.3]]}, {"k": "الحزب", "rows": [["عثمان خالد خليل", 99.81], ["عبدالرحمن الطويل", 97.79], ["أحمد فهد الكندري", 97.51], ["حمد ابراهيم عقيل", 96.95], ["أحمد حسين الحجي", 90.95], ["علي حسين بوزبر", 85.84], ["سلطان المطيري", 77.64], ["عثمان المهيني", 62.06], ["بدر الرميضي", 52.19], ["يوسف ابراهيم الحمد", 50.18], ["محمد صالح الثويني", 40.31], ["محمد إبراهيم الحمد", 38.39], ["عثمان عمر الفيلكاوي", 34.15], ["عمار جاسم الكندري", 27.95], ["عبدالرحمن سعد", 26.84], ["صالح ناصر", 21.82], ["راكان العساف", 20.07]]}, {"k": "المدارس", "rows": [["ابراهيم الأنصاري", 61.36], ["عبدالله ابراهيم الصفي", 51.21], ["محمد جاسم الخزيم", 46.26], ["عبدالله طلال", 37.63], ["وليد حمد الدويسان", 36.79], ["محمد عبدالرحمن", 17.9], ["براك فيصل الكندري", 10.74], ["سعود الدوسري", 6.35], ["بدر فيصل الكندري", 6.02], ["عمر غالي العتيبي", 0.42]]}] };
+var HALAQAT = { updated:'٢٤-١١-٢٠٢٦', week:'النتائج النهائية', days:9, cats:[{"k": "الجزء", "rows": [["عثمان يوسف الطويل", 100.0, null, [9, 100.0, 20.0, 100.0, 5.0, 5.0, 5.0, 25.0]], ["عمر عبدالرحمن", 100.0, null, [9, 100.0, 20.0, 100.0, 5.0, 5.0, 5.0, 25.0]], ["عبدالرحمن ناصر", 22.3, null, [4, 44.4, 3.5, 17.5, 1.8, 1.6, 1.0, 0.0]]]}, {"k": "الحزب", "rows": [["عثمان خالد خليل", 99.81, null, [9, 100.0, 10.0, 100.0, 5.0, 4.9, 5.0, 25.0]], ["عبدالرحمن الطويل", 97.79, null, [9, 100.0, 10.0, 100.0, 4.9, 4.6, 4.8, 25.0]], ["أحمد فهد الكندري", 97.51, null, [9, 100.0, 10.0, 100.0, 4.9, 4.3, 4.9, 25.0]], ["حمد ابراهيم عقيل", 96.95, null, [9, 100.0, 10.0, 100.0, 4.9, 3.9, 4.9, 25.0]], ["أحمد حسين الحجي", 90.95, null, [9, 100.0, 10.0, 100.0, 4.9, 3.9, 2.9, 25.0]], ["علي حسين بوزبر", 85.84, null, [8, 88.9, 12.0, 100.0, 4.3, 3.9, 2.9, 25.0]], ["سلطان المطيري", 77.64, null, [9, 100.0, 10.25, 100.0, 4.1, 2.7, 0.8, 25.0]], ["عثمان المهيني", 62.06, null, [6, 66.7, 3.5, 35.0, 2.7, 2.3, 2.4, 25.0]], ["بدر الرميضي", 52.19, null, [6, 66.7, 1.5, 15.0, 2.1, 1.8, 1.5, 25.0]], ["يوسف ابراهيم الحمد", 50.18, null, [5, 55.6, 3.75, 37.5, 1.8, 1.4, 1.1, 25.0]], ["محمد صالح الثويني", 40.31, null, [6, 66.7, 4.5, 45.0, 2.8, 2.4, 2.8, 0.0]], ["محمد إبراهيم الحمد", 38.39, null, [3, 33.3, 1.75, 17.5, 1.0, 0.8, 0.5, 25.0]], ["عثمان عمر الفيلكاوي", 34.15, null, [5, 55.6, 3.5, 35.0, 2.6, 2.2, 1.9, 0.0]], ["عمار جاسم الكندري", 27.95, null, [4, 44.4, 2.25, 22.5, 2.1, 1.8, 1.8, 0.0]], ["عبدالرحمن سعد", 26.84, null, [3, 33.3, 7.75, 77.5, 1.7, 1.7, 0.6, 0.0]], ["صالح ناصر", 21.82, null, [4, 44.4, 3.25, 32.5, 1.6, 1.2, 1.0, 0.0]], ["راكان العساف", 20.07, null, [4, 44.4, 1.25, 12.5, 2.0, 1.3, 0.0, 0.0]]]}, {"k": "المدارس", "rows": [["ابراهيم الأنصاري", 61.36, null, [7, 77.8, 1.75, 29.2, 2.7, 1.8, 2.5, 25.0]], ["عبدالله ابراهيم الصفي", 51.21, null, [6, 66.7, 3.0, 50.0, 1.4, 1.3, 1.8, 25.0]], ["محمد جاسم الخزيم", 46.26, null, [5, 55.6, 1.25, 20.8, 1.8, 1.3, 0.5, 25.0]], ["عبدالله طلال", 37.63, null, [3, 33.3, 1.0, 16.7, 1.1, 0.8, 0.0, 25.0]], ["وليد حمد الدويسان", 36.79, null, [3, 33.3, 1.0, 16.7, 1.0, 0.8, 0.0, 25.0]], ["محمد عبدالرحمن", 17.9, null, [3, 33.3, 1.5, 25.0, 1.4, 1.0, 0.5, 0.0]], ["براك فيصل الكندري", 10.74, null, [2, 22.2, 0.75, 12.5, 1.0, 0.7, 0.0, 0.0]], ["سعود الدوسري", 6.35, null, [1, 11.1, 0.5, 8.3, 0.6, 0.6, 0.0, 0.0]], ["بدر فيصل الكندري", 6.02, null, [1, 11.1, 0.5, 8.3, 0.6, 0.3, 0.0, 0.0]], ["عمر غالي العتيبي", 0.42, null, [1, 11.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]]}] };
 var POINTS = { updated:'١٥-١١-٢٠٢٦', rows:[["عمر عبدالرحمن الكندري", 71.0, 71.0], ["أحمد فهد الكندري", 60.1639, 60.2], ["عثمان يوسف الطويل", 44.0252, 44.0], ["أحمد حسين الحجي", 40.066, 40.1], ["حمد ابراهيم عقيل صالح", 37.5238, 37.5], ["سلطان عبدالهادي المطيري", 36.2109, 36.2], ["عبدالرحمن ناصر بدر", 33.1224, 33.1], ["عثمان خالد خليل", 28.5306, 28.5], ["علي حسين بوزبر", 27.1327, 27.1], ["عبدالرحمن أحمد الطويل", 24.4762, 24.5], ["عمار جاسم محمد الكندري", 20.6735, 20.7], ["محمد صالح الثويني", 18.8469, 18.8], ["عثمان يوسف المهيني", 18.8435, 18.8], ["عثمان عمر الفيلكاوي", 15.4558, 15.5], ["ابراهيم عبدالله الأنصاري", 14.1156, 14.1], ["محمد جاسم الخزيم", 11.449, 11.4], ["يوسف ابراهيم الحمد", 11.2279, 11.2], ["صالح ناصر", 10.0612, 10.1], ["وليد حمد الدويسان", 8.949, 8.9], ["محمد عبدالرحمن الكندري", 8.949, 8.9], ["بدر فيصل الكندري", 5.8912, 5.9], ["براك فيصل الكندري", 5.8912, 5.9], ["راكان ابراهيم العساف", 5.5034, 5.5], ["محمد إبراهيم الحمد", 4.2789, 4.3], ["عبدالله طلال الخليفة", 3.449, 3.4], ["عمر غالي العتيبي", 2.8333, 2.8]] };
 var CHALLENGES = [
   { t:'أفضل طبق موالح', ic:'dish', n:['عثمان الطويل','أحمد فهد'] },
@@ -1278,7 +1287,7 @@ function albumPage(id){
 var ORD = ['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر','الحادي عشر','الثاني عشر','الثالث عشر','الرابع عشر','الخامس عشر','السادس عشر','السابع عشر','الثامن عشر','التاسع عشر','العشرون','الحادي والعشرون','الثاني والعشرون','الثالث والعشرون','الرابع والعشرون','الخامس والعشرون','السادس والعشرون','السابع والعشرون','الثامن والعشرون','التاسع والعشرون','الثلاثون'];
 function rankRows(rows){
   var r = rows.slice().sort(function(a,b){ return b[1]-a[1]; }), out = [], rk = 0, prev = null;
-  r.forEach(function(x){ if (x[1] !== prev){ rk++; prev = x[1]; } out.push({ n:x[0], s:x[1], d:x[2], r:rk }); });
+  r.forEach(function(x){ if (x[1] !== prev){ rk++; prev = x[1]; } out.push({ n:x[0], s:x[1], d:x[2], det:x[3], r:rk }); });
   out.forEach(function(o){ o.tie = out.filter(function(q){ return q.r === o.r; }).length > 1; });
   return out;
 }
@@ -1294,8 +1303,13 @@ function boardHTML(rows){
     return '<div class="hp hp'+o.r+'"><span class="hm">'+o.r+'</span><b>'+e(o.n)+'</b><em>'+fmtS(o.d!=null?o.d:o.s)+'</em><small>'+ordTxt(o)+'</small><i></i></div>'; }).join('');
   return '<div class="hpod">'+pod+'</div>'+
     '<div class="hlist">'+L.map(function(o){ var w = Math.max(2, o.s/max*100);
-      return '<div class="hr'+(o.r<=3?' t'+o.r:'')+'"><span class="hn">'+o.r+'</span><span class="hb"><b>'+e(o.n)+'</b><small>'+ordTxt(o)+'</small><span class="hbar"><span style="width:'+w+'%"></span></span></span><span class="hs">'+fmtS(o.d!=null?o.d:o.s)+'</span></div>'; }).join('')+'</div>';
+      return '<div class="hr'+(o.r<=3?' t'+o.r:'')+(o.det?' hx':'')+'"'+(o.det?' data-hx role="button" tabindex="0"':'')+'><span class="hn">'+o.r+'</span><span class="hb"><b>'+e(o.n)+'</b><small>'+ordTxt(o)+'</small><span class="hbar"><span style="width:'+w+'%"></span></span></span><span class="hs">'+fmtS(o.d!=null?o.d:o.s)+'</span>'+(o.det?'<i class="hcv"></i>':'')+'</div>'+(o.det?detHTML(o.det):''); }).join('')+'</div>';
 }
+function detHTML(d){ var f = function(v){ return ar(fmtS(v)).replace('.', '٫'); };
+  var it = [['أيام الحضور', ar(d[0])+' من '+ar(HALAQAT.days||9)], ['نسبة الحضور', f(d[1])+'٪'], ['مجموع الصفحات', f(d[2])], ['نسبة الإنجاز', f(d[3])+'٪'],
+    ['الحفظ', f(d[4])+' / ٥'], ['التجويد', f(d[5])+' / ٥'], ['المراجعة', f(d[6])+' / ٥'], ['الاختبار النهائي', f(d[7])+' / ٢٥']];
+  return '<div class="hdet">'+it.map(function(x){ return '<div><small>'+x[0]+'</small><b>'+x[1]+'</b></div>'; }).join('')+'</div>'; }
+document.addEventListener('click', function(ev){ var r = ev.target.closest && ev.target.closest('[data-hx]'); if (r) r.classList.toggle('open'); });
 function halaqatPage(){
   var tabs = HALAQAT.cats.map(function(c,i){ return '<button type="button" class="htab'+(i===HQcat?' on':'')+'" data-hq="'+i+'">فئة '+c.k+'<small>'+c.rows.length+'</small></button>'; }).join('');
   return '<div class="page">'+ptop('board','كورس على خطاه ﷺ','لوحة نقاط حلقة القرآن الكريم', 'آخر تحديث '+HALAQAT.updated)+
