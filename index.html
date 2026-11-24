@@ -1349,7 +1349,7 @@ function rankRows(rows){
   return out;
 }
 function fmtS(s){ return (Math.round(s*100)/100).toString(); }
-function ordTxt(o){ return 'المركز '+(ORD[o.r-1] || o.r)+(o.tie ? ' مكرر' : ''); }
+function ordTxt(o){ return 'المركز '+(ORD[o.r-1] || o.r); }
 var HQcat = 0;
 function halaqatBoard(ci){ return boardHTML(HALAQAT.cats[ci].rows); }
 function boardHTML(rows){
