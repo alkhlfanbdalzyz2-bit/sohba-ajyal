@@ -21,3 +21,6 @@
   for = "/notify.json"
   [headers.values]
     Cache-Control = "no-store"
+
+[functions."reminders"]
+  schedule = "*/10 * * * *"

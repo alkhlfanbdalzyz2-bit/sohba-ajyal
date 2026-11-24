@@ -11,16 +11,7 @@ exports.handler = async (event) => {
   const last = await s.get('last-id');
   if (last === String(n.id)) return { statusCode: 200, body: 'already sent' };
   await s.set('last-id', String(n.id));
-  const v = await vapid(s);
   const payload = JSON.stringify({ title: n.title, body: n.body || '', url: n.url || '/', tag: String(n.id) });
-  const { blobs } = await s.list({ prefix: 'sub/' });
-  let ok = 0, gone = 0;
-  for (let i = 0; i < blobs.length; i += 20){
-    await Promise.all(blobs.slice(i, i + 20).map(async b => {
-      const sub = await s.get(b.key, { type: 'json' }); if (!sub) return;
-      const st = await send(sub, payload, v, 'https://wa.me/96597946974');
-      if (st === 404 || st === 410){ gone++; await s.delete(b.key); } else if (st >= 200 && st < 300) ok++;
-    }));
-  }
-  return { statusCode: 200, body: JSON.stringify({ sent: ok, removed: gone, total: blobs.length }) };
+  const r = await require('../lib/broadcast').broadcast(s, payload);
+  return { statusCode: 200, body: JSON.stringify(r) };
 };
