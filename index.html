@@ -401,6 +401,8 @@ footer .wrap{position:relative;z-index:1}
 #splash.v2 .sp-cr b{margin:0;font-family:var(--disp);font-weight:800;font-size:19px;line-height:1.5;white-space:nowrap;background:linear-gradient(100deg,#f7b267,#fff3c4 50%,#f7b267);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
 #splash.v2 .sp-cr b>*{animation:none;opacity:1}
 #splash.v2 .sp-skip{position:absolute;left:0;right:0;bottom:calc(16px + var(--safeB));text-align:center;font-size:11.5px;color:rgba(255,255,255,.4);animation:upIn 1.28s 4.8s both}
+.cdn.trip .cdx{margin-top:14px}
+.cdn.trip .tsub{margin-top:10px;font-size:13px;opacity:.8;text-align:center}
 #splash.v2.out{animation-duration:1.6s!important}
 #splash.v2.out .c{animation-duration:1.1s!important}
 #splash.out{animation:spOut 1.1s cubic-bezier(.75,0,.25,1) both}
@@ -1974,8 +1976,14 @@ function progState(){
   if (!PROG) return 'none';
   var now = Date.now(); if (now < progAt(PROG.arrive)) return 'soon'; if (now < progEnd()) return 'live'; return 'done';
 }
+/* عدّاد إعلان الرحلة الختامية (يختفي بعد الموعد بـ٣ ساعات) */
+var TRIP = { at:'2026-11-27T11:36:00+03:00', t:'الرحلة الختامية', sub:'العد التنازلي ليوم الجمعة · وقت صلاة الجمعة' };
 function meetBlock(){
   var st = progState();
+  if ((st === 'none' || st === 'done') && TRIP && Date.now() < new Date(TRIP.at).getTime() + 3*3600e3){
+    return '<div class="cdn tease trip frame rv" id="cdn" data-at="'+TRIP.at+'"><span class="lbl">كورس على خطاه ﷺ</span><h2>ترقبوا <em>إعلان</em></h2><div class="tz">'+TRIP.t+'</div>'+
+      '<div class="cdx"></div><div class="tsub">'+TRIP.sub+'</div></div>';
+  }
   if (st === 'none' || st === 'done'){
     var nd = st === 'done' ? nextDayName(progEnd()) : nextDayName();
     return '<div class="cdn tease frame rv" id="cdn"><span class="lbl">كورس على خطاه ﷺ</span><h2>ترقبوا <em>إعلان</em></h2><div class="tz">برنامج '+nd+'</div><div class="dots3"><i></i><i></i><i></i></div></div>';
@@ -1996,6 +2004,12 @@ var CDT = 0;
 function meetTick(){
   var el = document.getElementById('cdn'); if (!el){ clearInterval(CDT); CDT = 0; return; }
   var x = el.querySelector('.cdx'); if (!x){ clearInterval(CDT); CDT = 0; return; }
+  var at = el.getAttribute('data-at');
+  if (at){ var s2 = Math.max(0, Math.floor((new Date(at).getTime() - Date.now())/1000));
+    if (s2 <= 0){ if (!x.querySelector('.live')) x.innerHTML = '<div class="live">الإعلان قريب جداً<small>ترقبوه إن شاء الله 🤍</small></div>'; return; }
+    var v2 = [Math.floor(s2/86400), Math.floor(s2%86400/3600), Math.floor(s2%3600/60), s2%60], lb2 = ['يوم','ساعة','دقيقة','ثانية'];
+    if (!x.querySelector('.cdb')) x.innerHTML = '<div class="cdb">'+lb2.map(function(l){ return '<div><b>٠</b><span>'+l+'</span></div>'; }).join('')+'</div>';
+    var bs2 = x.querySelectorAll('.cdb b'); v2.forEach(function(n, i){ var t = ar(n < 10 && i ? '0'+n : n); if (bs2[i].textContent !== t) bs2[i].textContent = t; }); return; }
   var st = progState();
   if (st === 'done'){ el.outerHTML = meetBlock(); clearInterval(CDT); CDT = 0; return; }
   if (st === 'live'){ if (!x.querySelector('.live')) x.innerHTML = '<div class="live">البرنامج شغّال الحين<small>حيّاكم الله'+(PROG.place ? ' '+PROG.place : '')+'</small></div>'; return; }
