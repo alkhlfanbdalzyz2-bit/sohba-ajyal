@@ -2703,7 +2703,9 @@ function chTok(){ var t = store('chTok'); if (!t || !/^[A-Za-z0-9]{16,64}$/.test
 function chDate(k, wd){ var a = k.split('-').map(Number), t = new Date(Date.UTC(a[0], a[1]-1, a[2])); return (wd ? DAYN[t.getUTCDay()]+' ' : '')+ar(a[2])+' '+MON[a[1]-1]; }
 function chHM(h){ var x = Math.round(h*60), H = Math.floor(x/60) % 12 || 12; return ar(H)+':'+ar(String(x % 60).padStart(2,'0')); }
 function chApi(b){ return fetch(PUSH.api+'chal', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(Object.assign({ t:chTok() }, b)) }).then(function(r){ return r.json().then(function(j){ if (!r.ok) throw j; return j; }); }); }
-function chLoad(){ return fetch(PUSH.api+'chal?t='+chTok(), { cache:'no-store' }).then(function(r){ return r.json(); }).then(function(d){ CHD = d; store('chT', d.c.t); chPaint(); bdgCheck(1); }).catch(function(){ var b = document.getElementById('chBox'); if (b && !CHD) b.innerHTML = '<div class="tknote">ما قدرنا نحمّل التحدي، تأكد من النت وارجع</div>'; }); }
+function chLoad(){ return fetch(PUSH.api+'chal?t='+chTok(), { cache:'no-store' }).then(function(r){ return r.json(); }).then(function(d){ CHD = d; store('chT', d.c.t); chPaint(); bdgCheck(1); chLink(); }).catch(function(){ var b = document.getElementById('chBox'); if (b && !CHD) b.innerHTML = '<div class="tknote">ما قدرنا نحمّل التحدي، تأكد من النت وارجع</div>'; }); }
+var CHLINKED = 0;
+function chLink(){ if (CHLINKED || !CHD || !CHD.joined) return; CHLINKED = 1; try { sugEP().then(function(ep){ if (ep) chApi({ a:'link', ep:ep }).catch(function(){}); }).catch(function(){}); } catch(_){} }
 function chPaint(){ var b = document.getElementById('chBox'); if (b && CHD) b.innerHTML = chHTML(CHD); }
 function chRank(L){ var o = L.slice().sort(function(a,b){ return b.d.length - a.d.length || a.n.localeCompare(b.n, 'ar'); }), r = 0, prev = -1;
   o.forEach(function(x, i){ if (x.d.length !== prev){ r = i + 1; prev = x.d.length; } x.r = r; }); return o; }
@@ -2734,7 +2736,7 @@ function chalPage(){ return '<div class="page">'+ptop('trophy','صحبة أجي�
 function chCard(){ var t = store('chT') || 'رجال الفجر'; return '<a class="chcard rv" href="#/challenge"><span class="chic">'+TI.trophy+'</span><span class="chct"><small>التحدي الأسبوعي</small><b>'+e(t)+'</b><em>شارك معانا وتنافس مع الشباب</em></span><span class="chgo2">‹</span></a>'; }
 document.addEventListener('click', function(ev){ var t = ev.target; if (!t.closest) return;
   var j = t.closest('[data-chjoin]'); if (j){ var n = (document.getElementById('chN').value || '').trim(); if (n.length < 2){ document.getElementById('chN').focus(); return; }
-    j.disabled = true; CHMSG = ''; chApi({ a:'join', n:n }).then(function(d){ CHD = d; CHMSG = ''; chPaint(); var hx = document.querySelector('.chact'); if (hx) tkBoom(hx); })
+    j.disabled = true; CHMSG = ''; chApi({ a:'join', n:n }).then(function(d){ CHD = d; CHMSG = ''; chPaint(); CHLINKED = 0; chLink(); var hx = document.querySelector('.chact'); if (hx) tkBoom(hx); })
       .catch(function(err){ j.disabled = false; CHMSG = err && err.err === 'taken' ? 'هالاسم مسجّل قبل، اكتب اسمك الكامل' : 'صار خطأ، جرّب مرة ثانية'; chPaint(); var i2 = document.getElementById('chN'); if (i2) i2.value = n; }); return; }
   var k = t.closest('[data-chtick]'); if (k){ var on = k.getAttribute('data-chtick') === '1'; k.disabled = true; CHMSG = '';
     chApi({ a:'tick', on:on }).then(function(d){ CHD = d; chPaint(); setTimeout(function(){ bdgCheck(1); }, 900); if (on){ var dn = document.querySelector('.chdone'); if (dn) tkBoom(dn); if (navigator.vibrate) try { navigator.vibrate(15); } catch(_){} } })

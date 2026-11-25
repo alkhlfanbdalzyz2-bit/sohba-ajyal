@@ -38,7 +38,8 @@ exports.handler = async (event) => {
   if (win(22.5)) due.push('nawm');
   const lastThird = t.fajr - (t.fajr + 24 - t.maghrib) / 3; // بداية الثلث الأخير (بعد نص الليل)
   if (win(lastThird)) due.push('witr');
-  if (!due.length) return { statusCode: 200, body: 'nothing' };
+  const chDue = win(t.fajr + 40/60); // تحدي رجال الفجر: بعد الأذان بـ٤٠ دقيقة للمشاركين اللي ما سجّلوا يومهم
+  if (!due.length && !chDue) return { statusCode: 200, body: 'nothing' };
   const s = store(event), out = {};
   const { blobs } = await s.list({ prefix: 'pref/' });
   const prefs = {}; await Promise.all(blobs.map(async b => { prefs[b.key.slice(5)] = (await s.get(b.key, { type: 'json' })) || {}; }));
@@ -50,5 +51,17 @@ exports.handler = async (event) => {
     out[k] = await broadcast(s, payload, async key => { const p = prefs[key]; return !p || p.v !== 2 ? true : !!p[k]; }); // الافتراضي: كله مفعّل
     try { const lg = (await s.get('rem-log', { type: 'json' })) || []; lg.unshift({ k, at: Date.now(), sent: (out[k] && out[k].sent) || 0 }); await s.setJSON('rem-log', lg.slice(0, 40)); } catch(_){}
   }
+  if (chDue) { try { out.chal = await chalFajr(s, date); } catch(e){ out.chal = 'err'; } }
   return { statusCode: 200, body: JSON.stringify(out) };
 };
+async function chalFajr(s, date){
+  const CH = require('../lib/chal'), cs = CH.cs(), c = await CH.cur(cs), st = CH.state(c);
+  if (st.idx < 0) return 'no-chal';
+  const mark = 'rem-sent/chfajr/' + date; if (await s.get(mark)) return 'already'; await s.set(mark, '1');
+  const P = await CH.people(cs, c), want = new Set(P.filter(p => p.pk && !(p.d && p.d[st.today])).map(p => p.pk));
+  if (!want.size) return 'none';
+  const payload = JSON.stringify({ title: '🌅 يا رجال الفجر', body: 'صليت الفجر؟ لا تنسى تحط صح بالتحدي 💪 وحافظ عليها', url: './#/challenge', tag: 'chfajr-' + date });
+  const r = await broadcast(s, payload, async key => want.has(key));
+  try { const lg = (await s.get('rem-log', { type: 'json' })) || []; lg.unshift({ k: 'chfajr', at: Date.now(), sent: (r && r.sent) || 0 }); await s.setJSON('rem-log', lg.slice(0, 40)); } catch(_){}
+  return r;
+}
