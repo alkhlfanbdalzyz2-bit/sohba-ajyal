@@ -6,6 +6,7 @@ const { send } = require('../lib/push');
 const { broadcast } = require('../lib/broadcast');
 const CH = require('../lib/chal');
 const AP = require('../lib/adminpush');
+const MD = require('../lib/media');
 const H = 'ec8ba1457c7f0046ac9afbcde66cbf4bd48ad3f102e254bcaf38f86010264a0b';
 const URLOK = u => /^\.\/(\?sug=1)?(#\/[\w\/-]*)?$/.test(u);
 const kd = off => new Date(Date.now() + 3 * 3600e3 - off * 864e5).toISOString().slice(0, 10);
@@ -37,7 +38,8 @@ async function data(event){
   const chs = CH.cs(), chc = await CH.cur(chs), chst = CH.state(chc);
   const chal = { c: chc, st: chst, list: (await CH.people(chs, chc)).map(p => ({ h: p.h, n: p.n, cnt: chst.days.filter(k => p.d && p.d[k]).length, at: p.at })).sort((x, y) => y.cnt - x.cnt) };
   const vk = (await vapid(ps)).publicKey, admN = (await ps.list({ prefix: 'adm/' })).blobs.length;
-  return { vk, admN, chal, stats: { today: daily[29][1], week: week.size, all, subs }, daily, hours, pages, clicks, rem, remlog, items, trash, log, sched, cfg };
+  const mx = await MD.idx(MD.ms());
+  return { media: mx, vk, admN, chal, stats: { today: daily[29][1], week: week.size, all, subs }, daily, hours, pages, clicks, rem, remlog, items, trash, log, sched, cfg };
 }
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers: CORS, body: '' };
@@ -45,7 +47,7 @@ exports.handler = async (event) => {
   if (require('crypto').createHash('sha256').update(String(hk)).digest('hex') !== H) return J({ err: 'key' }, 401);
   try { connectLambda(event); } catch(_){}
   if (event.httpMethod === 'GET') return J(await data(event));
-  let b; try { b = JSON.parse(event.body || '{}'); } catch(_){ return J({}, 400); }
+  let b; try { b = JSON.parse((event.isBase64Encoded ? Buffer.from(event.body || '', 'base64').toString() : event.body) || '{}'); } catch(_){ return J({}, 400); }
   const ps = store(event), ss = getStore('suggest'), a = b.a;
   const sid = String(b.id || ''); const idOk = /^[0-9]+-[a-z0-9]+$/.test(sid);
   if (a === 'reply') {
@@ -74,6 +76,7 @@ exports.handler = async (event) => {
     await logPush(ps, { title, body, url, tag, at: Date.now(), sent: r.sent }); return J(r);
   }
   if (a === 'unsched') { if (!/^[0-9]+-[a-z0-9]+$/.test(sid)) return J({}, 400); await ps.delete('sched/' + sid); return J({ ok: true }); }
+  if (/^(m-|alb-)/.test(a)) { const r = await MD.act(a, b); if (r) return J(r[1], r[0]); }
   if (a === 'adm-sub') { const ok = await AP.addAdmin(event, b.sub); if (!ok) return J({}, 400); const n = await AP.notifyAdmins(event, '✅ تم تفعيل الإشعارات', 'بيوصلك إشعار هني كل ما يوصل اقتراح جديد', 'https://sohba-admin.netlify.app/?s=sug', 'adm-test'); return J({ ok: true, sent: n }); }
   if (a === 'adm-unsub') { await AP.delAdmin(event, b.ep); return J({ ok: true }); }
   if (a === 'adm-test') { const n = await AP.notifyAdmins(event, '🔔 تجربة', 'الإشعارات شغالة 👍', 'https://sohba-admin.netlify.app/?s=sug', 'adm-test'); return J({ ok: true, sent: n }); }

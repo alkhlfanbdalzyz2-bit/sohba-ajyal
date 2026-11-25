@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="صحبة أجيال القرآن الكريم">
 <meta property="og:description" content="نادي قرآني · تربوي · ترفيهي — للشباب من 14 إلى 17 سنة · القرين">
-<meta property="og:image" content="share.jpg">
+<meta property="og:image" content="https://ajyalcl.netlify.app/share.jpg"><meta property="og:url" content="https://ajyalcl.netlify.app/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1021,7 +1021,7 @@ html{touch-action:pan-x pan-y}
 .tkbonus b{color:#f7941d}
 .tkcf{position:fixed;z-index:9999;width:8px;height:12px;border-radius:2px;pointer-events:none;animation:tkCf 1.25s cubic-bezier(.2,.7,.3,1) forwards}
 @keyframes tkCf{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
-.tktoast{position:fixed;z-index:9999;top:calc(env(safe-area-inset-top) + 84px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;padding:12px 22px;border-radius:18px;background:linear-gradient(135deg,#f7941d,#e4561b);color:#fff;box-shadow:0 14px 34px rgba(228,86,27,.45);animation:tkTin .45s var(--lux)}
+.tktoast{width:max-content;max-width:calc(100% - 40px);text-align:center;position:fixed;z-index:9999;top:calc(env(safe-area-inset-top) + 84px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;padding:12px 22px;border-radius:18px;background:linear-gradient(135deg,#f7941d,#e4561b);color:#fff;box-shadow:0 14px 34px rgba(228,86,27,.45);animation:tkTin .45s var(--lux)}
 .tktoast b{font-family:var(--disp);font-size:17px}.tktoast small{opacity:.92}
 .tktoast.out{opacity:0;transform:translate(-50%,-14px);transition:all .45s}
 @keyframes tkTin{from{opacity:0;transform:translate(-50%,-18px) scale(.9)}}
@@ -1062,6 +1062,46 @@ html{touch-action:pan-x pan-y}
 .chme button{border:0;background:none;color:var(--or);font:inherit;font-size:13px;font-weight:800;cursor:pointer}
 .chrn{display:flex;gap:8px}.chrn[hidden]{display:none}.chrn input{flex:1;min-width:0;padding:11px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--chip);color:var(--ink);font:inherit;font-size:16px}.chrn .tkab{width:auto;padding:10px 16px}
 .chleave{display:block;margin:16px auto 0;padding:8px 14px;border:0;background:none;color:var(--mut,#8a93a8);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer}.chleave.sure{color:#e5484d}
+.bdhero{padding:18px 16px}
+.bdsum{position:relative;display:flex;align-items:baseline;gap:10px;margin-bottom:10px}.bdsum b{font-family:var(--disp);font-size:40px;font-weight:900;color:#ffd36e;line-height:1}.bdsum b small{font-size:18px;color:rgba(255,255,255,.6)}.bdsum span{font-weight:800;opacity:.85}
+.bdtiers{position:relative;display:flex;gap:6px;margin-top:12px}.bdtiers span{flex:1;text-align:center;padding:6px 4px;border-radius:12px;font-size:12.5px;font-weight:800;background:rgba(255,255,255,.07)}
+.bdtiers .b{color:#f0b48a}.bdtiers .s{color:#dfe6f0}.bdtiers .g{color:#ffd36e}
+.bdg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.bdc{display:flex;flex-direction:column;align-items:center;gap:3px;padding:14px 6px 12px;border-radius:20px;background:var(--card);border:1px solid var(--line2);text-align:center}
+.bdc b{font-size:13.5px;font-weight:800;color:var(--ink);margin-top:6px;line-height:1.3}.bdc small{font-size:11px;color:var(--mut,#8a93a8);line-height:1.4;min-height:30px}
+.bdc.on{border-color:rgba(255,211,110,.35);box-shadow:0 10px 24px rgba(247,148,29,.12)}
+.bdm{position:relative;display:grid;place-items:center;width:66px;height:66px;border-radius:50%;background:var(--chip);border:2px solid var(--line2);color:var(--mut,#8a93a8)}
+.bdm .bdr{position:absolute;inset:5px;border-radius:50%;border:1.5px dashed var(--line2)}
+.bdm .bdi{position:relative;display:grid;place-items:center}.bdm svg{width:28px;height:28px}
+.bdm.on{border:0;color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.25),inset 0 2px 0 rgba(255,255,255,.45),inset 0 -3px 0 rgba(0,0,0,.18)}
+.bdm.on .bdr{border:1.5px solid rgba(255,255,255,.55)}
+.bdm.on.b{background:conic-gradient(from 210deg,#8a4b22,#e7a06a,#b8682f,#f3c49b,#8a4b22)}
+.bdm.on.s{background:conic-gradient(from 210deg,#7d8796,#eef2f7,#a9b3c1,#ffffff,#7d8796)}.bdm.on.s{color:#38424f}
+.bdm.on.g{background:conic-gradient(from 210deg,#b9770e,#ffe08a,#e2a012,#fff2c2,#b9770e)}.bdm.on.g{color:#5a3a00}
+.bdm.on::after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 48%,transparent 60%);background-size:250% 100%;animation:bdShine 3.2s ease-in-out infinite}
+@keyframes bdShine{0%{background-position:150% 0}60%,100%{background-position:-60% 0}}
+.bdm.sm{width:34px;height:34px;border-width:1.5px}.bdm.sm svg{width:16px;height:16px}.bdm.sm .bdr{inset:3px}
+.bdt{font-style:normal;font-size:11px;font-weight:800;padding:2px 9px;border-radius:99px;margin-top:4px}.bdt.b{background:rgba(205,127,50,.16);color:#c9773b}.bdt.s{background:rgba(160,172,190,.2);color:#8a96a8}.bdt.g{background:rgba(242,165,22,.16);color:#d99a10}
+.bdp{display:flex;justify-content:flex-start;width:80%;height:5px;margin-top:6px;border-radius:9px;background:var(--line2);overflow:hidden}.bdp i{display:block;height:100%;background:var(--gO);border-radius:9px}
+.bdn{font-style:normal;font-size:11px;font-weight:800;color:var(--mut,#8a93a8)}
+.bdc:not(.on) .bdm{opacity:.75}
+.bdtile{display:flex;align-items:center;gap:12px;margin-top:12px;padding:14px;border-radius:22px;background:var(--card);border:1px solid var(--line2)}
+.bdmini{display:flex;flex:none}.bdmini .bdm{margin-left:-10px;border:2px solid var(--card)}.bdmini .bdm:last-child{margin-left:0}
+.bdtt{flex:1}.bdtt b{display:block;font-family:var(--disp);font-size:18px;color:var(--ink)}.bdtt small{display:block;font-size:12.5px;color:var(--mut,#8a93a8)}
+.mtgo2{font-size:22px;font-weight:800;color:var(--mut,#8a93a8)}
+.saw{font-family:"Amiri",serif;font-weight:700;font-size:1.05em}
+.shb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:12px 0;padding:12px;border-radius:16px;border:1px solid var(--line2);background:var(--card);color:var(--ink);font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.shb svg{width:18px;height:18px;color:var(--or)}.shb:active{transform:scale(.98)}
+.ii{display:inline-flex;width:1.1em;height:1.1em;vertical-align:-.18em;margin-left:5px;flex:none}.ii svg{width:100%;height:100%}
+.cban .cbi{display:grid;place-items:center;flex:none}.cban .cbi svg{width:22px;height:22px}
+.orn2{display:flex;align-items:center;gap:8px;width:150px;margin:8px auto 0;color:var(--or)}
+.orn2 i{flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,currentColor);transform:scaleX(0);transition:transform 1.1s .3s var(--lux)}
+.orn2 i:last-child{background:linear-gradient(270deg,transparent,currentColor);transform-origin:left}.orn2 i:first-child{transform-origin:right}
+.orn2 svg{flex:none;width:20px;height:25px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(247,148,29,.45));opacity:0;transform:translateY(4px) scale(.8);transition:all .7s .15s var(--lux)}
+.orn2 svg .st{fill:currentColor;stroke:none}
+.sh.in .orn2 i{transform:scaleX(1)}.sh.in .orn2 svg{opacity:1;transform:none}
+.parch{position:absolute;z-index:0;left:-22px;bottom:-60px;height:190%;width:auto;fill:none;stroke:rgba(247,148,29,.32);stroke-width:2.4;pointer-events:none;filter:drop-shadow(0 0 6px rgba(247,148,29,.3))}
+.parch path:nth-child(2){stroke:rgba(255,255,255,.12)}.parch .st{fill:rgba(247,148,29,.32);stroke:none}
 .tknote{margin-top:12px;font-size:13px;color:var(--mut,#8a93a8);text-align:center}
 .tkfoot{display:block;margin-top:8px;font-size:11.5px;color:var(--mut,#8a93a8);text-align:center;opacity:.85}
 .tkedit{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:13px;border-radius:16px;border:1px dashed var(--line2);background:var(--card);font-weight:800;font-size:15px;color:var(--or)}
@@ -1509,7 +1549,8 @@ function isNew(a){ return false; if (!a.new) return false; var d = (Date.now() -
 %%AW%%
 
 /* ===================== أجزاء ===================== */
-function sh(k, t, p){ return '<div class="sh rv">'+(k?'<div class="k">'+k+'</div>':'')+'<h2>'+t+'</h2><span class="dots"></span>'+(p?'<p>'+p+'</p>':'')+'</div>'; }
+var ORN = '<span class="orn2" aria-hidden="true"><i></i><svg viewBox="0 0 24 30"><path d="M3 29V13a9 9 0 0 1 18 0v16"/><path class="st" d="M12 10.5l1.7 3.6 3.6 1.7-3.6 1.7L12 21.1l-1.7-3.6-3.6-1.7 3.6-1.7z"/></svg><i></i></span>';
+function sh(k, t, p){ return '<div class="sh rv">'+(k?'<div class="k">'+k+'</div>':'')+'<h2>'+t+'</h2>'+ORN+(p?'<p>'+p+'</p>':'')+'</div>'; }
 function card(a, href){
   var has = a.items.length, st = isNew(a) ? '<span class="st new">جديد</span>' : has ? '<span class="st ok">'+countOf(a.items,'img')+' صورة</span>' : '<span class="st">قريباً</span>';
   return '<a class="card on '+(a.c||'')+'" href="'+href+'"><span class="shp"></span><span class="ic">'+I[a.icon]+'</span>'+st+'<b>'+a.t+'</b><small>'+a.s+'</small></a>';
@@ -1566,7 +1607,7 @@ function home(){
   '</div></section></div>';
 }
 function ptop(icon, small, title, p, img){
-  return '<section class="ptop"><span class="shp"></span><div class="wrap"><span class="pi">'+(img?'<img src="'+img+'" alt="">':I[icon])+'</span><div><small>'+small+'</small><h1>'+title+'</h1>'+(p?'<p>'+p+'</p>':'')+'</div></div></section>';
+  return '<section class="ptop"><span class="shp"></span><svg class="parch" viewBox="0 0 220 260" aria-hidden="true"><path d="M10 258V110C10 50 55 10 110 10s100 40 100 100v148"/><path d="M30 258V114c0-46 36-82 80-82s80 36 80 82v144"/></svg><div class="wrap"><span class="pi">'+(img?'<img src="'+img+'" alt="">':I[icon])+'</span><div><small>'+small+'</small><h1>'+title+'</h1>'+(p?'<p>'+p+'</p>':'')+'</div></div></section>';
 }
 function emptyBox(t){ return '<div class="empty rv"><span class="shp fade"></span><div class="e1"><img src="'+LOGO+'" alt=""></div><b>قريباً</b><span>'+(t||'بننزلها قريباً بإذن الله')+'</span></div>'; }
 var UP = { h:'#/', t:'الرئيسية' };
@@ -1641,10 +1682,10 @@ function challengesPage(){
     }).join('')+'</div>'+homeBtn()+'</div></section></div>';
 }
 function coursePage(){
-  return '<div class="page">'+ptop('book','الكورس الحالي','كورس على خطاه ﷺ','',COURSE.poster)+'<section class="band" style="padding-top:16px"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section><section class="band"><div class="wrap">'+courseBlock()+homeBtn()+'</div></section></div>';
+  return '<div class="page">'+ptop('book','الكورس الحالي','كورس على خطاه ﷺ','',COURSE.poster)+'<section class="band" style="padding-top:16px"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section><section class="band"><div class="wrap">'+courseBlock()+shareBtn('khutah')+homeBtn()+'</div></section></div>';
 }
 function galleryPage(){
-  return '<div class="page">'+ptop('pic','صحبة أجيال','الذكريات','الدروس والفلوقات والكورسات وصور الصحبة')+'<section class="band" style="padding-top:16px"><div class="wrap">'+library()+homeBtn()+'</div></section></div>';
+  return '<div class="page">'+ptop('pic','صحبة أجيال','الذكريات','الدروس والفلوقات والكورسات وصور الصحبة')+'<section class="band" style="padding-top:16px"><div class="wrap">'+library()+shareBtn('memories')+homeBtn()+'</div></section></div>';
 }
 function videosHub(){
   return '<div class="page">'+ptop('film','صحبة أجيال','الفيديو','الدروس وفلوقات الصحبة')+'<section class="band" style="padding-top:16px"><div class="wrap">'+library(['v'])+homeBtn()+'</div></section></div>';
@@ -2092,12 +2133,21 @@ function meetBlock(){
 }
 /* إعدادات من لوحة التحكم (بدون نشر): شريط تنبيه + تعديل وقت البرنامج */
 var CFG = {}, PROG0 = JSON.parse(JSON.stringify(PROG));
-function cfgBanner(){ var b = CFG.banner; if (!b || !b.t) return ''; return '<div class="cban '+(b.tone === 'warn' ? 'warn' : '')+'"><span>'+(b.tone === 'warn' ? '⚠️' : '📢')+'</span><p>'+e(b.t)+'</p></div>'; }
+function cfgBanner(){ var b = CFG.banner; if (!b || !b.t) return ''; return '<div class="cban '+(b.tone === 'warn' ? 'warn' : '')+'"><span class="cbi">'+(b.tone === 'warn' ? TI.alert : TI.mega)+'</span><p>'+e(b.t)+'</p></div>'; }
 function cfgApply(){ PROG = JSON.parse(JSON.stringify(PROG0)); var p = CFG.prog; if (p){ ['date','arrive','end','place','note'].forEach(function(k){ if (p[k]) PROG[k] = p[k]; }); }
   var bn = document.getElementById('cfgBan'); if (bn) bn.innerHTML = cfgBanner();
   var cd = document.getElementById('cdn'); if (cd){ cd.outerHTML = meetBlock(); var n = document.getElementById('cdn'); if (n) n.classList.add('in'); meetStart(); } }
-function cfgLoad(){ fetch(PUSH.api + 'cfg', { cache:'no-cache' }).then(function(r){ return r.ok ? r.json() : {}; }).then(function(c){ CFG = c || {}; try { store('cfg', CFG); } catch(_){} cfgApply(); }).catch(function(){}); }
-try { CFG = store('cfg') || {}; } catch(_){} (function(){ var p = CFG.prog; if (p){ ['date','arrive','end','place','note'].forEach(function(k){ if (p[k]) PROG[k] = p[k]; }); } })();
+function cfgLoad(){ fetch(PUSH.api + 'cfg', { cache:'no-cache' }).then(function(r){ return r.ok ? r.json() : {}; }).then(function(c){ var was = JSON.stringify((CFG || {}).media || null); CFG = c || {}; try { store('cfg', CFG); } catch(_){} cfgApply(); if (JSON.stringify(CFG.media || null) !== was){ mediaMerge(CFG.media); var h = location.hash; if (h === '' || h === '#/' || /^#\/(album|memories|khutah)/.test(h)){ var y = window.scrollY; routeNow(); window.scrollTo(0, y); } } }).catch(function(){}); }
+/* صور اللوحة: تنضاف للألبومات بدون نشر (ترتيبها حسب وقت التصوير) */
+function mStrip(a){ for (var i = a.length - 1; i >= 0; i--) if (a[i].dyn) a.splice(i, 1); }
+function mAlbArr(id){ if (id.indexOf('khutah-') === 0){ var p = COURSE.parts.filter(function(x){ return 'khutah-'+x.id === id; })[0]; return p && p.items; }
+  var a = PAST.concat(MORE).filter(function(x){ return x.id === id; })[0]; return a && a.items; }
+function mediaMerge(m){ if (!m) return; PAST.concat(MORE).forEach(function(a){ mStrip(a.items); }); COURSE.parts.forEach(function(p){ mStrip(p.items); });
+  for (var i = MORE.length - 1; i >= 0; i--) if (MORE[i].dyn) MORE.splice(i, 1);
+  (m.albums || []).forEach(function(al){ MORE.push({ id:al.id, t:al.t, s:al.s || '', icon:'pic', c:'', cover:'', items:[], dyn:1 }); });
+  Object.keys(m.items || {}).forEach(function(k){ var arr = mAlbArr(k); if (!arr) return; m.items[k].forEach(function(o){ arr.push({ type:'img', src:'m/'+o[0]+'/f', th:'m/'+o[0]+'/t', dyn:1 }); }); });
+  MORE.forEach(function(a){ if (a.dyn && a.items[0]) a.cover = a.items[0].th; }); }
+try { CFG = store('cfg') || {}; } catch(_){} mediaMerge(CFG.media); (function(){ var p = CFG.prog; if (p){ ['date','arrive','end','place','note'].forEach(function(k){ if (p[k]) PROG[k] = p[k]; }); } })();
 function pvKey(id){ if (!id) return 'home'; var a = id.split('/'); if (a[0] === 'khutah' && a[1]) return a[1].replace(/[^a-z-]/g,''); return a[0].replace(/[^a-z-]/g,''); }
 function pvSend(id){ try { var v = store('vid'), k = pvKey(id), d = new Date(Date.now() + 3*3600e3).toISOString().slice(0, 10), m = store('pvd') || {}; if (!v || !k) return;
   if (m.d !== d) m = { d:d }; if (m[k]) return; m[k] = 1; store('pvd', m);
@@ -2293,13 +2343,13 @@ function adkProg(k){ var s = adkState(k), tot = 0, left = 0; ADHKAR[k].items.for
 function adhkarHub(){
   return '<div class="page">'+ptop('beads','حصّن يومك','أذكاري','الأذكار مع عدّاد، وتذكيرات تختارها بنفسك')+
     '<section class="band" style="padding-top:16px"><div class="wrap"><div class="adg">'+ADK.map(function(k){ var a = ADHKAR[k], p = adkProg(k);
-      return '<a class="adc '+a.c+'" href="#/adhkar/'+k+'"><span class="ade">'+TI[a.c]+'</span><b>'+a.t+'</b><small>'+(p >= 100 ? '✅ خلصتها اليوم' : p ? 'خلصت '+ar(p)+'٪ اليوم' : ar(a.items.length)+' ذكر')+'</small><span class="adp"><i style="width:'+p+'%"></i></span></a>'; }).join('')+'</div>'+
+      return '<a class="adc '+a.c+'" href="#/adhkar/'+k+'"><span class="ade">'+TI[a.c]+'</span><b>'+a.t+'</b><small>'+(p >= 100 ? ii('check')+'خلصتها اليوم' : p ? 'خلصت '+ar(p)+'٪ اليوم' : ar(a.items.length)+' ذكر')+'</small><span class="adp"><i style="width:'+p+'%"></i></span></a>'; }).join('')+'</div>'+
     '<a class="tkedit" href="#/me/rem">'+TI.bell+' اضبط تذكيرات الأذكار</a>'+backMe()+'</div></section></div>';
 }
 function remHTML(p){
   var st = pushState(), n = p ? REMS.filter(function(r){ return p[r[0]]; }).length : 0;
   var sub = st !== 'on' ? 'الإشعارات مو مفعّلة' : !p ? '...' : n ? 'مفعّل '+ar(n)+' من '+ar(REMS.length) : 'ولا تذكير مفعّل، اضغط واختار';
-  var head = '<button type="button" class="rmh" data-rmt><span><b>🔔 التذكيرات</b><small id="rmSub">'+sub+'</small></span><i class="rmc">⌄</i></button>';
+  var head = '<button type="button" class="rmh" data-rmt><span><b>'+ii('bell')+'التذكيرات</b><small id="rmSub">'+sub+'</small></span><i class="rmc">⌄</i></button>';
   var body = st !== 'on' ? '<div class="rmn">'+(st === 'install' ? 'ثبّت الموقع على جوالك أول، وبعدها فعّل الإشعارات من زر 🔔 فوق' : st === 'denied' ? 'الإشعارات مقفلة من إعدادات الجوال، فعّلها وارجع هني' : st === 'nosup' ? 'جوالك ما يدعم الإشعارات' : 'فعّل الإشعارات من زر 🔔 فوق أول، وبعدها اختار تذكيراتك هني')+'</div>'
     : !p ? '<div class="rmn">...</div>'
     : REMS.map(function(r){ return '<label class="rmi"><span class="tke">'+(TI[REMIC[r[0]]] || TI.bell)+'</span><span><b>'+r[1].replace(/^\S+\s/, '')+'</b><small>'+r[2]+'</small></span><input type="checkbox" data-rem="'+r[0]+'"'+(p[r[0]] ? ' checked' : '')+'><i class="tg"></i></label>'; }).join('') + '<div class="rms" id="rmSt"></div>';
@@ -2327,7 +2377,7 @@ function adhkarPage(k){ var a = ADHKAR[k]; if (!a) return null; var s = adkState
       '<button type="button" class="adrs" data-adrs="'+k+'">↺</button></div></div>'+
     '<section class="band" style="padding-top:12px"><div class="wrap"><div class="adl" data-adk="'+k+'">'+a.items.map(function(x,i){ var left = s.r[i], done = left <= 0, pc = Math.round((x[1]-Math.max(0,left))/x[1]*100);
       return '<button type="button" class="adi'+(x[3] ? ' q' : '')+(done ? ' done' : '')+'" data-adi="'+i+'">'+
-        '<span class="adh"><span class="adx">'+ar(i+1)+'</span>'+(x[3] ? '<em>📖 من القرآن الكريم</em>' : '')+(x[1] > 1 ? '<span class="adtm">'+(x[1] === 3 ? 'ثلاث مرات' : x[1] === 4 ? 'أربع مرات' : x[1] === 7 ? 'سبع مرات' : x[1] === 10 ? 'عشر مرات' : x[1] === 100 ? 'مئة مرة' : ar(x[1])+' مرة')+'</span>' : '<span class="adtm">مرة واحدة</span>')+'</span>'+
+        '<span class="adh"><span class="adx">'+ar(i+1)+'</span>'+(x[3] ? '<em>'+ii('book')+'من القرآن الكريم</em>' : '')+(x[1] > 1 ? '<span class="adtm">'+(x[1] === 3 ? 'ثلاث مرات' : x[1] === 4 ? 'أربع مرات' : x[1] === 7 ? 'سبع مرات' : x[1] === 10 ? 'عشر مرات' : x[1] === 100 ? 'مئة مرة' : ar(x[1])+' مرة')+'</span>' : '<span class="adtm">مرة واحدة</span>')+'</span>'+
         '<span class="adt">'+x[0]+'</span>'+
         '<span class="adf"><small>'+(x[2] || '')+'</small><span class="adn"><span class="adr">'+ring(pc, 25, 4)+'</span><i>'+(done ? '✓' : ar(left))+'</i></span></span></button>'; }).join('')+'</div>'+
     '<div class="adend" id="adEnd"'+(p >= 100 ? '' : ' hidden')+'><span class="adok">✓</span><b>تقبّل الله منك 🤍</b><small>خلصت '+a.t+' اليوم</small>'+
@@ -2344,7 +2394,7 @@ document.addEventListener('click', function(ev){ var t = ev.target; if (!t.close
   var rs = t.closest('[data-adrs]'); if (rs){ if (!rs.classList.contains('sure')){ rs.classList.add('sure'); rs.textContent = 'نبدأ من جديد؟'; setTimeout(function(){ if (document.body.contains(rs)){ rs.classList.remove('sure'); rs.textContent = '↺'; } }, 3000); return; }
     store('adk-'+rs.getAttribute('data-adrs'), null); route(); return; }
   var b = t.closest('[data-adi]'); if (!b) return; var l = b.closest('[data-adk]'), k = l.getAttribute('data-adk'), i = +b.getAttribute('data-adi'), s = adkState(k), x = ADHKAR[k].items[i];
-  if (s.r[i] <= 0) return; s.r[i]--; store('adk-'+k, s);
+  if (s.r[i] <= 0) return; s.r[i]--; store('adk-'+k, s); if (adkProg(k) >= 100) adkMark(k);
   var n = b.querySelector('.adn i'); n.textContent = s.r[i] <= 0 ? '✓' : ar(s.r[i]);
   var rf2 = b.querySelector('.adr .rf'), c2 = 2*Math.PI*25; if (rf2) rf2.setAttribute('stroke-dashoffset', (c2*(1-(x[1]-s.r[i])/x[1])).toFixed(1));
   b.classList.remove('tap'); void b.offsetWidth; b.classList.add('tap');
@@ -2427,13 +2477,13 @@ function tkHTML(){ var T = tkToday(), L = T.L, n = T.n, N = L.length, pc = N ? M
     '<div class="tkmsg">'+tkMsg(n, N, sk)+'</div></div>'+
     '<div class="tkprog"><span>مهام اليوم</span><b>'+ar(n)+' / '+ar(N)+'</b></div><span class="tkbar dk"><i style="width:'+pc+'%"></i></span>'+
     '<div class="tkls">'+L.map(function(x){ var on = !!T.today[x.id]; return '<button type="button" class="tki'+(on ? ' on' : '')+'" data-tk="'+x.id+'"><span class="tke">'+(TI[x.ic] || TI.check)+'</span><span class="tkt"><b>'+e(x.t)+'</b>'+(x.s ? '<small>'+x.s+'</small>' : '')+'</span><em>'+(on ? '✓ ' : '')+'+١٠ XP</em><i class="tkk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i></button>'; }).join('')+'</div>'+
-    (N && n >= N ? '<div class="tkdone"><b>🎉 أنجزت يومك كامل!</b><small>+٢٠ XP بونص انضاف لك</small></div>' : '<div class="tkbonus"><span>⚡ بونص اليوم الكامل</span><b>+٢٠ XP</b></div>')+'</div>'; }
+    (N && n >= N ? '<div class="tkdone"><b>🎉 أنجزت يومك كامل!</b><small>+٢٠ XP بونص انضاف لك</small></div>' : '<div class="tkbonus"><span>'+ii('bolt')+'بونص اليوم الكامل</span><b>+٢٠ XP</b></div>')+'</div>'; }
 function tkBoom(el){ var r = el.getBoundingClientRect(), C = ['#f7941d','#ffd36e','#3ecf8e','#4dabf7','#ff6b6b','#b197fc'];
   for (var i = 0; i < 28; i++){ var c = document.createElement('i'); c.className = 'tkcf'; c.style.left = (r.left + r.width/2)+'px'; c.style.top = (r.top + 20)+'px'; c.style.background = C[i % C.length];
     c.style.setProperty('--x', (Math.random()*260 - 130)+'px'); c.style.setProperty('--y', (-Math.random()*220 - 60)+'px'); c.style.setProperty('--r', (Math.random()*720 - 360)+'deg'); document.body.appendChild(c); setTimeout(function(x){ return function(){ x.remove(); }; }(c), 1300); } }
 function tkToast(t){ var d = document.createElement('div'); d.className = 'tktoast'; d.innerHTML = t; document.body.appendChild(d); setTimeout(function(){ d.classList.add('out'); }, 2200); setTimeout(function(){ d.remove(); }, 2700); }
 function tasksPage(){ return '<div class="page">'+ptop('target','صفحتي','يومي','مهامك اليومية، كل مهمة تخلصها لها XP')+
-  '<section class="band" style="padding-top:16px"><div class="wrap">'+tkHTML()+'<a class="tkedit" href="#/me/tasks/edit">'+TI.edit+' عدّل مهامي</a>'+
+  '<section class="band" style="padding-top:16px"><div class="wrap">'+tkHTML()+'<a class="tkedit" href="#/me/tasks/edit">'+TI.edit+' عدّل مهامي</a>'+shareBtn('me')+
   '<small class="tkfoot">اليوم يبدأ من الفجر · تقدّمك محفوظ بتلفونك بس</small>'+backMe()+'</div></section></div>'; }
 function tasksEdit(){ var c = tkCfg();
   return '<div class="page">'+ptop('edit','يومي','عدّل مهامي','اختار من المهام المقترحة، أو ضيف مهامك الخاصة')+
@@ -2456,10 +2506,74 @@ document.addEventListener('click', function(ev){ var t = ev.target; if (!t.close
   if (navigator.vibrate && on2) try { navigator.vibrate(12); } catch(_){}
   var box = document.getElementById('tkBox'); if (box){ box.outerHTML = tkHTML(); var T2 = tkToday(), lv1 = tkLevel(tkTotal());
     if (on2 && T2.L.length && T2.n >= T2.L.length){ var dn = document.querySelector('.tkdone'); if (dn) tkBoom(dn); }
+    setTimeout(function(){ bdgCheck(1); }, lv1.L > lv0 ? 2600 : 700);
     if (lv1.L > lv0){ tkToast('<b>⬆️ مستوى '+ar(lv1.L)+'</b><small>وصلت «'+lv1.name+'» ما شاء الله</small>'); var hx = document.querySelector('.tklvl'); if (hx){ hx.classList.add('up'); tkBoom(hx); } }
     if (on2){ var nb = document.querySelector('[data-tk="'+tid+'"]'); if (nb){ nb.classList.add('pop'); var f = document.createElement('span'); f.className = 'tkfl'; f.textContent = '+١٠ XP'; nb.appendChild(f); setTimeout(function(){ f.remove(); nb.classList.remove('pop'); }, 900); } } } });
 I.target = TI.target; I.edit = TI.edit; I.bell = I.bell || TI.bell; I.trophy = I.trophy || TI.trophy;
 function backMe(){ return '<a class="mego adback" href="#/me">‹ رجوع لصفحتي</a>'; }
+
+/* ===================== الأوسمة (محلية بتلفون الشخص) ===================== */
+function adkMark(k){ var L = store('adkLog') || { n:{}, p:{}, d:{} }, pd = adkPeriod(k); if (L.p[k] === pd) return; L.p[k] = pd; L.n[k] = (L.n[k] || 0) + 1;
+  var day = tkDay(); L.d[day] = L.d[day] || {}; L.d[day][k] = 1; Object.keys(L.d).sort(function(a,b){ return tkTs(b) - tkTs(a); }).slice(30).forEach(function(x){ delete L.d[x]; }); store('adkLog', L); setTimeout(function(){ bdgCheck(1); }, 400); }
+TI.medal = SV('<circle cx="12" cy="15" r="6"/><path d="M8.5 10.2 6 3h4l2 4 2-4h4l-2.5 7.2"/><path d="M12 12.5l.9 1.8 2 .3-1.45 1.4.35 2L12 17l-1.8 1 .35-2L9.1 14.6l2-.3z" fill="currentColor" stroke="none"/>');
+TI.sprout = SV('<path d="M12 21v-9"/><path d="M12 12C12 8 9 5 4 5c0 4 3 7 8 7z"/><path d="M12 14c0-3 2.5-6 7-6 0 3.5-2.5 6-7 6z"/>');
+TI.crown = SV('<path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z"/><path d="M5 19h14"/>');
+I.medal = I.medal || TI.medal;
+TI.chat = SV('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/>');
+TI.clock = SV('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>');
+TI.trash = SV('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>');
+TI.lock = SV('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>');
+TI.alert = SV('<path d="M12 3l9.5 17H2.5z"/><path d="M12 10v4M12 17.5v.01"/>');
+TI.mega = SV('<path d="M3 11v3l12 5V6L3 11z"/><path d="M15 9a4 4 0 0 1 0 7M6 15l1.5 5h3l-1.2-4"/>');
+TI.bolt = SV('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>');
+TI.share = SV('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>');
+var SHR = { challenge:['التحدي الأسبوعي','شارك معانا بالتحدي الأسبوعي في صحبة أجيال 💪'], khutah:['كورس على خطاه ﷺ','كورس على خطاه ﷺ · صحبة أجيال'], me:['يومي','مهامي اليومية في صحبة أجيال 🔥'], memories:['الذكريات','ذكريات صحبة أجيال 🤍'] };
+function shareBtn(k){ return '<button type="button" class="shb" data-share="'+k+'">'+TI.share+'<span>شارك مع ربعك</span></button>'; }
+document.addEventListener('click', function(ev){ var b = ev.target.closest && ev.target.closest('[data-share]'); if (!b) return; var k = b.getAttribute('data-share'), x = SHR[k] || ['صحبة أجيال',''], url = 'https://ajyalcl.netlify.app/s/'+k+'/';
+  if (navigator.share) navigator.share({ title:x[0], text:x[1], url:url }).catch(function(){});
+  else if (navigator.clipboard) navigator.clipboard.writeText(x[1]+'\n'+url).then(function(){ tkToast('<b>انسخ الرابط ✅</b><small>الصقه بالواتساب</small>'); }).catch(function(){}); });
+function ii(k){ return '<span class="ii">'+(TI[k] || '')+'</span>'; }
+function tkCount(id){ var d = tkAll(); return Object.keys(d.days).filter(function(k){ return d.days[k][id]; }).length; }
+function tkFullDays(){ var d = tkAll(), L = tkList(); return L.length ? Object.keys(d.days).filter(function(k){ return L.every(function(x){ return d.days[k][x.id]; }); }).length : 0; }
+function tkAny(){ var d = tkAll(); return Object.keys(d.days).some(function(k){ return Object.keys(d.days[k]).length; }) ? 1 : 0; }
+function adkN(k){ var L = store('adkLog'); return L && L.n ? L.n[k] || 0 : 0; }
+function adkAll4(){ var L = store('adkLog'); if (!L || !L.d) return 0; return Object.keys(L.d).filter(function(k){ return ADK.every(function(x){ return L.d[k][x]; }); }).length ? 1 : 0; }
+function chMe(){ if (!CHD) return null; return CHD.list.filter(function(x){ return x.me; })[0] || null; }
+var BDG = [
+  ['first','sprout','أول خطوة','أنجز أول مهمة بيومي','b',function(){ return [tkAny(), 1]; }],
+  ['full','check','يوم كامل','خلّص كل مهامك بيوم واحد','s',function(){ return [Math.min(1, tkFullDays()), 1]; }],
+  ['st3','fire','ثلاثة أيام','ستريك ٣ أيام','b',function(){ return [tkBest(), 3]; }],
+  ['st7','fire','أسبوع ثابت','ستريك ٧ أيام','s',function(){ return [tkBest(), 7]; }],
+  ['st30','fire','شهر الثبات','ستريك ٣٠ يوم','g',function(){ return [tkBest(), 30]; }],
+  ['lv3','star','الاجتهاد','وصل المستوى الثالث','b',function(){ return [tkLevel(tkTotal()).L, 3]; }],
+  ['lv5','crown','الإتقان','وصل المستوى الخامس','g',function(){ return [tkLevel(tkTotal()).L, 5]; }],
+  ['sabah','sun','رفيق الصباح','أذكار الصباح ٧ مرات','s',function(){ return [adkN('sabah'), 7]; }],
+  ['masa','moon','رفيق المساء','أذكار المساء ٧ مرات','s',function(){ return [adkN('masa'), 7]; }],
+  ['nawm','bed','قبل النوم','أذكار النوم ٧ مرات','b',function(){ return [adkN('nawm'), 7]; }],
+  ['dhaker','beads','الذاكر','الأذكار الأربعة كلها بيوم واحد','g',function(){ return [adkAll4(), 1]; }],
+  ['quran','book','صاحب الورد','وردي من القرآن ٧ أيام','s',function(){ return [tkCount('quran'), 7]; }],
+  ['sunna','sunrise','سنة الفجر','سنة الفجر ٧ أيام','b',function(){ return [tkCount('fajr'), 7]; }],
+  ['chj','mosque','رجال الفجر','شارك بتحدي رجال الفجر','b',function(){ return [chMe() ? 1 : 0, 1]; }],
+  ['chw','trophy','بطل التحدي','سجّل كل أيام التحدي','g',function(){ var m = chMe(); return [m ? m.d.length : 0, CHD ? CHD.st.days.length : 7]; }]
+];
+var BTIER = { b:'برونزي', s:'فضي', g:'ذهبي' };
+function bdgGot(){ return store('bdg') || {}; }
+function bdgCheck(notify){ var got = bdgGot(), nw = [];
+  BDG.forEach(function(b){ if (got[b[0]]) return; var p = b[5](); if (p[0] >= p[1]){ got[b[0]] = Date.now(); nw.push(b); } });
+  if (!nw.length) return; store('bdg', got);
+  if (notify){ tkToast(nw.length === 1 ? '<b>🏅 وسام جديد: '+nw[0][2]+'</b><small>'+nw[0][3]+'</small>' : '<b>🏅 حصلت على '+ar(nw.length)+' أوسمة جديدة</b><small>شوفها بصفحة أوسمتي</small>'); tkBoom(document.querySelector('.tktoast') || document.body); }
+  if (/^#\/me\/badges/.test(location.hash)){ var y = window.scrollY; routeNow(); window.scrollTo(0, y); } }
+function bdgMedal(b, on, sm){ return '<span class="bdm '+b[4]+(on ? ' on' : '')+(sm ? ' sm' : '')+'"><i class="bdr"></i><span class="bdi">'+(TI[b[1]] || TI.star)+'</span></span>'; }
+function badgesPage(){ bdgCheck(0); var got = bdgGot(), n = BDG.filter(function(b){ return got[b[0]]; }).length;
+  var L = BDG.slice().sort(function(a, b){ return (got[b[0]] ? 1 : 0) - (got[a[0]] ? 1 : 0); });
+  return '<div class="page">'+ptop('medal','صفحتي','أوسمتي','كل ما تثبت على الخير، تنفتح لك أوسمة جديدة')+
+  '<section class="band" style="padding-top:16px"><div class="wrap"><div class="tkhero bdhero"><div class="bdsum"><b>'+ar(n)+'<small> / '+ar(BDG.length)+'</small></b><span>وسام حصلت عليه</span></div>'+
+  '<span class="tkbar"><i style="width:'+Math.max(3, Math.round(n/BDG.length*100))+'%"></i></span><div class="bdtiers"><span class="b">'+ar(BDG.filter(function(b){ return b[4]==='b' && got[b[0]]; }).length)+' برونزي</span><span class="s">'+ar(BDG.filter(function(b){ return b[4]==='s' && got[b[0]]; }).length)+' فضي</span><span class="g">'+ar(BDG.filter(function(b){ return b[4]==='g' && got[b[0]]; }).length)+' ذهبي</span></div></div>'+
+  '<div class="bdg">'+L.map(function(b){ var on = !!got[b[0]], p = b[5](), pc = Math.min(100, Math.round(Math.min(p[0], p[1])/p[1]*100));
+    return '<div class="bdc'+(on ? ' on' : '')+'">'+bdgMedal(b, on)+'<b>'+b[2]+'</b><small>'+b[3]+'</small>'+(on ? '<em class="bdt '+b[4]+'">'+BTIER[b[4]]+'</em>' : '<span class="bdp"><i style="width:'+pc+'%"></i></span><em class="bdn">'+ar(Math.min(p[0], p[1]))+' / '+ar(p[1])+'</em>')+'</div>'; }).join('')+'</div>'+
+  '<small class="tkfoot">الأوسمة محفوظة بتلفونك · وسام «بطل التحدي» ينحسب من التحدي الأسبوعي</small>'+backMe()+'</div></section></div>'; }
+function bdgTile(){ var got = bdgGot(), E = BDG.filter(function(b){ return got[b[0]]; }).sort(function(a, b){ return got[b[0]] - got[a[0]]; });
+  return '<a class="bdtile" href="#/me/badges"><span class="bdmini">'+(E.length ? E.slice(0, 3).map(function(b){ return bdgMedal(b, 1, 1); }).join('') : bdgMedal(BDG[0], 0, 1))+'</span><span class="bdtt"><b>أوسمتي</b><small>'+(E.length ? 'حصلت على '+ar(E.length)+' من '+ar(BDG.length) : 'ابدأ يومك واحصل على أول وسام')+'</small></span><span class="mtgo2">‹</span></a>'; }
 
 /* ===================== التحدي الأسبوعي (رجال الفجر …) ===================== */
 var CHD = null, CHMSG = '';
@@ -2468,7 +2582,7 @@ function chTok(){ var t = store('chTok'); if (!t || !/^[A-Za-z0-9]{16,64}$/.test
 function chDate(k, wd){ var a = k.split('-').map(Number), t = new Date(Date.UTC(a[0], a[1]-1, a[2])); return (wd ? DAYN[t.getUTCDay()]+' ' : '')+ar(a[2])+' '+MON[a[1]-1]; }
 function chHM(h){ var x = Math.round(h*60), H = Math.floor(x/60) % 12 || 12; return ar(H)+':'+ar(String(x % 60).padStart(2,'0')); }
 function chApi(b){ return fetch(PUSH.api+'chal', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(Object.assign({ t:chTok() }, b)) }).then(function(r){ return r.json().then(function(j){ if (!r.ok) throw j; return j; }); }); }
-function chLoad(){ return fetch(PUSH.api+'chal?t='+chTok(), { cache:'no-store' }).then(function(r){ return r.json(); }).then(function(d){ CHD = d; store('chT', d.c.t); chPaint(); }).catch(function(){ var b = document.getElementById('chBox'); if (b && !CHD) b.innerHTML = '<div class="tknote">ما قدرنا نحمّل التحدي، تأكد من النت وارجع</div>'; }); }
+function chLoad(){ return fetch(PUSH.api+'chal?t='+chTok(), { cache:'no-store' }).then(function(r){ return r.json(); }).then(function(d){ CHD = d; store('chT', d.c.t); chPaint(); bdgCheck(1); }).catch(function(){ var b = document.getElementById('chBox'); if (b && !CHD) b.innerHTML = '<div class="tknote">ما قدرنا نحمّل التحدي، تأكد من النت وارجع</div>'; }); }
 function chPaint(){ var b = document.getElementById('chBox'); if (b && CHD) b.innerHTML = chHTML(CHD); }
 function chRank(L){ var o = L.slice().sort(function(a,b){ return b.d.length - a.d.length || a.n.localeCompare(b.n, 'ar'); }), r = 0, prev = -1;
   o.forEach(function(x, i){ if (x.d.length !== prev){ r = i + 1; prev = x.d.length; } x.r = r; }); return o; }
@@ -2477,7 +2591,7 @@ function chHTML(d){ var c = d.c, st = d.st, L = chRank(d.list), me = L.filter(fu
   var h = '<div class="tkhero chhero"><div class="chtop"><span class="chic">'+TI.trophy+'</span><div><small>التحدي الأسبوعي</small><h2>'+e(c.t)+'</h2></div></div>'+
     '<p class="chv">وَفِي ذَٰلِكَ فَلْيَتَنَافَسِ الْمُتَنَافِسُونَ</p>'+(c.desc ? '<p class="chd">'+e(c.desc)+'</p>' : '')+
     '<div class="tkst2"><div><b>'+ar(L.length)+'</b><small>مشارك</small></div><div><b>'+(st.ended ? '✓' : st.before ? '—' : ar(st.idx+1)+'/'+ar(N))+'</b><small>'+(st.ended ? 'انتهى' : 'اليوم')+'</small></div><div><b>'+(me ? ar(me.d.length)+'/'+ar(N) : '—')+'</b><small>رصيدك</small></div></div>'+
-    '<div class="tkmsg">'+status+' · '+chDate(st.days[0])+' ← '+chDate(st.days[N-1])+'</div></div>';
+    '<div class="tkmsg">'+status+' · '+chDate(st.days[0])+' ← '+chDate(st.days[N-1])+'</div></div>'+shareBtn('challenge');
   if (!me && !st.ended) h += '<div class="chjoin"><b>شارك معانا بالتحدي 💪</b><small>اكتب اسمك عشان يطلع بالترتيب مع الشباب</small><input id="chN" maxlength="30" placeholder="اسمك…" autocomplete="name"><button type="button" class="tkab" data-chjoin>'+TI.plus+' شارك معانا</button>'+(CHMSG ? '<div class="chm">'+CHMSG+'</div>' : '')+'</div>';
   if (me && !st.ended){ var act;
     if (doneToday) act = '<div class="chdone">'+TI.check+'<div><b>سجّلناها لك اليوم، الله يتقبل 🤍</b><small>'+ar(me.d.length)+' من '+ar(N)+' أيام</small></div>'+(st.open ? '<button type="button" class="chundo" data-chtick="0">تراجع</button>' : '')+'</div>';
@@ -2485,7 +2599,7 @@ function chHTML(d){ var c = d.c, st = d.st, L = chRank(d.list), me = L.filter(fu
     else if (st.win === 'day' && st.before) act = '<div class="chwait">'+TI.sunrise+'<div><b>التحدي يبدأ '+chDate(st.days[0], 1)+'</b><small>تقدر تسجّل كل يوم من بدايته لين نهايته</small></div></div>';
     else act = '<div class="chwait">'+TI.sunrise+'<div><b>'+(st.before ? 'التحدي يبدأ '+chDate(st.days[0], 1) : (new Date(Date.now()+3*3600e3).getUTCHours() + new Date(Date.now()+3*3600e3).getUTCMinutes()/60 < st.fajr ? 'التسجيل يفتح وقت أذان الفجر' : 'انتهى وقت تسجيل اليوم'))+'</b><small>'+(st.before || new Date(Date.now()+3*3600e3).getUTCHours() + new Date(Date.now()+3*3600e3).getUTCMinutes()/60 < st.fajr ? 'من الأذان ('+chHM(st.fajr)+') لين الظهر ('+chHM(st.dhuhr)+')' : 'نشوفك باجر الفجر إن شاء الله 🤍')+'</small></div></div>';
     h += '<div class="chact">'+(CHMSG ? '<div class="chm">'+CHMSG+'</div>' : '')+act+
-      '<div class="chme"><span>مشارك باسم <b>'+e(me.n)+'</b></span><button type="button" data-chren>✏️ عدّل اسمي</button></div>'+
+      '<div class="chme"><span>مشارك باسم <b>'+e(me.n)+'</b></span><button type="button" data-chren>'+ii('edit')+'عدّل اسمي</button></div>'+
       '<div class="chrn" hidden><input id="chR" maxlength="30" value="'+e(me.n)+'"><button type="button" class="tkab" data-chrsave>حفظ الاسم</button></div></div>'; }
   h += '<div class="tkprog"><span>الترتيب</span><b>'+ar(L.length)+' مشارك</b></div>';
   h += L.length ? '<div class="cxls">'+L.map(function(x){ return '<div class="cxr'+(x.me ? ' me' : '')+(x.r <= 3 && x.d.length ? ' t'+x.r : '')+'"><span class="cxrk">'+ar(x.r)+'</span><div class="cxn"><b>'+e(x.n)+(x.me ? ' <em>أنت</em>' : '')+'</b><span class="cxdots">'+st.days.map(function(k, i){
@@ -2502,7 +2616,7 @@ document.addEventListener('click', function(ev){ var t = ev.target; if (!t.close
     j.disabled = true; CHMSG = ''; chApi({ a:'join', n:n }).then(function(d){ CHD = d; CHMSG = ''; chPaint(); var hx = document.querySelector('.chact'); if (hx) tkBoom(hx); })
       .catch(function(err){ j.disabled = false; CHMSG = err && err.err === 'taken' ? 'هالاسم مسجّل قبل، اكتب اسمك الكامل' : 'صار خطأ، جرّب مرة ثانية'; chPaint(); var i2 = document.getElementById('chN'); if (i2) i2.value = n; }); return; }
   var k = t.closest('[data-chtick]'); if (k){ var on = k.getAttribute('data-chtick') === '1'; k.disabled = true; CHMSG = '';
-    chApi({ a:'tick', on:on }).then(function(d){ CHD = d; chPaint(); if (on){ var dn = document.querySelector('.chdone'); if (dn) tkBoom(dn); if (navigator.vibrate) try { navigator.vibrate(15); } catch(_){} } })
+    chApi({ a:'tick', on:on }).then(function(d){ CHD = d; chPaint(); setTimeout(function(){ bdgCheck(1); }, 900); if (on){ var dn = document.querySelector('.chdone'); if (dn) tkBoom(dn); if (navigator.vibrate) try { navigator.vibrate(15); } catch(_){} } })
       .catch(function(err){ CHMSG = err && err.err === 'closed' ? 'وقت التسجيل مسكّر الحين' : 'صار خطأ، جرّب مرة ثانية'; chLoad(); }); return; }
   if (t.closest('[data-chren]')){ var rn = document.querySelector('.chrn'); if (rn){ rn.hidden = !rn.hidden; if (!rn.hidden) document.getElementById('chR').focus(); } return; }
   var rs = t.closest('[data-chrsave]'); if (rs){ var nn = (document.getElementById('chR').value || '').trim(); if (nn.length < 2) return; rs.disabled = true; CHMSG = '';
@@ -2515,7 +2629,7 @@ function meName(){ var n = store('me'); return n && PEOPLE.some(function(p){ ret
 function mePerson(){ var n = meName(); return PEOPLE.filter(function(p){ return p.n === n; })[0] || null; }
 function adkSection(){
   return '<div id="adSec" class="msec"><div class="msh">📿 أذكاري</div><div class="adg">'+ADK.map(function(k){ var a = ADHKAR[k], p = adkProg(k);
-      return '<a class="adc '+a.c+'" href="#/adhkar/'+k+'"><span class="ade">'+TI[a.c]+'</span><b>'+a.t+'</b><small>'+(p >= 100 ? '✅ خلصتها اليوم' : p ? 'خلصت '+ar(p)+'٪ اليوم' : ar(a.items.length)+' ذكر')+'</small><span class="adp"><i style="width:'+p+'%"></i></span></a>'; }).join('')+'</div>'+
+      return '<a class="adc '+a.c+'" href="#/adhkar/'+k+'"><span class="ade">'+TI[a.c]+'</span><b>'+a.t+'</b><small>'+(p >= 100 ? ii('check')+'خلصتها اليوم' : p ? 'خلصت '+ar(p)+'٪ اليوم' : ar(a.items.length)+' ذكر')+'</small><span class="adp"><i style="width:'+p+'%"></i></span></a>'; }).join('')+'</div>'+
     '<div class="rmb" id="rmBox">'+remHTML(null)+'</div></div>';
 }
 function mePoints(){
@@ -2534,14 +2648,14 @@ function mePoints(){
       '<a class="mego" href="#/khutah/points">شوف اللوحة كاملة ›</a></div>'); }
   var ch = CHALLENGES.filter(function(c){ return p.c && c.n.indexOf(p.c) >= 0; });
   parts.push('<div class="mec b"><div class="meh"><span class="ki">'+I.flag+'</span><div><b>تحديات الكورس</b><small>'+(ch.length ? 'سويت '+ar(ch.length)+' من '+ar(CHALLENGES.length)+' تحديات' : 'للحين ما سويت تحدي، يلا بادر 💪')+'</small></div></div>'+
-    '<div class="mech">'+CHALLENGES.map(function(c){ var ok = ch.indexOf(c) >= 0; return '<span class="'+(ok ? 'ok' : '')+'">'+(ok ? '✅ ' : '')+c.t+'</span>'; }).join('')+'</div>'+
+    '<div class="mech">'+CHALLENGES.map(function(c){ var ok = ch.indexOf(c) >= 0; return '<span class="'+(ok ? 'ok' : '')+'">'+(ok ? ii('check') : '')+c.t+'</span>'; }).join('')+'</div>'+
     '<a class="mego" href="#/khutah/challenges">شوف التحديات ›</a></div>');
   }
   return '<div class="page">'+ptop('trophy','صفحتي','نقاطي', p ? e(p.n)+' · <button type="button" class="mechg" data-mechg>مو أنا؟ غيّر الاسم</button>' : 'الحلقة، الكورس، والتحديات')+
     '<section class="band" style="padding-top:16px"><div class="wrap">'+parts.join('')+backMe()+'</div></section></div>';
 }
 function mePage(){
-  var p = mePerson(), T = tkToday(), sk = tkStreak(), pr = ADK.filter(function(k){ return adkProg(k) >= 100; }).length, rk = '';
+  bdgCheck(0); var p = mePerson(), T = tkToday(), sk = tkStreak(), pr = ADK.filter(function(k){ return adkProg(k) >= 100; }).length, rk = '';
   if (p && p.h){ HALAQAT.cats.forEach(function(c){ var L = rankRows(c.rows), o = L.filter(function(x){ return x.n === p.h; })[0]; if (o) rk = ordTxt(o)+' بالحلقة'; }); }
   var tile = function(cls, href, ic, t, sub, foot){ return '<a class="kt4 mt '+cls+'" href="'+href+'"><span class="ki">'+ic+'</span><b>'+t+'</b><small>'+sub+'</small>'+(foot || '')+'<span class="mtgo">‹</span></a>'; };
   return '<div class="page">'+ptop('user','صحبة أجيال', p ? e(p.n) : 'صفحتي', p ? '<button type="button" class="mechg" data-mechg>مو أنا؟ غيّر الاسم</button>' : 'مهامك، أذكارك، ونقاطك بمكان واحد')+
@@ -2550,7 +2664,7 @@ function mePage(){
       tile('gr', '#/adhkar', I.beads, 'أذكاري', pr ? 'خلصت '+ar(pr)+' من ٤ اليوم' : 'الصباح والمساء والنوم', '<span class="mtp"><i style="width:'+Math.round(pr/4*100)+'%"></i></span>')+
       tile('b', '#/me/points', TI.trophy, 'نقاطي', p ? (rk || 'الحلقة والكورس والتحديات') : 'اختار اسمك وشوف نقاطك')+
       tile('pu', '#/me/rem', TI.bell, 'التذكيرات', 'الأذكار والصلوات والسنن')+
-    '</div>'+homeBtn()+'</div></section></div>';
+    '</div>'+bdgTile()+homeBtn()+'</div></section></div>';
 }
 function remPage(){ return '<div class="page">'+ptop('bell','صفحتي','التذكيرات','اختار اللي تبيه، ويوصلك إشعار بوقته إن شاء الله')+
   '<section class="band" style="padding-top:16px"><div class="wrap"><div class="rmb rmpage" id="rmBox">'+remHTML(null)+'</div>'+backMe()+'</div></section></div>'; }
@@ -2565,7 +2679,7 @@ function quickBlock(){ var me = meName(), pr = ADK.filter(function(k){ return ad
     '<a class="kt4 qm b" href="#/me"><span class="ki">'+I.user+'</span><b>صفحتي</b><small>'+(me ? e(me) : 'اختار اسمك وشوف نقاطك')+'</small></a></div>'; }
 /* ===================== صندوق الاقتراحات (بدون اسم) ===================== */
 var MAILI = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>';
-function sugCard(){ return '<button type="button" class="pushc sugc rv" data-sug><span class="pb">'+MAILI+'</span><span class="pt"><b>📮 صندوق الاقتراحات</b><span>عندك فكرة أو اقتراح للصحبة؟ أرسله بدون ذكر اسمك 🤍</span></span></button>'; }
+function sugCard(){ return '<button type="button" class="pushc sugc rv" data-sug><span class="pb">'+MAILI+'</span><span class="pt"><b>صندوق الاقتراحات</b><span>عندك فكرة أو اقتراح للصحبة؟ أرسله بدون ذكر اسمك 🤍</span></span></button>'; }
 function esc(x){ return String(x).replace(/[&<>"']/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; }); }
 function sugTok(){ var t = store('sugTok'); if (t) return t;
   try { var a = new Uint8Array(18); crypto.getRandomValues(a); t = Array.prototype.map.call(a, function(x){ return ('0'+x.toString(16)).slice(-2); }).join(''); } catch(_){ t = (Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).slice(0,32); }
@@ -2582,10 +2696,10 @@ function sugFetch(force){ var t = store('sugTok'); if (!t) return Promise.resolv
   return sugEP().then(function(ep){ return fetch(PUSH.api + 'suggest-replies?t=' + encodeURIComponent(t) + (ep ? '&e=' + encodeURIComponent(ep) : ''), { cache:'no-store' }); }).then(function(r){ return r.ok ? r.json() : null; })
     .then(function(d){ if (d){ SUGR = d; store('sugChk', Date.now()); sugSync(); } return SUGR; }).catch(function(){ return SUGR; }); }
 function sugRepliesHTML(){ if (!SUGR || !SUGR.length) return ''; var seen = store('sugSeen') || 0;
-  return '<div class="sgr"><div class="sgh4">💬 اقتراحاتك والردود</div>' + SUGR.map(function(x){
+  return '<div class="sgr"><div class="sgh4">'+ii('chat')+'اقتراحاتك والردود</div>' + SUGR.map(function(x){
     return '<div class="sgi'+(x.rt && x.rt > seen ? ' nw' : '')+'" data-sid="'+esc(x.id || '')+'"><div class="bq">'+esc(x.m)+'</div>'+
-      (x.r ? '<div class="bb"><b>إدارة الصحبة</b>'+esc(x.r)+'</div>' : '<div class="bw">⏳ بانتظار الرد</div>')+
-      (x.id ? '<div class="sga">'+(x.r ? '' : '<button type="button" data-sged>✏️ تعديل</button>')+'<button type="button" data-sgdel>🗑️ حذف</button></div>' : '')+'</div>'; }).join('') + '</div>'; }
+      (x.r ? '<div class="bb"><b>إدارة الصحبة</b>'+esc(x.r)+'</div>' : '<div class="bw">'+ii('clock')+'بانتظار الرد</div>')+
+      (x.id ? '<div class="sga">'+(x.r ? '' : '<button type="button" data-sged>'+ii('edit')+'تعديل</button>')+'<button type="button" data-sgdel>'+ii('trash')+'حذف</button></div>' : '')+'</div>'; }).join('') + '</div>'; }
 function sugAct(o){ o.t = store('sugTok'); return fetch(PUSH.api + 'suggest-replies', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(o) }).then(function(r){ if (!r.ok) throw r.status; return r.json(); }); }
 function sugReload(){ var w = document.getElementById('nsh'); return sugFetch(true).then(function(){ if (w && document.body.contains(w)) sugShowReplies(w); }); }
 document.addEventListener('click', function(ev){
@@ -2616,7 +2730,7 @@ function sugOpen(){
   w.innerHTML = '<div class="nsc" role="dialog" aria-label="صندوق الاقتراحات"><span class="ngr"></span>'+
     '<div class="pushc"><span class="pb">'+MAILI+'</span><span class="pt"><b>صندوق الاقتراحات</b><span>رسالتك توصل بدون اسمك ولا رقمك 🤍</span></span></div>'+
     '<textarea class="sgt" id="sgT" maxlength="1500" placeholder="اكتب اقتراحك أو فكرتك هني…"></textarea><input class="sgh" id="sgH" tabindex="-1" autocomplete="off" aria-hidden="true">'+
-    '<div class="sgm"><span>بدون اسم 🔒</span><span id="sgN">٠ / ١٥٠٠</span></div>'+
+    '<div class="sgm"><span>'+ii('lock')+'بدون اسم</span><span id="sgN">٠ / ١٥٠٠</span></div>'+
     '<button type="button" class="sgs" data-sugsend disabled>أرسل</button><div id="sgRep"></div><button type="button" class="nx" data-nshx>إغلاق</button></div>';
   document.body.appendChild(w); requestAnimationFrame(function(){ w.classList.add('on'); });
   sugShowReplies(w); sugFetch(true).then(function(){ if (document.body.contains(w)) sugShowReplies(w); });
@@ -2656,6 +2770,10 @@ window.addEventListener('load', function(){ setTimeout(pushRefresh, 3000); });
 
 /* ===================== التنقل ===================== */
 var app = document.getElementById('app'), curRoute = null;
+/* «ﷺ» بخط أميري (خط العناوين يرسمها مربّعة) — نغلّف النصوص فقط، بدون ما نلمس الخصائص */
+function sawFix(root){ try { var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode:function(n){ return n.nodeValue.indexOf('ﷺ') >= 0 && !(n.parentNode && n.parentNode.classList && n.parentNode.classList.contains('saw')) ? 1 : 3; } }), L = [], n;
+  while ((n = w.nextNode())) L.push(n);
+  L.forEach(function(t){ var parts = t.nodeValue.split('ﷺ'), f = document.createDocumentFragment(); parts.forEach(function(x, i){ if (i){ var sp = document.createElement('span'); sp.className = 'saw'; sp.textContent = 'ﷺ'; f.appendChild(sp); } if (x) f.appendChild(document.createTextNode(x)); }); t.parentNode.replaceChild(f, t); }); } catch(_){} }
 function routeNow(){
   var id = (location.hash||'').replace(/^#\/?/,''), html = null, title = 'صحبة أجيال القرآن الكريم', tab = '';
   UP = (id.indexOf('album/') === 0 || id.indexOf('videos/') === 0) ? { h:'#/memories', t:'الذكريات' } : (id.indexOf('khutah/') === 0 ? { h:'#/khutah', t:'الكورس' } : (id === 'awards' ? { h:'#/', t:'الرئيسية' } : { h:'#/', t:'الرئيسية' }));
@@ -2673,6 +2791,7 @@ function routeNow(){
   else if (id === 'me/tasks'){ html = tasksPage(); title = 'يومي'; tab = 'me'; }
   else if (id === 'me/tasks/edit'){ html = tasksEdit(); title = 'عدّل مهامي'; tab = 'me'; }
   else if (id === 'me/points'){ html = mePoints(); title = 'نقاطي'; tab = 'me'; }
+  else if (id === 'me/badges'){ html = badgesPage(); title = 'أوسمتي'; tab = 'me'; }
   else if (id === 'challenge'){ html = chalPage(); title = 'التحدي الأسبوعي'; }
   else if (id === 'me/rem'){ html = remPage(); title = 'التذكيرات'; tab = 'me'; }
   else if (id.indexOf('adhkar/') === 0){ html = adhkarPage(id.slice(7)); tab = 'me'; if (html) title = ADHKAR[id.slice(7)].t; }
@@ -2684,7 +2803,7 @@ function routeNow(){
   if (!html){ id = ''; html = home(); if (location.hash && location.hash !== '#/' && history.replaceState) history.replaceState(null, '', location.pathname + location.search); }
   if (!id) UP = { h:'#/', t:'الرئيسية' };
   var bk = document.querySelector('.back'); bk.setAttribute('href', UP.h); bk.querySelector('.bk-t').textContent = UP.t;
-  curRoute = id; app.innerHTML = html; document.title = id ? title+' | صحبة أجيال' : title;
+  curRoute = id; app.innerHTML = html; document.title = id ? title+' | صحبة أجيال' : title; sawFix(app);
   document.body.classList.toggle('inner', id !== '');
   Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(a){ a.classList.toggle('on', a.getAttribute('data-t') === tab && (tab !== '' || id === '')); });
   toTop(); requestAnimationFrame(toTop); setTimeout(toTop, 120); setTimeout(toTop, 400);
