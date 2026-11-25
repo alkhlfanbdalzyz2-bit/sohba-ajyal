@@ -2500,7 +2500,7 @@ function tkBoom(el){ var r = el.getBoundingClientRect(), C = ['#f7941d','#ffd36e
 function tkToast(t){ var d = document.createElement('div'); d.className = 'tktoast'; d.innerHTML = t; document.body.appendChild(d); setTimeout(function(){ d.classList.add('out'); }, 2200); setTimeout(function(){ d.remove(); }, 2700); }
 function tasksPage(){ return '<div class="page">'+ptop('target','صفحتي','يومي','مهامك اليومية، كل مهمة تخلصها لها XP')+
   '<section class="band" style="padding-top:16px"><div class="wrap">'+tkHTML()+'<a class="tkedit" href="#/me/tasks/edit">'+TI.edit+' عدّل مهامي</a>'+
-  '<small class="tkfoot">اليوم يبدأ من الفجر · تقدّمك محفوظ بجوالك بس</small>'+backMe()+'</div></section></div>'; }
+  '<small class="tkfoot">اليوم يبدأ من الفجر · تقدّمك محفوظ بتلفونك بس</small>'+backMe()+'</div></section></div>'; }
 function tasksEdit(){ var c = tkCfg();
   return '<div class="page">'+ptop('edit','يومي','عدّل مهامي','اختار من المهام المقترحة، أو ضيف مهامك الخاصة')+
   '<section class="band" style="padding-top:16px"><div class="wrap"><div class="msh">المهام المقترحة</div><div class="tkc tked">'+TLIB.map(function(x){ return '<label class="rmi"><span class="tke">'+TI[x[1]]+'</span><span><b>'+x[2]+'</b>'+(x[3] ? '<small>'+x[3]+'</small>' : '')+'</span><input type="checkbox" data-tsel="'+x[0]+'"'+(c.sel.indexOf(x[0]) >= 0 ? ' checked' : '')+'><i class="tg"></i></label>'; }).join('')+'</div>'+
