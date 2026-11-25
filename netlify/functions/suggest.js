@@ -15,5 +15,6 @@ exports.handler = async (event) => {
   const ep = String(b.ep || ''); if (th && /^https:\/\//.test(ep) && ep.length < 1000) rec.pk = require('../lib/store').keyOf(ep);
   await s.setJSON('m/' + t + '-' + Math.random().toString(36).slice(2, 8), rec);
   console.log('SUG ' + JSON.stringify({ m, t }));
+  try { await require('../lib/adminpush').notifyAdmins(event, '📮 اقتراح جديد', m.length > 110 ? m.slice(0, 110) + '…' : m, 'https://sohba-admin.netlify.app/?s=sug', 'sug-' + t); } catch(_){}
   return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: '{"ok":true}' };
 };
