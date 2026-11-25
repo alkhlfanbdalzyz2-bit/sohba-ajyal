@@ -35,9 +35,10 @@ details summary{cursor:pointer;color:var(--m);margin-top:14px}
 .empty{text-align:center;color:var(--m);padding:20px}
 .ld{text-align:center;color:var(--m);padding:40px}
 body.lo header nav,body.lo #rf,body.lo #lo{display:none}.lg-in{max-width:340px;margin:12vh auto 0;text-align:center}.lg-in img{width:88px;height:88px;border-radius:50%;background:#fff;padding:8px}.lg-in h2{margin:12px 0 0;font-size:20px}
-.out{border:0;background:none;color:var(--m);font:inherit;font-size:12px;cursor:pointer;text-decoration:underline}</style></head><body>
+.out{border:0;background:none;color:var(--m);font:inherit;font-size:12px;cursor:pointer;text-decoration:underline}.tpls{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}.chip{border:1px solid var(--ln);background:var(--c2);color:var(--t);border-radius:99px;padding:6px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+</style></head><body>
 <header><div class="hd"><div><h1>🎛️ لوحة التحكم</h1><small>صحبة أجيال · كل شي هني بدون نشر · <button class="out" id="lo">خروج</button></small></div><button class="rf" id="rf">↻ تحديث</button></div>
-<nav id="nav"><button data-s="home" class="on">📊 الرئيسية</button><button data-s="sug">📮 الاقتراحات</button><button data-s="push">🔔 الإشعارات</button><button data-s="stats">📈 الإحصائيات</button><button data-s="site">⚙️ الموقع</button></nav></header>
+<nav id="nav"><button data-s="home" class="on">📊 الرئيسية</button><button data-s="sug">📮 الاقتراحات</button><button data-s="push">🔔 الإشعارات</button><button data-s="stats">📈 الإحصائيات</button><button data-s="chal">🏆 التحدي</button><button data-s="site">⚙️ الموقع</button></nav></header>
 <main id="m"><div class="ld">...</div></main><div class="toast" id="toast"></div>
 <script>
 var D=null,SEC='home';try{SEC=sessionStorage.getItem('sec')||'home'}catch(_){}
@@ -87,6 +88,22 @@ function vStats(){var hrs={};D.hours.forEach(function(n,h){if(n)hrs[(h%12||12)+(
  '<div class="card"><h3>أكثر الأوقات دخولاً (آخر ٣٠ يوم)</h3>'+(Math.max.apply(null,D.hours)?'<div class="mut" style="margin-bottom:6px">أحسن وقت ترسل فيه: <b style="color:#f7b267">'+ar(best%12||12)+(best<12?' الصبح':(best<17?' الظهر/العصر':' بالليل'))+'</b></div><div class="chart" style="height:90px">'+D.hours.map(function(n){var mx=Math.max.apply(null,D.hours)||1;return'<div class="'+(n?'':'z')+'" style="height:'+Math.max(2,n/mx*100)+'%"></div>'}).join('')+'</div><div class="axis"><span>١٢ ص</span><span>٦ ص</span><span>١٢ م</span><span>٦ م</span><span>١١ م</span></div>':'<div class="empty">للحين ما فيه بيانات</div>')+'</div>'+
  '<div class="card"><h3>أكثر الصفحات زيارة (آخر ٧ أيام)</h3>'+bars(D.pages,PG)+'</div>'+
  '<div class="card"><h3>التذكيرات المفعّلة</h3>'+bars(D.rem,REM)+'</div>'}
+var TPLC=[['رجال الفجر','صليت الفجر بوقتها','صلِّ الفجر بوقتها كل يوم، وسجّلها هني من وقت الأذان لين الظهر','fajr'],['وردي اليومي','قرأت وردي اليوم','اقرأ وردك من القرآن كل يوم وسجّله هني','day'],['صلاة الضحى','صليت الضحى اليوم','صلِّ الضحى كل يوم وسجّلها هني','day'],['السنن الرواتب','صليت السنن الرواتب','حافظ على السنن الرواتب كل يوم وسجّلها هني','day'],['قيام الليل','صليت من الليل','صلِّ ولو ركعتين من الليل وسجّلها هني','day']];
+function chd(k){var a=k.split('-');return ar(+a[2])+'/'+ar(+a[1])}
+function tmr(){var t=new Date(Date.now()+3*3600e3+864e5);return t.toISOString().slice(0,10)}
+function vChal(){var C=D.chal||{c:{},st:{days:[]},list:[]},c=C.c,st=C.st,N=st.days.length,stt=st.before?'⏳ يبدأ '+chd(st.days[0]):st.ended?'✅ انتهى':'🟢 شغّال · اليوم '+ar(st.idx+1)+' من '+ar(N);
+ return '<div class="card"><h3>🏆 '+esc(c.t||'')+'</h3><div class="mut">'+stt+' · من '+chd(st.days[0]||'0-0-0')+' لين '+chd(st.days[N-1]||'0-0-0')+' · '+(c.win==='day'?'التسجيل طول اليوم':'التسجيل من الفجر لين الظهر')+'</div>'+
+ '<div class="kp" style="margin-top:10px"><div><b>'+ar(C.list.length)+'</b><small>مشارك</small></div><div><b>'+ar(C.list.filter(function(x){return x.cnt>0}).length)+'</b><small>سجّلوا يوم على الأقل</small></div><div><b>'+ar(C.list.reduce(function(a,x){return a+x.cnt},0))+'</b><small>مجموع الأيام</small></div></div>'+
+ '<div class="row" style="margin-top:10px"><a class="btn gh sp" style="text-align:center;text-decoration:none" href="https://ajyalcl.netlify.app/#/challenge" target="_blank">فتح صفحة التحدي ↗</a></div></div>'+
+ '<div class="card"><h3>👥 المشاركين</h3>'+(C.list.length?C.list.map(function(x,i){return'<div class="lg" data-ch="'+x.h+'"><div class="row"><b class="sp">'+ar(i+1)+'. '+esc(x.n)+'</b><span class="mut">'+ar(x.cnt)+' / '+ar(N)+'</span><button class="btn dl" data-chk="'+x.h+'" style="padding:6px 10px">حذف</button></div></div>'}).join(''):'<div class="empty">للحين ما أحد شارك</div>')+'</div>'+
+ '<div class="card"><h3>✏️ عدّل التحدي الحالي</h3><div class="mut">يغيّر الاسم والوصف بدون ما يتصفّر الترتيب</div>'+
+ '<label>اسم التحدي</label><input id="ce_t" maxlength="40" value="'+esc(c.t||'')+'"><label>نص الزر</label><input id="ce_a" maxlength="40" value="'+esc(c.act||'')+'"><label>الوصف</label><input id="ce_d" maxlength="160" value="'+esc(c.desc||'')+'">'+
+ '<button class="btn big" id="cesave">حفظ التعديل</button></div>'+
+ '<div class="card"><h3>🆕 تحدي جديد</h3><div class="mut">اختار قالب أو اكتب من عندك. التحدي الجديد يبدأ بترتيب جديد.</div><div class="tpls">'+TPLC.map(function(x,i){return'<button class="chip" data-tplc="'+i+'">'+x[0]+'</button>'}).join('')+'</div>'+
+ '<label>اسم التحدي</label><input id="cn_t" maxlength="40" placeholder="مثال: رجال الفجر"><label>نص الزر اللي يضغطه الشباب</label><input id="cn_a" maxlength="40" placeholder="مثال: صليت الفجر بوقتها"><label>الوصف</label><input id="cn_d" maxlength="160" placeholder="جملة قصيرة تشرح التحدي">'+
+ '<div class="row"><div class="sp"><label>يبدأ يوم</label><input type="date" id="cn_f" value="'+tmr()+'"></div><div style="width:90px"><label>كم يوم</label><input type="number" id="cn_n" min="1" max="30" value="7"></div></div>'+
+ '<label>وقت التسجيل</label><div class="seg" id="cn_w"><button data-w="fajr" class="on">🌅 من الفجر لين الظهر</button><button data-w="day">☀️ طول اليوم</button></div>'+
+ '<button class="btn big" id="cnsave">ابدأ التحدي الجديد</button></div>'}
 function vSite(){var b=D.cfg.banner||{},p=D.cfg.prog||{};
  return '<div class="card"><h3>📢 شريط تنبيه فوق الموقع</h3><div class="mut">يطلع للكل فوق الصفحة الرئيسية، مثل: «البرنامج اليوم تأجل»</div><label>نص التنبيه</label><input id="bt" maxlength="140" value="'+esc(b.t||'')+'" placeholder="اكتب التنبيه…">'+
  '<div class="seg" id="btone"><button data-t="info" class="'+(b.tone!=='warn'?'on':'')+'">💙 عادي</button><button data-t="warn" class="'+(b.tone==='warn'?'on':'')+'">⚠️ مهم</button></div>'+
@@ -98,7 +115,7 @@ function vSite(){var b=D.cfg.banner||{},p=D.cfg.prog||{};
 function render(){var n=$('#nav').querySelectorAll('button'),nu=D.items.filter(function(i){return!i.r}).length;
  n[1].innerHTML='📮 الاقتراحات'+(nu?'<i>'+ar(nu)+'</i>':'');
  Array.prototype.forEach.call(n,function(b){b.classList.toggle('on',b.dataset.s===SEC)});
- $('#m').innerHTML=({home:vHome,sug:vSug,push:vPush,stats:vStats,site:vSite})[SEC]();
+ $('#m').innerHTML=({home:vHome,sug:vSug,push:vPush,stats:vStats,chal:vChal,site:vSite})[SEC]();
  if(SEC==='push'){['pt','pb'].forEach(function(id){$('#'+id).addEventListener('input',pv)});pv()}}
 function pv(){$('#pvt').textContent=$('#pt').value||'العنوان';$('#pvb').textContent=$('#pb').value||'النص'}
 function go(s){SEC=s;try{sessionStorage.setItem('sec',s)}catch(_){}render();scrollTo(0,0)}
@@ -122,6 +139,14 @@ document.addEventListener('click',function(e){var t=e.target;
   if(!bb.classList.contains('sure')){bb.classList.add('sure');bb.textContent=PM==='now'?'متأكد؟ بيوصل للكل · اضغط مرة ثانية':'متأكد؟ اضغط مرة ثانية';setTimeout(function(){if(document.body.contains(bb)){bb.classList.remove('sure');bb.textContent=PM==='now'?'🔔 أرسل للكل':'⏰ جدول الإشعار'}},5000);return}
   bb.disabled=true;$('#pst').textContent='...';
   api(o2).then(function(d){toast(PM==='now'?'✅ انرسل لـ '+ar(d.sent)+' جهاز':'⏰ انجدول ✅');return load()}).catch(function(err){bb.disabled=false;bb.classList.remove('sure');$('#pst').textContent=err&&err.err==='time'?'الوقت لازم يكون بالمستقبل':'صار خطأ، جرّب مرة ثانية'});return}
+ var tc=t.closest('[data-tplc]');if(tc){var x=TPLC[+tc.dataset.tplc];$('#cn_t').value=x[0];$('#cn_a').value=x[1];$('#cn_d').value=x[2];Array.prototype.forEach.call($('#cn_w').children,function(c){c.classList.toggle('on',c.dataset.w===x[3])});return}
+ var cw=t.closest('#cn_w button');if(cw){Array.prototype.forEach.call(cw.parentNode.children,function(c){c.classList.toggle('on',c===cw)});return}
+ var ck=t.closest('[data-chk]');if(ck){if(!ck.classList.contains('sure')){ck.classList.add('sure');ck.textContent='متأكد؟';setTimeout(function(){ck.classList.remove('sure');ck.textContent='حذف'},3500);return}
+  ck.disabled=true;api({a:'chal-kick',h:ck.dataset.chk}).then(function(){toast('انحذف ✅');return load()}).catch(function(){ck.disabled=false;toast('صار خطأ')});return}
+ if(t.closest('#cesave')){var c0=D.chal.c;api({a:'chal-set',keep:1,t:$('#ce_t').value,act:$('#ce_a').value,desc:$('#ce_d').value,from:c0.from,days:c0.days,win:c0.win}).then(function(){toast('انحفظ ✅');return load()}).catch(function(){toast('صار خطأ، تأكد من الاسم')});return}
+ if(t.closest('#cnsave')){var nb=$('#cnsave');if(!$('#cn_t').value.trim()){toast('اكتب اسم التحدي');return}if(!$('#cn_f').value){toast('اختار يوم البداية');return}
+  if(!nb.classList.contains('sure')){nb.classList.add('sure');nb.textContent='متأكد؟ الترتيب الحالي بيروح · اضغط مرة ثانية';setTimeout(function(){if(document.body.contains(nb)){nb.classList.remove('sure');nb.textContent='ابدأ التحدي الجديد'}},4000);return}
+  nb.disabled=true;api({a:'chal-set',t:$('#cn_t').value,act:$('#cn_a').value,desc:$('#cn_d').value,from:$('#cn_f').value,days:+$('#cn_n').value||7,win:($('#cn_w .on')||{dataset:{}}).dataset.w}).then(function(){toast('🏆 بدأ التحدي الجديد');return load()}).catch(function(){nb.disabled=false;toast('صار خطأ')});return}
  if(t.closest('#bsave')||t.closest('#bclr')){var clr=!!t.closest('#bclr'),tone=($('#btone .on')||{}).dataset;
   api({a:'cfg',banner:clr?'':$('#bt').value,tone:tone&&tone.t}).then(function(){toast(clr?'انشال التنبيه':'انحفظ ✅ يطلع خلال دقيقة');return load()}).catch(function(){toast('صار خطأ')});return}
  if(t.closest('#psave')||t.closest('#pclr')){var c2=!!t.closest('#pclr');
