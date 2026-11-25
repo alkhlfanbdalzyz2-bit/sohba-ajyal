@@ -1,7 +1,7 @@
 // التحدي الأسبوعي (مثل رجال الفجر): إعداد التحدي + المشاركين (بدون أي بيانات غير الاسم اللي كتبه الشخص)
 const { getStore } = require('@netlify/blobs');
 const { times, kwNow } = require('./prayer');
-const DEF = { id: 'fajr-1', t: 'رجال الفجر', from: '2026-11-26', days: 7, act: 'صليت الفجر بوقتها', win: 'fajr', desc: 'صلِّ الفجر بوقتها كل يوم، وسجّلها هني من وقت الأذان لين الظهر' };
+const DEF = { id: 'fajr-1', t: 'رجال الفجر', from: '2026-11-26', days: 7, act: 'صليت الفجر بوقتها', win: 'fajr', desc: '' };
 const cs = () => getStore('chal');
 async function cur(s){ return (await s.get('cur', { type: 'json' })) || DEF; }
 const dk = (y, m, d) => y + '-' + m + '-' + d;
