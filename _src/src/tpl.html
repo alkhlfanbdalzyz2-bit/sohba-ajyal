@@ -1094,12 +1094,9 @@ html{touch-action:pan-x pan-y}
 .shb svg{width:18px;height:18px;color:var(--or)}.shb:active{transform:scale(.98)}
 .ii{display:inline-flex;width:1.1em;height:1.1em;vertical-align:-.18em;margin-left:5px;flex:none}.ii svg{width:100%;height:100%}
 .cban .cbi{display:grid;place-items:center;flex:none}.cban .cbi svg{width:22px;height:22px}
-.orn2{display:flex;align-items:center;gap:8px;width:150px;margin:8px auto 0;color:var(--or)}
-.orn2 i{flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,currentColor);transform:scaleX(0);transition:transform 1.1s .3s var(--lux)}
-.orn2 i:last-child{background:linear-gradient(270deg,transparent,currentColor);transform-origin:left}.orn2 i:first-child{transform-origin:right}
-.orn2 svg{flex:none;width:20px;height:25px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(247,148,29,.45));opacity:0;transform:translateY(4px) scale(.8);transition:all .7s .15s var(--lux)}
-.orn2 svg .st{fill:currentColor;stroke:none}
-.sh.in .orn2 i{transform:scaleX(1)}.sh.in .orn2 svg{opacity:1;transform:none}
+.orn3{display:flex;justify-content:center;margin:10px auto 0}.orn3 svg{overflow:visible;filter:drop-shadow(0 0 5px rgba(247,148,29,.35))}
+.orn3 circle{transform-box:fill-box;transform-origin:center;transform:scale(0);transition:transform .55s var(--lux);transition-delay:calc(.25s + var(--d))}
+.sh.in .orn3 circle{transform:scale(1)}
 .parch{position:absolute;z-index:0;left:-22px;bottom:-60px;height:190%;width:auto;fill:none;stroke:rgba(247,148,29,.32);stroke-width:2.4;pointer-events:none;filter:drop-shadow(0 0 6px rgba(247,148,29,.3))}
 .parch path:nth-child(2){stroke:rgba(255,255,255,.12)}.parch .st{fill:rgba(247,148,29,.32);stroke:none}
 .tknote{margin-top:12px;font-size:13px;color:var(--mut,#8a93a8);text-align:center}
@@ -1549,7 +1546,7 @@ function isNew(a){ return false; if (!a.new) return false; var d = (Date.now() -
 %%AW%%
 
 /* ===================== أجزاء ===================== */
-var ORN = '<span class="orn2" aria-hidden="true"><i></i><svg viewBox="0 0 24 30"><path d="M3 29V13a9 9 0 0 1 18 0v16"/><path class="st" d="M12 10.5l1.7 3.6 3.6 1.7-3.6 1.7L12 21.1l-1.7-3.6-3.6-1.7 3.6-1.7z"/></svg><i></i></span>';
+var ORN = '<span class="orn3" aria-hidden="true"><svg viewBox="0 0 88.0 14" width="88.0" height="14"><circle cx="2.5" cy="7" r="2.5" fill="#fbb040" style="--d:0.24s"/><circle cx="13.5" cy="7" r="3.5" fill="#f7941d" style="--d:0.16s"/><circle cx="27.0" cy="7" r="5" fill="#f7941d" style="--d:0.08s"/><circle cx="44.0" cy="7" r="7" fill="#7b4fb3" style="--d:0.00s"/><circle cx="61.0" cy="7" r="5" fill="#2f8fd8" style="--d:0.08s"/><circle cx="74.5" cy="7" r="3.5" fill="#1f5fbf" style="--d:0.16s"/><circle cx="85.5" cy="7" r="2.5" fill="#1f5fbf" style="--d:0.24s"/></svg></span>';
 function sh(k, t, p){ return '<div class="sh rv">'+(k?'<div class="k">'+k+'</div>':'')+'<h2>'+t+'</h2>'+ORN+(p?'<p>'+p+'</p>':'')+'</div>'; }
 function card(a, href){
   var has = a.items.length, st = isNew(a) ? '<span class="st new">جديد</span>' : has ? '<span class="st ok">'+countOf(a.items,'img')+' صورة</span>' : '<span class="st">قريباً</span>';
