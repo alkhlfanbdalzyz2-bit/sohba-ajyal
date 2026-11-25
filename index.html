@@ -1081,6 +1081,9 @@ html{touch-action:pan-x pan-y}
 .cxdots i{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:900;color:#fff;background:var(--chip);border:1px solid var(--line2)}
 .cxdots i.ok{background:#3ecf8e;border-color:#3ecf8e}.cxdots i.no{background:rgba(229,72,77,.12);border-color:rgba(229,72,77,.25)}.cxdots i.td{border-color:#ffd36e;animation:tkPulse 1.8s ease-in-out infinite}
 .cxc{flex:none;font-family:var(--disp);font-size:20px;font-weight:900;color:#f7941d}.cxc small{font-size:12px;color:var(--mut,#8a93a8)}
+.chme{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--mut,#8a93a8)}.chme b{color:var(--ink)}
+.chme button{border:0;background:none;color:var(--or);font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.chrn{display:flex;gap:8px}.chrn[hidden]{display:none}.chrn input{flex:1;min-width:0;padding:11px 12px;border-radius:12px;border:1px solid var(--line2);background:var(--chip);color:var(--ink);font:inherit;font-size:16px}.chrn .tkab{width:auto;padding:10px 16px}
 .chleave{display:block;margin:16px auto 0;padding:8px 14px;border:0;background:none;color:var(--mut,#8a93a8);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer}.chleave.sure{color:#e5484d}
 .tknote{margin-top:12px;font-size:13px;color:var(--mut,#8a93a8);text-align:center}
 .tkfoot{display:block;margin-top:8px;font-size:11.5px;color:var(--mut,#8a93a8);text-align:center;opacity:.85}
@@ -2547,7 +2550,9 @@ function chHTML(d){ var c = d.c, st = d.st, L = chRank(d.list), me = L.filter(fu
     else if (st.open) act = '<button type="button" class="chgo" data-chtick="1">'+TI.mosque+'<span><b>'+e(c.act || 'أنجزتها اليوم')+'</b><small>اضغط وسجّلها · '+(st.win === 'day' ? 'مفتوح طول اليوم' : 'مفتوح لين '+chHM(st.dhuhr))+'</small></span></button>';
     else if (st.win === 'day' && st.before) act = '<div class="chwait">'+TI.sunrise+'<div><b>التحدي يبدأ '+chDate(st.days[0], 1)+'</b><small>تقدر تسجّل كل يوم من بدايته لين نهايته</small></div></div>';
     else act = '<div class="chwait">'+TI.sunrise+'<div><b>'+(st.before ? 'التحدي يبدأ '+chDate(st.days[0], 1) : (new Date(Date.now()+3*3600e3).getUTCHours() + new Date(Date.now()+3*3600e3).getUTCMinutes()/60 < st.fajr ? 'التسجيل يفتح وقت أذان الفجر' : 'انتهى وقت تسجيل اليوم'))+'</b><small>'+(st.before || new Date(Date.now()+3*3600e3).getUTCHours() + new Date(Date.now()+3*3600e3).getUTCMinutes()/60 < st.fajr ? 'من الأذان ('+chHM(st.fajr)+') لين الظهر ('+chHM(st.dhuhr)+')' : 'نشوفك باجر الفجر إن شاء الله 🤍')+'</small></div></div>';
-    h += '<div class="chact">'+(CHMSG ? '<div class="chm">'+CHMSG+'</div>' : '')+act+'</div>'; }
+    h += '<div class="chact">'+(CHMSG ? '<div class="chm">'+CHMSG+'</div>' : '')+act+
+      '<div class="chme"><span>مشارك باسم <b>'+e(me.n)+'</b></span><button type="button" data-chren>✏️ عدّل اسمي</button></div>'+
+      '<div class="chrn" hidden><input id="chR" maxlength="30" value="'+e(me.n)+'"><button type="button" class="tkab" data-chrsave>حفظ الاسم</button></div></div>'; }
   h += '<div class="tkprog"><span>الترتيب</span><b>'+ar(L.length)+' مشارك</b></div>';
   h += L.length ? '<div class="cxls">'+L.map(function(x){ return '<div class="cxr'+(x.me ? ' me' : '')+(x.r <= 3 && x.d.length ? ' t'+x.r : '')+'"><span class="cxrk">'+ar(x.r)+'</span><div class="cxn"><b>'+e(x.n)+(x.me ? ' <em>أنت</em>' : '')+'</b><span class="cxdots">'+st.days.map(function(k, i){
       var ok = x.d.indexOf(k) >= 0, cls = ok ? 'ok' : (st.ended || i < st.idx || (i === st.idx && !st.open && !ok && new Date(Date.now()+3*3600e3).getUTCHours() >= 12)) ? 'no' : i === st.idx ? 'td' : '';
@@ -2565,6 +2570,9 @@ document.addEventListener('click', function(ev){ var t = ev.target; if (!t.close
   var k = t.closest('[data-chtick]'); if (k){ var on = k.getAttribute('data-chtick') === '1'; k.disabled = true; CHMSG = '';
     chApi({ a:'tick', on:on }).then(function(d){ CHD = d; chPaint(); if (on){ var dn = document.querySelector('.chdone'); if (dn) tkBoom(dn); if (navigator.vibrate) try { navigator.vibrate(15); } catch(_){} } })
       .catch(function(err){ CHMSG = err && err.err === 'closed' ? 'وقت التسجيل مسكّر الحين' : 'صار خطأ، جرّب مرة ثانية'; chLoad(); }); return; }
+  if (t.closest('[data-chren]')){ var rn = document.querySelector('.chrn'); if (rn){ rn.hidden = !rn.hidden; if (!rn.hidden) document.getElementById('chR').focus(); } return; }
+  var rs = t.closest('[data-chrsave]'); if (rs){ var nn = (document.getElementById('chR').value || '').trim(); if (nn.length < 2) return; rs.disabled = true; CHMSG = '';
+    chApi({ a:'join', n:nn }).then(function(d){ CHD = d; chPaint(); }).catch(function(err){ CHMSG = err && err.err === 'taken' ? 'هالاسم مسجّل لواحد ثاني' : 'صار خطأ، جرّب مرة ثانية'; chPaint(); }); return; }
   var lv = t.closest('[data-chleave]'); if (lv){ if (!lv.classList.contains('sure')){ lv.classList.add('sure'); lv.textContent = 'متأكد؟ بينحذف رصيدك · اضغط مرة ثانية'; setTimeout(function(){ if (document.body.contains(lv)){ lv.classList.remove('sure'); lv.textContent = 'انسحب من التحدي'; } }, 3500); return; }
     chApi({ a:'leave' }).then(function(d){ CHD = d; chPaint(); }).catch(function(){}); } });
 
