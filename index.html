@@ -1685,6 +1685,7 @@ function home(){
   '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','الذكريات')+library()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','صفحتي','أذكارك ونقاطك بمكان واحد')+chCard()+quickBlock()+'</div></section>'+
+  '<section class="band"><div class="wrap">'+sh('','رأيك يهمنا','اقتراحك يوصلنا بدون اسمك')+sugCard()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','إنجازاتنا','والقادم أفضل بإذن الله')+
     '<div class="ccs stg">'+row({ href:'#/awards', img:'assets/cv-awards.webp', k:'الدرع الحصين ١٠ · المركز الثالث', t:'منصة التتويج', c:'g', ok:1, st:AW.length+' تتويج' })+'</div>'+
     '<div class="stats rv"><div><b class="cnt" data-to="'+AW.length+'">0</b><span>تتويج</span></div><div><b class="cnt" data-to="46">0</b><span>مشارك</span></div>'+(function(t){ return '<div><b class="cnt" data-to="'+(t.i+t.v)+'">0</b><span>صورة وفيديو</span></div>'; })(mediaTotals())+'</div>'+
@@ -2799,7 +2800,7 @@ function quickBlock(){ var me = meName(), pr = ADK.filter(function(k){ return ad
     '<a class="kt4 qm b" href="#/me"><span class="ki">'+I.user+'</span><b>صفحتي</b><small>'+(me ? e(me) : 'اختار اسمك وشوف نقاطك')+'</small></a></div>'; }
 /* ===================== صندوق الاقتراحات (بدون اسم) ===================== */
 var MAILI = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>';
-function sugCard(){ return '<button type="button" class="pushc sugc rv" data-sug><span class="pb">'+MAILI+'</span><span class="pt"><b>صندوق الاقتراحات</b><span>عندك فكرة أو اقتراح للصحبة؟ أرسله بدون ذكر اسمك 🤍</span></span></button>'; }
+function sugCard(){ return '<button type="button" class="pushc sugc rv" data-sug><span class="pb">'+MAILI+'</span><span class="pt"><b>صندوق الاقتراحات</b><span>عندك فكرة أو اقتراح للصحبة؟ أرسله الحين</span></span></button>'; }
 function esc(x){ return String(x).replace(/[&<>"']/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; }); }
 function sugTok(){ var t = store('sugTok'); if (t) return t;
   try { var a = new Uint8Array(18); crypto.getRandomValues(a); t = Array.prototype.map.call(a, function(x){ return ('0'+x.toString(16)).slice(-2); }).join(''); } catch(_){ t = (Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).slice(0,32); }
