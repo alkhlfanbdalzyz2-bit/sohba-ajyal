@@ -3,6 +3,8 @@ const { store } = require('../lib/store');
 const { broadcast } = require('../lib/broadcast');
 const { times, kwNow } = require('../lib/prayer');
 const R = {
+  fajr:     { title: '🌅 سنة الفجر', body: 'أذّن الفجر، لا تفوّت ركعتي السنة؛ قال ﷺ: «ركعتا الفجر خيرٌ من الدنيا وما فيها» 🤍', url: './#/me' },
+  duha:     { title: '🌤️ صلاة الضحى', body: 'ركعتين من الضحى تجزي عن صدقة كل مفاصل جسمك 🤍 لا تفوّتها', url: './#/me' },
   sabah:    { title: '☀️ أذكار الصباح', body: 'لا تنسى أذكار الصباح، حصّن يومك 🤍', url: './#/adhkar/sabah' },
   masa:     { title: '🌙 أذكار المساء', body: 'حان وقت أذكار المساء 🤍', url: './#/adhkar/masa' },
   kahf:     { title: '📖 سورة الكهف', body: 'يوم الجمعة: لا تنسى قراءة سورة الكهف والإكثار من الصلاة على النبي ﷺ', url: './' },
@@ -26,7 +28,9 @@ exports.handler = async (event) => {
   // dow: 0 الأحد ... 5 الجمعة
   const due = [];
   const win = (h) => n.h >= h && n.h < h + 0.5; // نافذة نص ساعة عشان لو تأخر التشغيل
+  if (win(t.fajr)) due.push('fajr');
   if (win(t.fajr + 0.5)) due.push('sabah');
+  if (win((t.sunrise + t.dhuhr) / 2)) due.push('duha');
   if (win(t.asr + 0.5)) due.push('masa');
   if (n.dow === 5 && win(9)) due.push('kahf');
   if (n.dow === 5 && win(t.maghrib - 1)) due.push('istijaba');
@@ -43,7 +47,8 @@ exports.handler = async (event) => {
     if (await s.get(mark)) { out[k] = 'already'; continue; }
     await s.set(mark, '1');
     const r = R[k], payload = JSON.stringify({ title: r.title, body: r.body, url: r.url, tag: 'rem-' + k });
-    out[k] = await broadcast(s, payload, async key => !!(prefs[key] && prefs[key][k]));
+    out[k] = await broadcast(s, payload, async key => { const p = prefs[key]; return !p || p.v !== 2 ? true : !!p[k]; }); // الافتراضي: كله مفعّل
+    try { const lg = (await s.get('rem-log', { type: 'json' })) || []; lg.unshift({ k, at: Date.now(), sent: (out[k] && out[k].sent) || 0 }); await s.setJSON('rem-log', lg.slice(0, 40)); } catch(_){}
   }
   return { statusCode: 200, body: JSON.stringify(out) };
 };

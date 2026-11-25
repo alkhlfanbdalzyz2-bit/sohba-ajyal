@@ -1,6 +1,6 @@
 // تفضيلات التذكيرات لكل جهاز مشترك بالإشعارات (مربوطة بعنوان الإشعارات، بدون أي اسم)
 const { store, keyOf } = require('../lib/store');
-const KEYS = ['sabah', 'masa', 'kahf', 'istijaba', 'siyam', 'nawm', 'witr'];
+const { KEYS, eff } = require('../lib/remkeys');
 const J = (c, o) => ({ statusCode: c, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(o) });
 exports.handler = async (event) => {
   let b = {}; if (event.httpMethod === 'POST') { try { b = JSON.parse(event.body || '{}'); } catch(_){ return J(400, {}); } }
@@ -10,8 +10,8 @@ exports.handler = async (event) => {
   if (!(await s.get('sub/' + k))) return J(404, { err: 'nosub' });
   if (event.httpMethod === 'POST') {
     const p = {}; KEYS.forEach(x => { if (b.p && b.p[x]) p[x] = 1; });
-    if (Object.keys(p).length) await s.setJSON('pref/' + k, p); else await s.delete('pref/' + k);
+    await s.setJSON('pref/' + k, Object.assign({ v: 2 }, p)); // v:2 = الشخص اختار بنفسه
     return J(200, { ok: true, p });
   }
-  return J(200, { p: (await s.get('pref/' + k, { type: 'json' })) || {} });
+  return J(200, { p: eff(await s.get('pref/' + k, { type: 'json' })) });
 };

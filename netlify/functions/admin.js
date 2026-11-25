@@ -1,5 +1,6 @@
 // لوحة تحكم بو عمر: الاقتراحات + الإشعارات + الإحصائيات + التحكم بالموقع (كلها بدون نشر)
 const { getStore, connectLambda } = require('@netlify/blobs');
+const { eff } = require('../lib/remkeys');
 const { store, vapid } = require('../lib/store');
 const { send } = require('../lib/push');
 const { broadcast } = require('../lib/broadcast');
@@ -24,13 +25,14 @@ async function data(event){
   const pages = {}, from7 = kd(6);
   (await vs.list({ prefix: 'pv/' })).blobs.forEach(b => { const p = b.key.split('/'); if (p[2] >= from7) pages[p[1]] = (pages[p[1]] || 0) + 1; });
   const clicks = {}; (await vs.list({ prefix: 'clk/' })).blobs.forEach(b => { const t = b.key.split('/')[1]; clicks[t] = (clicks[t] || 0) + 1; });
-  const rem = {}; await Promise.all((await ps.list({ prefix: 'pref/' })).blobs.map(async b => { const p = (await ps.get(b.key, { type: 'json' })) || {}; Object.keys(p).forEach(k => rem[k] = (rem[k] || 0) + 1); }));
+  const rem = {}; await Promise.all((await ps.list({ prefix: 'sub/' })).blobs.map(async b => { const p = eff(await ps.get('pref/' + b.key.slice(4), { type: 'json' })); Object.keys(p).forEach(k => rem[k] = (rem[k] || 0) + 1); }));
   const items = (await loadAll(ss, 'm/')).sort((a, b) => b.t - a.t).map(i => ({ id: i.id, m: i.m, t: i.t, r: i.r || null, rt: i.rt || null, reach: !!i.th, push: !!i.pk, et: i.et || null }));
   const trash = (await loadAll(ss, 'd/')).sort((a, b) => ((b.del && b.del.at) || 0) - ((a.del && a.del.at) || 0)).map(i => ({ id: i.id, m: i.m, t: i.t, r: i.r || null, del: i.del, h: i.h || [] }));
   const log = (await ps.get('admin-log', { type: 'json' })) || [];
+  const remlog = (await ps.get('rem-log', { type: 'json' })) || [];
   const sched = (await loadAll(ps, 'sched/')).sort((a, b) => a.at - b.at);
   const cfg = (await ps.get('site-cfg', { type: 'json' })) || {};
-  return { stats: { today: daily[29][1], week: week.size, all, subs }, daily, hours, pages, clicks, rem, items, trash, log, sched, cfg };
+  return { stats: { today: daily[29][1], week: week.size, all, subs }, daily, hours, pages, clicks, rem, remlog, items, trash, log, sched, cfg };
 }
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers: CORS, body: '' };

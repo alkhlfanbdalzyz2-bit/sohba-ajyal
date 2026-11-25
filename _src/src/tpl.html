@@ -951,7 +951,15 @@ html{touch-action:pan-x pan-y}
 .adp.big{flex:1;height:8px;background:var(--line2);margin:0}
 .adp{display:flex!important;justify-content:flex-start}.adp i{flex:none}
 .adp.big i{background:var(--gO)}
-.rmb{margin-top:18px;padding:16px;border-radius:22px;background:var(--card);border:1px solid var(--line2)}
+.rmb{margin-top:18px;padding:14px 16px;border-radius:22px;background:var(--card);border:1px solid var(--line2)}
+.rmh{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:0;margin:0;text-align:right;font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.rmh>span{flex:1;min-width:0}
+.rmb .rmh small{margin:1px 0 0}
+.rmc{font-style:normal;font-size:20px;line-height:1;color:var(--mut,#8a93a8);transition:transform .25s}
+.rmw.open .rmc{transform:rotate(180deg)}
+.rml{display:none;margin-top:10px}
+.rmw.open .rml{display:block;animation:rmIn .25s ease}
+@keyframes rmIn{from{opacity:0;transform:translateY(-4px)}}
 .rmh b{display:block;font-family:var(--disp);font-size:17px;font-weight:800;color:var(--ink)}
 .rmh small{display:block;font-size:13px;color:var(--mut,#8a93a8);margin:2px 0 8px}
 .rmn{padding:12px;border-radius:14px;background:var(--chip);font-size:14px;color:var(--ink);line-height:1.7}
@@ -2118,8 +2126,8 @@ var ADHKAR = {
   ]}
 };
 var ADK = ['sabah','masa','salah','nawm'];
-var REMS = [['sabah','☀️ أذكار الصباح','بعد الفجر بنص ساعة'],['masa','🌙 أذكار المساء','بعد العصر بنص ساعة'],['nawm','🛏️ أذكار النوم','الساعة ١٠:٣٠ بالليل'],
-  ['kahf','📖 سورة الكهف','يوم الجمعة الساعة ٩ الصبح'],['istijaba','🤍 ساعة الاستجابة','يوم الجمعة قبل المغرب بساعة'],['siyam','🌙 صيام الاثنين والخميس','الليلة اللي قبله الساعة ٩'],['witr','🌙 الوتر والثلث الأخير','أول ما يبدأ الثلث الأخير من الليل']];
+var REMS = [['fajr','🌅 سنة الفجر','وقت أذان الفجر'],['sabah','☀️ أذكار الصباح','بعد الفجر بنص ساعة'],['duha','🌤️ صلاة الضحى','وقت الضحى (حوالي ٩ الصبح)'],['masa','🌙 أذكار المساء','بعد العصر بنص ساعة'],['nawm','🛏️ أذكار النوم','الساعة ١٠:٣٠ بالليل'],['witr','🌙 الوتر والثلث الأخير','أول ما يبدأ الثلث الأخير من الليل'],
+  ['kahf','📖 سورة الكهف','يوم الجمعة الساعة ٩ الصبح'],['istijaba','🤍 ساعة الاستجابة','يوم الجمعة قبل المغرب بساعة'],['siyam','🌙 صيام الاثنين والخميس','الليلة اللي قبله الساعة ٩']];
 function kwDate(){ var t = new Date(Date.now() + 3*3600e3); return t.getUTCFullYear()+'-'+(t.getUTCMonth()+1)+'-'+t.getUTCDate(); }
 function adkState(k){ var key = 'adk-'+k, s = store(key); if (!s || s.d !== kwDate() || !s.r || s.r.length !== ADHKAR[k].items.length) s = { d:kwDate(), r:ADHKAR[k].items.map(function(x){ return x[1]; }) }; return s; }
 function adkProg(k){ var s = adkState(k), tot = 0, left = 0; ADHKAR[k].items.forEach(function(x,i){ tot += x[1]; left += Math.max(0, s.r[i]); }); return tot ? Math.round((tot-left)/tot*100) : 0; }
@@ -2130,21 +2138,24 @@ function adhkarHub(){
     '<div class="rmb rv" id="rmBox">'+remHTML(null)+'</div>'+homeBtn()+'</div></section></div>';
 }
 function remHTML(p){
-  var head = '<div class="rmh"><b>🔔 التذكيرات</b><small>اختار اللي تبيه، ويوصلك إشعار بوقته إن شاء الله</small></div>';
-  var st = pushState();
-  if (st !== 'on') return head + '<div class="rmn">'+(st === 'install' ? 'ثبّت الموقع على جوالك أول، وبعدها فعّل الإشعارات من زر 🔔 فوق' : st === 'denied' ? 'الإشعارات مقفلة من إعدادات الجوال، فعّلها وارجع هني' : st === 'nosup' ? 'جوالك ما يدعم الإشعارات' : 'فعّل الإشعارات من زر 🔔 فوق أول، وبعدها اختار تذكيراتك هني')+'</div>';
-  if (!p) return head + '<div class="rmn">...</div>';
-  return head + REMS.map(function(r){ return '<label class="rmi"><span><b>'+r[1]+'</b><small>'+r[2]+'</small></span><input type="checkbox" data-rem="'+r[0]+'"'+(p[r[0]] ? ' checked' : '')+'><i class="tg"></i></label>'; }).join('') + '<div class="rms" id="rmSt"></div>';
+  var st = pushState(), n = p ? REMS.filter(function(r){ return p[r[0]]; }).length : 0;
+  var sub = st !== 'on' ? 'الإشعارات مو مفعّلة' : !p ? '...' : n ? 'مفعّل '+ar(n)+' من '+ar(REMS.length) : 'ولا تذكير مفعّل، اضغط واختار';
+  var head = '<button type="button" class="rmh" data-rmt><span><b>🔔 التذكيرات</b><small id="rmSub">'+sub+'</small></span><i class="rmc">⌄</i></button>';
+  var body = st !== 'on' ? '<div class="rmn">'+(st === 'install' ? 'ثبّت الموقع على جوالك أول، وبعدها فعّل الإشعارات من زر 🔔 فوق' : st === 'denied' ? 'الإشعارات مقفلة من إعدادات الجوال، فعّلها وارجع هني' : st === 'nosup' ? 'جوالك ما يدعم الإشعارات' : 'فعّل الإشعارات من زر 🔔 فوق أول، وبعدها اختار تذكيراتك هني')+'</div>'
+    : !p ? '<div class="rmn">...</div>'
+    : REMS.map(function(r){ return '<label class="rmi"><span><b>'+r[1]+'</b><small>'+r[2]+'</small></span><input type="checkbox" data-rem="'+r[0]+'"'+(p[r[0]] ? ' checked' : '')+'><i class="tg"></i></label>'; }).join('') + '<div class="rms" id="rmSt"></div>';
+  return '<div class="rmw'+(store('rmOpen') ? ' open' : '')+'">'+head+'<div class="rml">'+body+'</div></div>';
 }
+document.addEventListener('click', function(ev){ var t = ev.target.closest && ev.target.closest('[data-rmt]'); if (!t) return; var w = t.parentNode; w.classList.toggle('open'); store('rmOpen', w.classList.contains('open') ? 1 : 0); });
 function remLoad(){ var box = document.getElementById('rmBox'); if (!box || pushState() !== 'on') return;
-  sugEP().then(function(ep){ if (!ep){ box.innerHTML = remHTML(null).replace('<div class="rmn">...</div>', '<div class="rmn">فعّل الإشعارات من زر 🔔 فوق أول</div>'); return; }
+  sugEP().then(function(ep){ if (!ep){ box.innerHTML = remHTML(null).replace('<div class="rmn">...</div>', '<div class="rmn">فعّل الإشعارات من زر 🔔 فوق أول</div>').replace('<small id="rmSub">...</small>', '<small id="rmSub">الإشعارات مو مفعّلة</small>'); return; }
     fetch(PUSH.api + 'reminder-prefs?e=' + encodeURIComponent(ep), { cache:'no-store' }).then(function(r){ return r.ok ? r.json() : { p:{} }; }).catch(function(){ return { p:{} }; })
       .then(function(d){ if (document.body.contains(box)) box.innerHTML = remHTML(d.p || {}); }); }); }
 document.addEventListener('change', function(ev){ var c = ev.target; if (!c.matches || !c.matches('[data-rem]')) return;
   var p = {}; Array.prototype.forEach.call(document.querySelectorAll('[data-rem]'), function(x){ if (x.checked) p[x.getAttribute('data-rem')] = 1; });
   var st = document.getElementById('rmSt'); if (st) st.textContent = '...';
   fetch(PUSH.api + 'reminder-prefs', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify({ ep: SUGEP, p: p }) })
-    .then(function(r){ if (!r.ok) throw 0; if (st) st.textContent = 'انحفظ ✅'; }).catch(function(){ if (st) st.textContent = 'صار خطأ، جرّب مرة ثانية'; c.checked = !c.checked; }); });
+    .then(function(r){ if (!r.ok) throw 0; if (st) st.textContent = 'انحفظ ✅'; var sb = document.getElementById('rmSub'), n = Object.keys(p).length; if (sb) sb.textContent = n ? 'مفعّل '+ar(n)+' من '+ar(REMS.length) : 'ولا تذكير مفعّل، اضغط واختار'; }).catch(function(){ if (st) st.textContent = 'صار خطأ، جرّب مرة ثانية'; c.checked = !c.checked; }); });
 function adkCnt(k){ var s = adkState(k), d = 0; ADHKAR[k].items.forEach(function(x,i){ if (s.r[i] <= 0) d++; }); return d; }
 function ring(p, r, w){ var c = 2*Math.PI*r; return '<svg viewBox="0 0 '+(2*r+w)+' '+(2*r+w)+'"><circle cx="'+(r+w/2)+'" cy="'+(r+w/2)+'" r="'+r+'" fill="none" stroke-width="'+w+'" class="rb"/><circle cx="'+(r+w/2)+'" cy="'+(r+w/2)+'" r="'+r+'" fill="none" stroke-width="'+w+'" stroke-linecap="round" class="rf" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-p/100)).toFixed(1)+'" transform="rotate(-90 '+(r+w/2)+' '+(r+w/2)+')"/></svg>'; }
 function adkNext(k){ var i = ADK.indexOf(k); return ADK[(i+1) % ADK.length]; }
