@@ -2195,7 +2195,23 @@ var ADK = ['sabah','masa','salah','nawm'];
 var REMS = [['fajr','🌅 سنة الفجر','وقت أذان الفجر'],['sabah','☀️ أذكار الصباح','بعد الفجر بنص ساعة'],['duha','🌤️ صلاة الضحى','وقت الضحى (حوالي ٩ الصبح)'],['masa','🌙 أذكار المساء','بعد العصر بنص ساعة'],['nawm','🛏️ أذكار النوم','الساعة ١٠:٣٠ بالليل'],['witr','🌙 الوتر والثلث الأخير','أول ما يبدأ الثلث الأخير من الليل'],
   ['kahf','📖 سورة الكهف','يوم الجمعة الساعة ٩ الصبح'],['istijaba','🤍 ساعة الاستجابة','يوم الجمعة قبل المغرب بساعة'],['siyam','🌙 صيام الاثنين والخميس','الليلة اللي قبله الساعة ٩']];
 function kwDate(){ var t = new Date(Date.now() + 3*3600e3); return t.getUTCFullYear()+'-'+(t.getUTCMonth()+1)+'-'+t.getUTCDate(); }
-function adkState(k){ var key = 'adk-'+k, s = store(key); if (!s || s.d !== kwDate() || !s.r || s.r.length !== ADHKAR[k].items.length) s = { d:kwDate(), r:ADHKAR[k].items.map(function(x){ return x[1]; }) }; return s; }
+/* مواقيت الكويت (نفس حساب التذكيرات): الأذكار ترجع من جديد مع وقتها، مو الساعة ١٢ */
+function pTimes(y, m, d){ var LAT = 29.3759, LNG = 47.9774, TZ = 3, R = Math.PI/180;
+  function sun(jd){ var D = jd - 2451545, g = (357.529 + 0.98560028*D) % 360, q = (280.459 + 0.98564736*D) % 360, L = (q + 1.915*Math.sin(g*R) + 0.02*Math.sin(2*g*R)) % 360, e = 23.439 - 0.00000036*D,
+    RA = Math.atan2(Math.cos(e*R)*Math.sin(L*R), Math.cos(L*R))/R/15, eqt = q/15 - ((RA % 24) + 24) % 24; return { decl: Math.asin(Math.sin(e*R)*Math.sin(L*R))/R, eqt: ((eqt + 12) % 24 + 24) % 24 - 12 }; }
+  var jd = Date.UTC(y, m-1, d)/864e5 + 2440587.5, dh = 12 + TZ - LNG/15 - sun(jd + 0.5 - LNG/360).eqt;
+  function ha(a, t){ var s = sun(jd + t/24 - TZ/24); return Math.acos((-Math.sin(a*R) - Math.sin(s.decl*R)*Math.sin(LAT*R))/(Math.cos(s.decl*R)*Math.cos(LAT*R)))/R/15; }
+  function asrA(t){ var s = sun(jd + t/24 - TZ/24); return ha(-Math.atan(1/(1 + Math.tan(Math.abs(LAT - s.decl)*R)))/R, t); }
+  return [dh - ha(18, 5), dh, dh + asrA(15.5), dh + ha(0.833, 18), dh + ha(17.5, 19.5)]; }
+function adkPeriod(k){ var t = new Date(Date.now() + 3*3600e3), y = t.getUTCFullYear(), m = t.getUTCMonth()+1, d = t.getUTCDate(), h = t.getUTCHours() + t.getUTCMinutes()/60,
+    P = pTimes(y, m, d), b = { sabah:[0], masa:[2], nawm:[4], salah:[0,1,2,3,4] }[k] || [0], i = -1;
+  b.forEach(function(x, j){ if (h >= P[x]) i = j; });
+  if (i < 0){ var p = new Date(t.getTime() - 864e5); return k+':'+p.getUTCFullYear()+'-'+(p.getUTCMonth()+1)+'-'+p.getUTCDate()+':'+(b.length-1); }
+  return k+':'+y+'-'+m+'-'+d+':'+i; }
+function adkState(k){ var key = 'adk-'+k, s = store(key), pd = adkPeriod(k); if (!s || s.d !== pd || !s.r || s.r.length !== ADHKAR[k].items.length) s = { d:pd, r:ADHKAR[k].items.map(function(x){ return x[1]; }) }; return s; }
+var ADKSIG = ''; function adkSig(){ return ADK.map(adkPeriod).join('|'); }
+function adkTick(){ var g = adkSig(); if (ADKSIG && g !== ADKSIG && /^#\/(adhkar|me)/.test(location.hash)) route(); ADKSIG = g; }
+setInterval(adkTick, 60000); document.addEventListener('visibilitychange', function(){ if (!document.hidden) adkTick(); });
 function adkProg(k){ var s = adkState(k), tot = 0, left = 0; ADHKAR[k].items.forEach(function(x,i){ tot += x[1]; left += Math.max(0, s.r[i]); }); return tot ? Math.round((tot-left)/tot*100) : 0; }
 function adhkarHub(){
   return '<div class="page">'+ptop('beads','حصّن يومك','أذكاري','الأذكار مع عدّاد، وتذكيرات تختارها بنفسك')+
