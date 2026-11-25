@@ -2372,8 +2372,9 @@ var ADHKAR = {
 };
 var ADK = ['sabah','masa','salah','nawm'];
 var REMS = [['fajr','🌅 سنة الفجر','وقت أذان الفجر'],['sabah','☀️ أذكار الصباح','بعد الفجر بنص ساعة'],['duha','🌤️ صلاة الضحى','وقت الضحى (حوالي ٩ الصبح)'],['masa','🌙 أذكار المساء','بعد العصر بنص ساعة'],['nawm','🛏️ أذكار النوم','الساعة ١٠:٣٠ بالليل'],['witr','🌙 الوتر والثلث الأخير','أول ما يبدأ الثلث الأخير من الليل'],
+  ['salawat','🤍 الصلاة على النبي ﷺ','كل ساعتين من ٨ الصبح لين ١٠ بالليل'],
   ['kahf','📖 سورة الكهف','يوم الجمعة الساعة ٩ الصبح'],['istijaba','🤍 ساعة الاستجابة','يوم الجمعة قبل المغرب بساعة'],['siyam','🌙 صيام الاثنين والخميس','الليلة اللي قبله الساعة ٩']];
-var REMIC = { fajr:'sunrise', sabah:'sun', duha:'duha', masa:'moon', nawm:'bed', witr:'star', kahf:'book', istijaba:'heart', siyam:'cal' };
+var REMIC = { salawat:'beads', fajr:'sunrise', sabah:'sun', duha:'duha', masa:'moon', nawm:'bed', witr:'star', kahf:'book', istijaba:'heart', siyam:'cal' };
 function kwDate(){ var t = new Date(Date.now() + 3*3600e3); return t.getUTCFullYear()+'-'+(t.getUTCMonth()+1)+'-'+t.getUTCDate(); }
 /* مواقيت الكويت (نفس حساب التذكيرات): الأذكار ترجع من جديد مع وقتها، مو الساعة ١٢ */
 function pTimes(y, m, d){ var LAT = 29.3759, LNG = 47.9774, TZ = 3, R = Math.PI/180;

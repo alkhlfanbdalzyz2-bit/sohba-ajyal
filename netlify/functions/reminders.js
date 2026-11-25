@@ -1,6 +1,7 @@
 // يشتغل بروحه كل ١٠ دقايق: يرسل التذكيرات اللي اختارها كل شخص بوقتها (حسب مواقيت الصلاة بالكويت)
 const { store } = require('../lib/store');
 const { broadcast } = require('../lib/broadcast');
+const RK = require('../lib/remkeys');
 const { times, kwNow } = require('../lib/prayer');
 const R = {
   fajr:     { title: '🌅 سنة الفجر', body: 'أذّن الفجر، لا تفوّت ركعتي السنة؛ قال ﷺ: «ركعتا الفجر خيرٌ من الدنيا وما فيها» 🤍', url: './#/me' },
@@ -11,6 +12,7 @@ const R = {
   istijaba: { title: '🤍 ساعة الاستجابة', body: 'آخر ساعة من يوم الجمعة، اغتنمها بالدعاء', url: './' },
   siyam:    { title: '🌙 صيام باجر', body: 'باجر يُستحب صيامه، لا تنسى تنوي وتتسحّر 🤍', url: './' },
   witr:     { title: '🌙 الوتر والثلث الأخير', body: 'لا تفوّت صلاة الوتر، والحين الثلث الأخير من الليل وقت نزول ربنا سبحانه إلى السماء الدنيا، اغتنمه بالدعاء 🤍', url: './#/me' },
+  salawat:  { title: '🤍 صلِّ على النبي ﷺ', body: 'قال ﷺ: «من صلّى عليّ صلاةً واحدة صلّى الله عليه بها عشرًا»', url: './' },
   nawm:     { title: '🛏️ أذكار النوم', body: 'قبل لا تنام، لا تنسى أذكار النوم 🤍', url: './#/adhkar/nawm' }
 };
 async function runSched(s){
@@ -36,6 +38,7 @@ exports.handler = async (event) => {
   if (n.dow === 5 && win(t.maghrib - 1)) due.push('istijaba');
   if ((n.dow === 0 || n.dow === 3) && win(21)) due.push('siyam');
   if (win(22.5)) due.push('nawm');
+  const sh = Math.floor(n.h); if (sh % 2 === 0 && sh >= 8 && sh <= 22 && n.h < sh + 0.5) due.push('salawat'); // كل ساعتين ٨ص–١٠م (ولا شي من ١١م لين ٦ص)
   const lastThird = t.fajr - (t.fajr + 24 - t.maghrib) / 3; // بداية الثلث الأخير (بعد نص الليل)
   if (win(lastThird)) due.push('witr');
   const chDue = win(t.fajr + 40/60); // تحدي رجال الفجر: بعد الأذان بـ٤٠ دقيقة للمشاركين اللي ما سجّلوا يومهم
@@ -44,11 +47,11 @@ exports.handler = async (event) => {
   const { blobs } = await s.list({ prefix: 'pref/' });
   const prefs = {}; await Promise.all(blobs.map(async b => { prefs[b.key.slice(5)] = (await s.get(b.key, { type: 'json' })) || {}; }));
   for (const k of due) {
-    const mark = 'rem-sent/' + k + '/' + date;
+    const mark = 'rem-sent/' + k + '/' + date + (k === 'salawat' ? '/' + sh : '');
     if (await s.get(mark)) { out[k] = 'already'; continue; }
     await s.set(mark, '1');
     const r = R[k], payload = JSON.stringify({ title: r.title, body: r.body, url: r.url, tag: 'rem-' + k });
-    out[k] = await broadcast(s, payload, async key => { const p = prefs[key]; return !p || p.v !== 2 ? true : !!p[k]; }); // الافتراضي: كله مفعّل
+    out[k] = await broadcast(s, payload, async key => RK.on(prefs[key], k)); // الافتراضي: كله مفعّل
     try { const lg = (await s.get('rem-log', { type: 'json' })) || []; lg.unshift({ k, at: Date.now(), sent: (out[k] && out[k].sent) || 0 }); await s.setJSON('rem-log', lg.slice(0, 40)); } catch(_){}
   }
   if (chDue) { try { out.chal = await chalFajr(s, date); } catch(e){ out.chal = 'err'; } }

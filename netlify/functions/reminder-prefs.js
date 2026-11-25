@@ -10,7 +10,7 @@ exports.handler = async (event) => {
   if (!(await s.get('sub/' + k))) return J(404, { err: 'nosub' });
   if (event.httpMethod === 'POST') {
     const p = {}; KEYS.forEach(x => { if (b.p && b.p[x]) p[x] = 1; });
-    await s.setJSON('pref/' + k, Object.assign({ v: 2 }, p)); // v:2 = الشخص اختار بنفسه
+    await s.setJSON('pref/' + k, Object.assign({ v: 2, k: KEYS }, p)); // v:2 = الشخص اختار بنفسه
     return J(200, { ok: true, p });
   }
   return J(200, { p: eff(await s.get('pref/' + k, { type: 'json' })) });
