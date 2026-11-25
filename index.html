@@ -976,39 +976,79 @@ html{touch-action:pan-x pan-y}
 .adp{display:flex!important;justify-content:flex-start}.adp i{flex:none}
 .adp.big i{background:var(--gO)}
 .tkc{padding:16px;border-radius:24px;background:var(--card);border:1px solid var(--line2)}
-.tkh{display:flex;align-items:center;gap:14px}
-.tkr{position:relative;flex:none;width:84px;height:84px}.tkr svg{width:100%;height:100%}
-.tkr .rb{stroke:var(--line2)}.tkr .rf{stroke:#f7941d;transition:stroke-dashoffset .5s var(--lux)}
-.tkr b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:25px;font-weight:800;color:var(--ink)}
-.tkr b small{font-size:13px;color:var(--mut,#8a93a8);margin-top:6px}
-.tks{flex:1;min-width:0}
-.tkst{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.tkst span{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:99px;background:var(--chip);font-size:13px;font-weight:800;color:var(--ink)}
-.tkst svg{width:14px;height:14px}
-.tkx svg{color:#f7b733}
-.tkf svg{color:var(--mut,#8a93a8)}.tkf.on{background:linear-gradient(135deg,#ff9f43,#ff5e3a);color:#fff}.tkf.on svg{color:#fff}
-.tkl b{display:block;font-size:15px;font-weight:800;color:var(--ink)}
-.tkl small{display:block;font-size:12px;color:var(--mut,#8a93a8)}
-.tklv{display:inline-block;margin-right:4px;padding:1px 8px;border-radius:99px;background:var(--chip);font-size:11.5px;font-weight:800;color:#f7941d;vertical-align:2px}
-.tkb{display:flex;justify-content:flex-start;height:7px;margin-top:7px;border-radius:9px;background:var(--line2);overflow:hidden}
-.tkb i{flex:none;display:block;height:100%;border-radius:9px;background:var(--gO)}
-.tkls{display:grid;gap:8px;margin-top:14px}
-.tki{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border-radius:18px;border:1px solid var(--line2);background:var(--card);font:inherit;color:inherit;text-align:right;cursor:pointer;transition:background .25s,border-color .25s,transform .2s}
-.tki:active{transform:scale(.98)}
-.tke{flex:none;width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:rgba(247,148,29,.13);color:#f7941d;transition:all .25s}
+.tkhero{position:relative;overflow:hidden;padding:18px 16px 16px;border-radius:26px;color:#fff;background:radial-gradient(120% 80% at 100% 0,rgba(247,148,29,.35),transparent 55%),radial-gradient(90% 70% at 0 100%,rgba(77,171,247,.22),transparent 60%),linear-gradient(160deg,#0b2a66,#061a45 60%,#04112f);border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 40px rgba(2,10,30,.45)}
+.tkhero::before{content:"";position:absolute;inset:-40% -10% auto auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,211,110,.25),transparent);animation:tkGlow 4s ease-in-out infinite;pointer-events:none}
+@keyframes tkGlow{50%{transform:scale(1.15);opacity:.6}}
+.tkh1{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tklvl{display:flex;align-items:center;gap:10px}
+.tkhx{width:54px;height:60px;filter:drop-shadow(0 8px 16px rgba(247,148,29,.45))}
+.tklvl.up .tkhx{animation:tkUp .9s var(--lux)}
+@keyframes tkUp{30%{transform:scale(1.25) rotate(-8deg)}60%{transform:scale(.95) rotate(4deg)}}
+.tklvl small{display:block;font-size:12px;opacity:.7}
+.tklvl b{display:block;font-family:var(--disp);font-size:21px;font-weight:800;line-height:1.3}
+.tkfl2{display:flex;flex-direction:column;align-items:center;min-width:70px;padding:8px 10px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+.tkfl2 .tkfi{display:grid;place-items:center;width:34px;height:34px;color:rgba(255,255,255,.4)}
+.tkfl2 .tkfi svg{width:30px;height:30px}
+.tkfl2 b{font-family:var(--disp);font-size:22px;font-weight:900;line-height:1.1}
+.tkfl2 small{font-size:11px;opacity:.75}
+.tkfl2.on{background:linear-gradient(160deg,rgba(255,159,67,.3),rgba(255,94,58,.18));border-color:rgba(255,159,67,.55);box-shadow:0 0 24px rgba(255,120,50,.35)}
+.tkfl2.on .tkfi{color:#ffb347}.tkfl2.on .tkfi svg{fill:#ff7a2f;animation:tkFlick 1.6s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes tkFlick{0%,100%{transform:scale(1) rotate(0)}25%{transform:scale(1.08,.95) rotate(-3deg)}50%{transform:scale(.96,1.07) rotate(2deg)}75%{transform:scale(1.05,.97) rotate(-1deg)}}
+.tkxpb{position:relative;margin-top:14px}
+.tkxpt{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+.tkxpt span{font-size:13px;font-weight:800;opacity:.85}.tkxpt span b{font-family:var(--disp);font-size:20px;color:#ffd36e}
+.tkxpt small{font-size:12px;opacity:.7}
+.tkbar{position:relative;display:flex;justify-content:flex-start;height:10px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.tkbar i{position:relative;flex:none;display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#e4561b,#f7941d,#ffd36e);box-shadow:0 0 12px rgba(247,148,29,.6);transition:width .6s var(--lux);overflow:hidden}
+.tkbar i::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.55) 50%,transparent 80%);transform:translateX(100%);animation:tkShine 2.6s ease-in-out infinite}
+@keyframes tkShine{60%,100%{transform:translateX(-120%)}}
+.tkbar.dk{background:var(--line2);height:8px;margin:6px 0 12px}
+.tkwk{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:16px}
+.tkwk span{display:flex;flex-direction:column;align-items:center;gap:4px}
+.tkwk i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.14)}
+.tkwk i svg{width:18px;height:18px;fill:#fff;stroke:#fff}
+.tkwk small{font-size:11.5px;font-weight:800;opacity:.6}
+.tkwk .ok i{background:linear-gradient(160deg,#ffb347,#ff5e3a);border-color:transparent;box-shadow:0 4px 12px rgba(255,94,58,.4)}
+.tkwk .pt i{border-color:rgba(255,179,71,.6);border-style:dashed}
+.tkwk .td small{opacity:1;color:#ffd36e}.tkwk .td i{border-color:#ffd36e}
+.tkwk .td:not(.ok) i{animation:tkPulse 1.8s ease-in-out infinite}
+@keyframes tkPulse{50%{box-shadow:0 0 0 6px rgba(255,211,110,.15)}}
+.tkst2{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
+.tkst2 div{padding:9px 4px;border-radius:14px;background:rgba(255,255,255,.07);text-align:center}
+.tkst2 b{display:block;font-family:var(--disp);font-size:18px;font-weight:900}
+.tkst2 small{font-size:11px;opacity:.7}
+.tkmsg{position:relative;margin-top:12px;padding:10px;border-radius:14px;background:rgba(255,211,110,.1);border:1px solid rgba(255,211,110,.22);text-align:center;font-weight:800;font-size:14px;color:#ffe2a3}
+.tkprog{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;padding:0 4px}
+.tkprog span{font-family:var(--disp);font-weight:800;font-size:18px;color:var(--ink)}.tkprog b{font-weight:900;color:#f7941d}
+.tkls{display:grid;gap:8px}
+.tki{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:18px;border:1px solid var(--line2);background:var(--card);font:inherit;color:inherit;text-align:right;cursor:pointer;transition:background .3s,border-color .3s,transform .2s;overflow:hidden}
+.tki:active{transform:scale(.97)}
+.tke{flex:none;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:rgba(247,148,29,.13);color:#f7941d;transition:all .3s}
 .tke svg{width:21px;height:21px}
-.tkt{flex:1;min-width:0}.tkt b{display:block;font-size:15px;font-weight:800;color:var(--ink)}.tkt small{display:block;font-size:12px;color:var(--mut,#8a93a8)}
-.tki em{font-style:normal;font-size:12px;font-weight:800;color:#f7941d}
-.tkk{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--line2);display:grid;place-items:center;font-style:normal;font-weight:900;color:#fff;transition:all .25s}
-.tki.on{background:rgba(62,207,142,.1);border-color:rgba(62,207,142,.45)}
-.tki.on .tke{background:rgba(62,207,142,.16);color:#3ecf8e}
-.tki.on .tkk{background:#3ecf8e;border-color:#3ecf8e}
-.tki.on em{opacity:.3}
-.tki.pop .tkk{animation:tkPop .45s var(--lux)}
-@keyframes tkPop{40%{transform:scale(1.35)}}
-.tkfl{position:absolute;left:48px;top:4px;font-size:13px;font-weight:900;color:#f7941d;pointer-events:none;animation:tkFl .9s ease forwards}
-@keyframes tkFl{to{transform:translateY(-22px);opacity:0}}
-.tkdone{margin-top:12px;padding:12px;border-radius:16px;background:var(--gO);color:#fff;text-align:center;font-weight:800}
+.tkt{flex:1;min-width:0}.tkt b{display:block;font-size:15px;font-weight:800;color:var(--ink);transition:opacity .3s}.tkt small{display:block;font-size:12px;color:var(--mut,#8a93a8)}
+.tki em{flex:none;font-style:normal;font-size:11.5px;font-weight:900;color:#f7941d;padding:3px 8px;border-radius:99px;background:rgba(247,148,29,.12)}
+.tkk{flex:none;width:30px;height:30px;border-radius:10px;border:2px solid var(--line2);display:grid;place-items:center;color:transparent;transition:all .3s var(--lux)}
+.tkk svg{width:18px;height:18px}
+.tki.on{background:linear-gradient(100deg,rgba(62,207,142,.16),rgba(62,207,142,.05));border-color:rgba(62,207,142,.5)}
+.tki.on .tke{background:#3ecf8e;color:#fff;box-shadow:0 6px 14px rgba(62,207,142,.35)}
+.tki.on .tkk{background:#3ecf8e;border-color:#3ecf8e;color:#fff}
+.tki.on .tkt b{opacity:.8}
+.tki.on em{background:rgba(62,207,142,.15);color:#2fb27a}
+.tki.pop .tkk{animation:tkPop .5s var(--lux)}.tki.pop .tke{animation:tkPop .5s var(--lux) .05s}
+@keyframes tkPop{40%{transform:scale(1.3)}}
+.tkfl{position:absolute;left:52px;top:8px;font-size:14px;font-weight:900;color:#2fb27a;pointer-events:none;animation:tkFl 1s ease forwards}
+@keyframes tkFl{to{transform:translateY(-26px);opacity:0}}
+.tkdone{display:flex;flex-direction:column;align-items:center;margin-top:12px;padding:16px;border-radius:20px;background:linear-gradient(135deg,#2bd99a,#0f8a5f);color:#fff;text-align:center;box-shadow:0 12px 26px rgba(43,217,154,.3)}
+.tkdone b{font-family:var(--disp);font-size:18px}.tkdone small{opacity:.9}
+.tkbonus{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:12px 14px;border-radius:16px;border:1.5px dashed rgba(247,148,29,.45);color:var(--ink);font-weight:800;font-size:14px}
+.tkbonus b{color:#f7941d}
+.tkcf{position:fixed;z-index:9999;width:8px;height:12px;border-radius:2px;pointer-events:none;animation:tkCf 1.25s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes tkCf{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+.tktoast{position:fixed;z-index:9999;top:calc(env(safe-area-inset-top) + 84px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;padding:12px 22px;border-radius:18px;background:linear-gradient(135deg,#f7941d,#e4561b);color:#fff;box-shadow:0 14px 34px rgba(228,86,27,.45);animation:tkTin .45s var(--lux)}
+.tktoast b{font-family:var(--disp);font-size:17px}.tktoast small{opacity:.92}
+.tktoast.out{opacity:0;transform:translate(-50%,-14px);transition:all .45s}
+@keyframes tkTin{from{opacity:0;transform:translate(-50%,-18px) scale(.9)}}
+.tki em,.tkst2 b,.tkbonus b,.tkfl{direction:ltr;unicode-bidi:isolate}
 .tknote{margin-top:12px;font-size:13px;color:var(--mut,#8a93a8);text-align:center}
 .tkfoot{display:block;margin-top:8px;font-size:11.5px;color:var(--mut,#8a93a8);text-align:center;opacity:.85}
 .tkedit{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:13px;border-radius:16px;border:1px dashed var(--line2);background:var(--card);font-weight:800;font-size:15px;color:var(--or)}
@@ -2396,12 +2436,32 @@ function tkLevel(xp){ var L = 1, need = 100, acc = 0; while (xp >= acc + need){ 
 function tkStreak(){ var d = tkAll(), m = tkMin(), t = tkTs(tkDay()), c = 0, ok = function(ms){ var z = new Date(ms); return Object.keys(d.days[z.getUTCFullYear()+'-'+(z.getUTCMonth()+1)+'-'+z.getUTCDate()] || {}).length >= m; };
   if (!ok(t)) t -= 864e5; while (ok(t)){ c++; t -= 864e5; } return c; }
 function tkToday(){ tkSync(); var today = tkAll().days[tkDay()] || {}, L = tkList(); return { L:L, today:today, n:L.filter(function(x){ return today[x.id]; }).length }; }
-function tkHTML(){ var T = tkToday(), L = T.L, n = T.n, pc = L.length ? Math.round(n/L.length*100) : 0, xp = tkTotal(), lv = tkLevel(xp), sk = tkStreak();
-  return '<div id="tkBox"><div class="tkc"><div class="tkh"><span class="tkr">'+ring(pc, 30, 7)+'<b>'+ar(n)+'<small>/'+ar(L.length)+'</small></b></span>'+
-    '<div class="tks"><div class="tkst"><span class="tkf'+(sk ? ' on' : '')+'">'+TI.fire+' '+ar(sk)+' '+(sk === 1 ? 'يوم' : 'أيام')+'</span><span class="tkx">'+TI.star+' '+ar(xp)+' XP</span></div>'+
-    '<div class="tkl"><b>'+lv.name+' <span class="tklv">مستوى '+ar(lv.L)+'</span></b><small>باقي '+ar(lv.need - lv.into)+' XP للمستوى الجاي</small></div><span class="tkb"><i style="width:'+Math.max(3, Math.round(lv.into/lv.need*100))+'%"></i></span></div></div></div>'+
-    '<div class="tkls">'+L.map(function(x){ var on = !!T.today[x.id]; return '<button type="button" class="tki'+(on ? ' on' : '')+'" data-tk="'+x.id+'"><span class="tke">'+(TI[x.ic] || TI.check)+'</span><span class="tkt"><b>'+e(x.t)+'</b>'+(x.s ? '<small>'+x.s+'</small>' : '')+'</span><em>+١٠</em><i class="tkk">'+(on ? '✓' : '')+'</i></button>'; }).join('')+'</div>'+
-    (L.length && n >= L.length ? '<div class="tkdone">🎉 أنجزت يومك كامل! <b>+٢٠ XP</b> بونص</div>' : '<div class="tknote">'+(n >= tkMin() ? 'كمّل يومك 💪 لو خلصتها كلها لك بونص ٢٠ XP' : 'خلّص '+ar(tkMin())+' مهام على الأقل عشان يكمل الستريك 🔥')+'</div>')+'</div>'; }
+function tkKey(ms){ var z = new Date(ms); return z.getUTCFullYear()+'-'+(z.getUTCMonth()+1)+'-'+z.getUTCDate(); }
+function tkBest(){ var d = tkAll(), m = tkMin(), ks = Object.keys(d.days).filter(function(k){ return Object.keys(d.days[k]).length >= m; }).map(tkTs).sort(), best = 0, run = 0, prev = 0;
+  ks.forEach(function(t){ run = prev && t - prev === 864e5 ? run + 1 : 1; prev = t; if (run > best) best = run; }); return best; }
+function tkWeek(){ var d = tkAll(), m = tkMin(), t0 = tkTs(tkDay()), DN = ['ح','ن','ث','ر','خ','ج','س'], out = [];
+  for (var i = 6; i >= 0; i--){ var t = t0 - i*864e5, c = Object.keys(d.days[tkKey(t)] || {}).length; out.push({ d:DN[new Date(t).getUTCDay()], ok:c >= m, part:c > 0 && c < m, today:i === 0 }); } return out; }
+function tkHex(L){ return '<svg viewBox="0 0 64 72" class="tkhx"><defs><linearGradient id="hxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd36e"/><stop offset=".55" stop-color="#f7941d"/><stop offset="1" stop-color="#e4561b"/></linearGradient></defs>'+
+  '<path d="M32 3l26 15v36L32 69 6 54V18z" fill="url(#hxg)"/><path d="M32 10l20 11.5v29L32 62 12 50.5v-29z" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.5"/>'+
+  '<text x="32" y="44" text-anchor="middle" font-size="24" font-weight="900" fill="#fff" font-family="inherit">'+ar(L)+'</text></svg>'; }
+function tkMsg(n, N, sk){ if (!N) return 'اختار مهامك وابدأ يومك 💪'; if (n >= N) return 'يوم كامل! الله يتقبل منك 🤍'; if (n === 0) return sk ? 'لا تكسر الستريك! 🔥 '+ar(sk)+' '+(sk === 1 ? 'يوم' : 'أيام')+' ورا ظهرك' : 'يلا نبدأ اليوم بقوة 💪';
+  var left = N - n; return left === 1 ? 'باقي مهمة وحدة وتاخذ البونص ⚡' : 'باقي '+ar(left)+' مهام على البونص ⚡'; }
+function tkHTML(){ var T = tkToday(), L = T.L, n = T.n, N = L.length, pc = N ? Math.round(n/N*100) : 0, xp = tkTotal(), lv = tkLevel(xp), sk = tkStreak(), best = Math.max(tkBest(), sk), W = tkWeek(),
+    lp = Math.max(4, Math.round(lv.into/lv.need*100)), todayXP = n*10 + (N && n >= N ? 20 : 0);
+  return '<div id="tkBox"><div class="tkhero">'+
+    '<div class="tkh1"><div class="tklvl">'+tkHex(lv.L)+'<div><small>المستوى</small><b>'+lv.name+'</b></div></div>'+
+      '<div class="tkfl2'+(sk ? ' on' : '')+'"><span class="tkfi">'+TI.fire+'</span><b>'+ar(sk)+'</b><small>'+(sk === 1 ? 'يوم' : 'أيام')+'</small></div></div>'+
+    '<div class="tkxpb"><div class="tkxpt"><span><b>'+ar(xp)+'</b> XP</span><small>'+ar(lv.need - lv.into)+' للمستوى '+ar(lv.L + 1)+'</small></div><span class="tkbar"><i style="width:'+lp+'%"></i></span></div>'+
+    '<div class="tkwk">'+W.map(function(w){ return '<span class="'+(w.ok ? 'ok' : w.part ? 'pt' : '')+(w.today ? ' td' : '')+'"><i>'+(w.ok ? TI.fire : '')+'</i><small>'+w.d+'</small></span>'; }).join('')+'</div>'+
+    '<div class="tkst2"><div><b>'+ar(pc)+'٪</b><small>إنجاز اليوم</small></div><div><b>+'+ar(todayXP)+'</b><small>كسبتها اليوم</small></div><div><b>'+ar(best)+'</b><small>أطول ستريك</small></div></div>'+
+    '<div class="tkmsg">'+tkMsg(n, N, sk)+'</div></div>'+
+    '<div class="tkprog"><span>مهام اليوم</span><b>'+ar(n)+' / '+ar(N)+'</b></div><span class="tkbar dk"><i style="width:'+pc+'%"></i></span>'+
+    '<div class="tkls">'+L.map(function(x){ var on = !!T.today[x.id]; return '<button type="button" class="tki'+(on ? ' on' : '')+'" data-tk="'+x.id+'"><span class="tke">'+(TI[x.ic] || TI.check)+'</span><span class="tkt"><b>'+e(x.t)+'</b>'+(x.s ? '<small>'+x.s+'</small>' : '')+'</span><em>'+(on ? '✓ ' : '')+'+١٠ XP</em><i class="tkk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i></button>'; }).join('')+'</div>'+
+    (N && n >= N ? '<div class="tkdone"><b>🎉 أنجزت يومك كامل!</b><small>+٢٠ XP بونص انضاف لك</small></div>' : '<div class="tkbonus"><span>⚡ بونص اليوم الكامل</span><b>+٢٠ XP</b></div>')+'</div>'; }
+function tkBoom(el){ var r = el.getBoundingClientRect(), C = ['#f7941d','#ffd36e','#3ecf8e','#4dabf7','#ff6b6b','#b197fc'];
+  for (var i = 0; i < 28; i++){ var c = document.createElement('i'); c.className = 'tkcf'; c.style.left = (r.left + r.width/2)+'px'; c.style.top = (r.top + 20)+'px'; c.style.background = C[i % C.length];
+    c.style.setProperty('--x', (Math.random()*260 - 130)+'px'); c.style.setProperty('--y', (-Math.random()*220 - 60)+'px'); c.style.setProperty('--r', (Math.random()*720 - 360)+'deg'); document.body.appendChild(c); setTimeout(function(x){ return function(){ x.remove(); }; }(c), 1300); } }
+function tkToast(t){ var d = document.createElement('div'); d.className = 'tktoast'; d.innerHTML = t; document.body.appendChild(d); setTimeout(function(){ d.classList.add('out'); }, 2200); setTimeout(function(){ d.remove(); }, 2700); }
 function tasksPage(){ return '<div class="page">'+ptop('target','صفحتي','يومي','مهامك اليومية، كل مهمة تخلصها لها XP')+
   '<section class="band" style="padding-top:16px"><div class="wrap">'+tkHTML()+'<a class="tkedit" href="#/me/tasks/edit">'+TI.edit+' عدّل مهامي</a>'+
   '<small class="tkfoot">اليوم يبدأ من الفجر · تقدّمك محفوظ بجوالك بس</small>'+backMe()+'</div></section></div>'; }
@@ -2422,8 +2482,11 @@ document.addEventListener('click', function(ev){ var t = ev.target; if (!t.close
   var dl = t.closest('[data-tdel]'); if (dl){ if (!dl.classList.contains('sure')){ dl.classList.add('sure'); setTimeout(function(){ dl.classList.remove('sure'); }, 2500); return; }
     var c2 = tkCfg(), id = dl.getAttribute('data-tdel'); c2.own = c2.own.filter(function(o){ return o.id !== id; }); tkSave(c2); var y2 = window.scrollY; routeNow(); window.scrollTo(0, y2); return; }
   var b = t.closest('[data-tk]'); if (!b) return;
-  var tid = b.getAttribute('data-tk'), on2 = !b.classList.contains('on'); tkSet(tid, on2);
-  var box = document.getElementById('tkBox'); if (box){ box.outerHTML = tkHTML();
+  var tid = b.getAttribute('data-tk'), on2 = !b.classList.contains('on'), lv0 = tkLevel(tkTotal()).L; tkSet(tid, on2);
+  if (navigator.vibrate && on2) try { navigator.vibrate(12); } catch(_){}
+  var box = document.getElementById('tkBox'); if (box){ box.outerHTML = tkHTML(); var T2 = tkToday(), lv1 = tkLevel(tkTotal());
+    if (on2 && T2.L.length && T2.n >= T2.L.length){ var dn = document.querySelector('.tkdone'); if (dn) tkBoom(dn); }
+    if (lv1.L > lv0){ tkToast('<b>⬆️ مستوى '+ar(lv1.L)+'</b><small>وصلت «'+lv1.name+'» ما شاء الله</small>'); var hx = document.querySelector('.tklvl'); if (hx){ hx.classList.add('up'); tkBoom(hx); } }
     if (on2){ var nb = document.querySelector('[data-tk="'+tid+'"]'); if (nb){ nb.classList.add('pop'); var f = document.createElement('span'); f.className = 'tkfl'; f.textContent = '+١٠ XP'; nb.appendChild(f); setTimeout(function(){ f.remove(); nb.classList.remove('pop'); }, 900); } } } });
 I.target = TI.target; I.edit = TI.edit; I.bell = I.bell || TI.bell; I.trophy = TI.trophy;
 function backMe(){ return '<a class="mego adback" href="#/me">‹ رجوع لصفحتي</a>'; }
