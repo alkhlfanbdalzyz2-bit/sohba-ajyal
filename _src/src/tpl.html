@@ -1092,6 +1092,31 @@ html{touch-action:pan-x pan-y}
 .saw{font-family:"Amiri",serif;font-weight:700;font-size:1.05em}
 .shb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:12px 0;padding:12px;border-radius:16px;border:1px solid var(--line2);background:var(--card);color:var(--ink);font:inherit;font-weight:800;font-size:15px;cursor:pointer}
 .shb svg{width:18px;height:18px;color:var(--or)}.shb:active{transform:scale(.98)}
+.trip2 .tmotto{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;margin:10px auto 4px;padding:10px 18px 12px;border:0;background:none;color:inherit;font:inherit;cursor:pointer}
+.trip2 .tmotto b{font-family:var(--cal);font-size:clamp(30px,9vw,44px);font-weight:700;line-height:1.3;background:linear-gradient(180deg,#fff,#ffe2a3);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 30px rgba(247,148,29,.25)}
+.tplay{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,211,110,.35);font-size:13.5px;font-weight:800;color:#ffe2a3}
+.tpi{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#ffd36e,#f7941d);color:#fff;font-style:normal}.tpi svg{width:15px;height:15px}
+.tpi .p2,.on .tpi .p1{display:none}.on .tpi .p2{display:inline}
+.tmotto.on .tplay{box-shadow:0 0 0 0 rgba(247,148,29,.6);animation:tAud 1.4s ease-out infinite}
+@keyframes tAud{to{box-shadow:0 0 0 14px rgba(247,148,29,0)}}
+.trip2 .tplace{display:flex;align-items:center;justify-content:center;gap:2px;margin:6px 0 2px;font-weight:800;font-size:16px;color:#ffd36e}
+.tnotes{margin-top:16px;padding:14px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);text-align:right}
+.tnotes>b{display:flex;align-items:center;font-size:15px;color:#ffd36e}
+.tnotes ul{margin:8px 0 0;padding:0 18px 0 0;font-size:14px;line-height:1.9;color:rgba(255,255,255,.9)}
+.tchs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.tchs span{padding:4px 10px;border-radius:99px;background:rgba(247,148,29,.16);border:1px solid rgba(247,148,29,.35);font-size:12.5px;font-weight:800;color:#ffe2a3}
+.tpv{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;transition:opacity .3s}.tpv.in{opacity:1}
+.tpvb{position:absolute;inset:0;background:rgba(2,8,24,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.tpvw{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:480px;transform:translateY(16px) scale(.97);transition:transform .35s var(--lux)}.tpv.in .tpvw{transform:none}
+.tpvi{position:relative;width:min(100%,calc((100vh - 160px) * .6667));border-radius:18px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.6)}.tpvi img{display:block;width:100%;height:auto}
+.tph{position:absolute;border:0;background:transparent;cursor:pointer;border-radius:16px;-webkit-tap-highlight-color:transparent}
+.tph.v{left:8%;right:8%;top:45%;height:12.5%}.tph.lg{left:54%;width:22%;top:4%;height:13.5%;border-radius:50%}
+.tph.on{box-shadow:0 0 0 3px rgba(247,148,29,.85),0 0 30px rgba(247,148,29,.6);animation:tAud 1.4s ease-out infinite}
+.tpvc{display:flex;gap:8px;width:min(100%,calc((100vh - 160px) * .6667))}
+.tpa{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;border:0;border-radius:14px;background:linear-gradient(135deg,#f7941d,#e4561b);text-shadow:0 1px 2px rgba(0,0,0,.2);color:#fff;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.tpa .tpi{background:rgba(255,255,255,.25)}.tpa,.tpa.on{opacity:1!important;filter:none!important}
+.trip2 .ppost img{max-height:340px;object-fit:cover;object-position:top}
+.tpx{padding:12px 18px;border-radius:14px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font:inherit;font-weight:800;cursor:pointer}
+.tph2{color:rgba(255,255,255,.7);font-size:12.5px}
 .ii{display:inline-flex;width:1.1em;height:1.1em;vertical-align:-.18em;margin-left:5px;flex:none}.ii svg{width:100%;height:100%}
 .cban .cbi{display:grid;place-items:center;flex:none}.cban .cbi svg{width:22px;height:22px}
 .orn3{display:flex;justify-content:center;margin:10px auto 0}.orn3 svg{overflow:visible;filter:drop-shadow(0 0 5px rgba(247,148,29,.35))}
@@ -2105,8 +2130,36 @@ function progState(){
 }
 /* عدّاد إعلان الرحلة الختامية (يختفي بعد الموعد بـ٣ ساعات) */
 var TRIP = { at:'2026-11-27T11:36:00+03:00', t:'الرحلة الختامية', sub:'العد التنازلي ليوم الجمعة · وقت صلاة الجمعة' };
+/* إعلان الرحلة الختامية: عدّاد للتجمع + تفاصيل + بوستر تضغط على آيته أو الشعار وتسمع التلاوة */
+var TRIPX = { at:'2026-11-27T10:00:00+03:00', end:'2026-11-28T21:30:00+03:00', motto:'فبهداهم اقتده', place:'شاليه لؤلؤة القرين', img:'assets/trip-final.webp', th:'assets/trip-final-t.webp', audio:'assets/an3am-90.mp3',
+  verse:'أُولَٰئِكَ الَّذِينَ هَدَى اللَّهُ ۖ فَبِهُدَاهُمُ اقْتَدِهْ', notes:['لا تنسى ملابس الرياضة وأغراضك الشخصية','لا يوجد سباحة بالشاليه','تحديات الكورس مستمرة حتى يوم السبت'],
+  ch:['أفضل طبق موالح','فيديو مفيد','تلخيص كتاب','تقديم الخاطرة'] };
+var TAUD = null;
+function tripAudio(btn){ if (!TAUD){ TAUD = new Audio(TRIPX.audio); TAUD.preload = 'auto'; TAUD.addEventListener('ended', tripAudUI); TAUD.addEventListener('pause', tripAudUI); TAUD.addEventListener('play', tripAudUI); }
+  if (TAUD.paused){ TAUD.currentTime = TAUD.ended ? 0 : TAUD.currentTime; TAUD.play().catch(function(){}); } else TAUD.pause(); }
+function tripAudUI(){ var on = TAUD && !TAUD.paused; Array.prototype.forEach.call(document.querySelectorAll('[data-taud]'), function(b){ b.classList.toggle('on', on); var l = b.querySelector('.tal'); if (l) l.textContent = on ? 'إيقاف التلاوة' : 'اسمع الآية'; }); }
+function tripCard(){ var X = TRIPX;
+  return '<div class="cdn full frame rv trip2" id="cdn" data-at="'+X.at+'" data-end="'+X.end+'"><span class="cglow"></span><span class="lbl">كورس على خطاه ﷺ</span>'+
+    '<h2 class="chd">🔥 الرحلة <em>الختامية</em> 🔥</h2>'+
+    '<button type="button" class="tmotto" data-taud><b>'+X.motto+'</b><span class="tplay"><i class="tpi">'+(TI.play || '▶')+'</i><span class="tal">اسمع الآية</span></span></button>'+
+    '<div class="when"><i></i><span>الجمعة والسبت · ٢٧ و٢٨ نوفمبر</span></div>'+
+    '<div class="tplace">'+ii('pin')+X.place+'</div>'+
+    '<div class="tkt"><div><small>التجمع · الجمعة</small><b>١٠:٠٠ ص</b><span>بالمركز</span></div><i class="tsep"></i><div><small>الختام · السبت</small><b>٩:٣٠ م</b><span>بالمركز</span></div></div>'+
+    '<div class="cdx"></div>'+
+    '<div class="tnotes"><b>'+ii('alert')+'ملاحظات مهمة</b><ul>'+X.notes.map(function(n){ return '<li>'+n+'</li>'; }).join('')+'</ul><div class="tchs">'+X.ch.map(function(c){ return '<span>'+c+'</span>'; }).join('')+'</div></div>'+
+    '<button type="button" class="ppost" data-trippv><img src="'+X.th+'" alt="إعلان الرحلة الختامية" loading="lazy"><em>اضغط لعرض الإعلان</em></button></div>'; }
+function tripPv(){ var X = TRIPX, d = document.createElement('div'); d.className = 'tpv'; d.id = 'tpv';
+  d.innerHTML = '<div class="tpvb" data-tpvx></div><div class="tpvw"><div class="tpvi"><img src="'+X.img+'" alt="إعلان الرحلة الختامية"><button type="button" class="tph v" data-taud aria-label="اسمع الآية"></button><button type="button" class="tph lg" data-taud aria-label="اسمع الآية"></button></div>'+
+    '<div class="tpvc"><button type="button" class="tpa" data-taud><i class="tpi">'+(TI.play || '▶')+'</i><span class="tal">اسمع الآية</span></button><button type="button" class="tpx" data-tpvx>إغلاق</button></div><small class="tph2">اضغط على الآية أو الشعار وتسمع التلاوة 🎧</small></div>';
+  document.body.appendChild(d); document.documentElement.classList.add('nsh-lock'); requestAnimationFrame(function(){ d.classList.add('in'); }); tripAudUI(); }
+function tripPvClose(){ var d = document.getElementById('tpv'); if (!d) return; if (TAUD) TAUD.pause(); d.classList.remove('in'); document.documentElement.classList.remove('nsh-lock'); setTimeout(function(){ d.remove(); }, 300); }
+document.addEventListener('click', function(ev){ var t = ev.target; if (!t.closest) return;
+  if (t.closest('[data-taud]')){ tripAudio(); return; }
+  if (t.closest('[data-trippv]')){ tripPv(); return; }
+  if (t.closest('[data-tpvx]')){ tripPvClose(); return; } });
 function meetBlock(){
   var st = progState();
+  if ((st === 'none' || st === 'done') && TRIPX && Date.now() < new Date(TRIPX.end).getTime()) return tripCard();
   if ((st === 'none' || st === 'done') && TRIP && Date.now() < new Date(TRIP.at).getTime() + 3*3600e3){
     return '<div class="cdn tease trip frame rv" id="cdn" data-at="'+TRIP.at+'"><span class="lbl">كورس على خطاه ﷺ</span><h2>ترقبوا <em>إعلان</em></h2><div class="tz">'+TRIP.t+'</div>'+
       '<div class="cdx"></div><div class="tsub">'+TRIP.sub+'</div></div>';
@@ -2155,7 +2208,9 @@ function meetTick(){
   var x = el.querySelector('.cdx'); if (!x){ clearInterval(CDT); CDT = 0; return; }
   var at = el.getAttribute('data-at');
   if (at){ var s2 = Math.max(0, Math.floor((new Date(at).getTime() - Date.now())/1000));
-    if (s2 <= 0){ if (!x.querySelector('.live')) x.innerHTML = '<div class="live">الإعلان قريب جداً<small>ترقبوه إن شاء الله 🤍</small></div>'; return; }
+    if (s2 <= 0){ var en = el.getAttribute('data-end');
+      if (en && Date.now() >= new Date(en).getTime()){ el.outerHTML = meetBlock(); var n2 = document.getElementById('cdn'); if (n2) n2.classList.add('in'); return; }
+      if (!x.querySelector('.live')) x.innerHTML = en ? '<div class="live">الرحلة شغّالة الحين 🔥<small>الله يحفظكم ويجعلها رحلة مباركة 🤍</small></div>' : '<div class="live">الإعلان قريب جداً<small>ترقبوه إن شاء الله 🤍</small></div>'; return; }
     var v2 = [Math.floor(s2/86400), Math.floor(s2%86400/3600), Math.floor(s2%3600/60), s2%60], lb2 = ['يوم','ساعة','دقيقة','ثانية'];
     if (!x.querySelector('.cdb')) x.innerHTML = '<div class="cdb">'+lb2.map(function(l){ return '<div><b>٠</b><span>'+l+'</span></div>'; }).join('')+'</div>';
     var bs2 = x.querySelectorAll('.cdb b'); v2.forEach(function(n, i){ var t = ar(n < 10 && i ? '0'+n : n); if (bs2[i].textContent !== t) bs2[i].textContent = t; }); return; }
@@ -2523,6 +2578,8 @@ TI.lock = SV('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8
 TI.alert = SV('<path d="M12 3l9.5 17H2.5z"/><path d="M12 10v4M12 17.5v.01"/>');
 TI.mega = SV('<path d="M3 11v3l12 5V6L3 11z"/><path d="M15 9a4 4 0 0 1 0 7M6 15l1.5 5h3l-1.2-4"/>');
 TI.bolt = SV('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>');
+TI.pin = SV('<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>');
+TI.play = '<svg viewBox="0 0 24 24"><path class="p1" d="M8 5.5v13l10.5-6.5z" fill="currentColor"/><g class="p2" fill="currentColor"><rect x="7" y="5.5" width="3.6" height="13" rx="1"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1"/></g></svg>';
 TI.share = SV('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>');
 var SHR = { challenge:['التحدي الأسبوعي','شارك معانا بالتحدي الأسبوعي في صحبة أجيال 💪'], khutah:['كورس على خطاه ﷺ','كورس على خطاه ﷺ · صحبة أجيال'], me:['يومي','مهامي اليومية في صحبة أجيال 🔥'], memories:['الذكريات','ذكريات صحبة أجيال 🤍'] };
 function shareBtn(k){ return '<button type="button" class="shb" data-share="'+k+'">'+TI.share+'<span>شارك مع ربعك</span></button>'; }
