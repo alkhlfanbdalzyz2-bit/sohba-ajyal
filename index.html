@@ -42,6 +42,8 @@ body.lo header nav,body.lo #rf,body.lo #lo{display:none}.lg-in{max-width:340px;m
 <main id="m"><div class="ld">...</div></main><div class="toast" id="toast"></div>
 <script>
 var D=null,SEC='home';try{SEC=sessionStorage.getItem('sec')||'home'}catch(_){}
+try{var qs=new URLSearchParams(location.search).get('s');if(qs){SEC=qs;history.replaceState(null,'',location.pathname)}}catch(_){}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 var $=function(s){return document.querySelector(s)},esc=function(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
 var ar=function(n){return String(n).replace(/\d/g,function(c){return'٠١٢٣٤٥٦٧٨٩'[c]})};
 var fmt=function(t){return new Date(t).toLocaleString('ar-KW',{timeZone:'Asia/Kuwait',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})};
@@ -57,9 +59,16 @@ function login(err){document.body.classList.add('lo');$('#m').innerHTML='<form c
 document.addEventListener('submit',function(e){if(e.target.id!=='lf')return;e.preventDefault();KEY=$('#lk').value.trim();try{localStorage.setItem('k',KEY)}catch(_){}document.body.classList.remove('lo');$('#m').innerHTML='<div class="ld">...</div>';load()});
 function bars(obj,labels){var k=Object.keys(obj).sort(function(a,b){return obj[b]-obj[a]}),mx=Math.max.apply(null,k.map(function(x){return obj[x]}).concat([1]));
  return k.length?k.map(function(x){return'<div class="bar"><span>'+esc(labels&&labels[x]||x)+'</span><i style="width:'+Math.max(2,obj[x]/mx*60)+'%"></i><em>'+ar(obj[x])+'</em></div>'}).join(''):'<div class="empty">للحين ما فيه بيانات</div>'}
+function u8(b){var p='='.repeat((4-b.length%4)%4),r=atob((b+p).replace(/-/g,'+').replace(/_/g,'/')),a=new Uint8Array(r.length);for(var i=0;i<r.length;i++)a[i]=r.charCodeAt(i);return a}
+function nst(){if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))return'nosup';if(!(navigator.standalone||matchMedia('(display-mode: standalone)').matches))return'install';if(Notification.permission==='denied')return'denied';return Notification.permission==='granted'&&localStorage.getItem('admPush')?'on':'off'}
+function ncard(){var st=nst();return'<div class="card" id="ncard"><div class="row"><h3 class="sp">🔔 إشعار لما يوصل اقتراح</h3>'+(st==='on'?'<span class="ok">مفعّل ✅</span>':'')+'</div><div class="mut">'+({on:'بيوصلك إشعار على هالجهاز كل ما أحد يرسل اقتراح جديد',off:'فعّلها عشان يوصلك إشعار على هالجهاز كل ما أحد يرسل اقتراح',install:'ثبّت اللوحة على الشاشة الرئيسية أول، وافتحها من الأيقونة',denied:'الإشعارات مقفلة للوحة من إعدادات الجوال',nosup:'هالمتصفح ما يدعم الإشعارات'})[st]+'</div>'+
+ (st==='off'?'<button class="btn big" id="non">فعّل الإشعارات</button>':st==='on'?'<div class="row" style="margin-top:10px"><button class="btn gh sp" id="ntest">أرسل تجربة</button><button class="btn dl" id="noff">إيقاف</button></div>':'')+'</div>'}
+function nOn(b){b.disabled=true;Notification.requestPermission().then(function(p){if(p!=='granted')throw 0;return navigator.serviceWorker.ready}).then(function(r){return r.pushManager.getSubscription().then(function(x){return x||r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(D.vk)})})})
+ .then(function(sub){return api({a:'adm-sub',sub:sub.toJSON()})}).then(function(){localStorage.setItem('admPush','1');toast('✅ تفعّلت، وصلك إشعار تجربة');render()}).catch(function(){b.disabled=false;toast('ما تفعّلت، تأكد إنك سامح بالإشعارات')})}
+function nOff(){navigator.serviceWorker.ready.then(function(r){return r.pushManager.getSubscription()}).then(function(x){var ep=x&&x.endpoint;return(x?x.unsubscribe():Promise.resolve()).then(function(){return api({a:'adm-unsub',ep:ep||''})})}).then(function(){localStorage.removeItem('admPush');toast('انوقفت');render()}).catch(function(){toast('صار خطأ')})}
 function vHome(){var s=D.stats,nu=D.items.filter(function(i){return!i.r}).length;
  return '<div class="kp"><div><b>'+ar(s.today)+'</b><small>زائر اليوم</small></div><div><b>'+ar(s.week)+'</b><small>زوار هالأسبوع</small></div><div><b>'+ar(s.all)+'</b><small>من البداية</small></div><div><b>'+ar(s.subs)+'</b><small>مفعّل الإشعارات</small></div></div>'+
- '<div class="card"><div class="row"><h3 class="sp">📮 الاقتراحات</h3><button class="btn gh" data-go="sug">فتح</button></div><div class="mut">'+(nu?'عندك <b style="color:#f7b267">'+ar(nu)+'</b> اقتراح بانتظار ردك':'كل الاقتراحات مردود عليها ✅')+' · المجموع '+ar(D.items.length)+'</div></div>'+
+ ncard()+'<div class="card"><div class="row"><h3 class="sp">📮 الاقتراحات</h3><button class="btn gh" data-go="sug">فتح</button></div><div class="mut">'+(nu?'عندك <b style="color:#f7b267">'+ar(nu)+'</b> اقتراح بانتظار ردك':'كل الاقتراحات مردود عليها ✅')+' · المجموع '+ar(D.items.length)+'</div></div>'+
  (D.cfg.banner?'<div class="card"><h3>📢 شريط التنبيه شغّال</h3><div class="mut">'+esc(D.cfg.banner.t)+'</div></div>':'')+
  (D.sched.length?'<div class="card"><h3>⏰ إشعارات مجدولة</h3>'+D.sched.map(function(x){return'<div class="mut">'+fmt(x.at)+' · '+esc(x.title)+'</div>'}).join('')+'</div>':'')+
  '<div class="card"><h3>🔔 التذكيرات اللي مفعّلينها الشباب</h3>'+bars(D.rem,REM)+'</div>'+
@@ -147,6 +156,9 @@ document.addEventListener('click',function(e){var t=e.target;
  if(t.closest('#cnsave')){var nb=$('#cnsave');if(!$('#cn_t').value.trim()){toast('اكتب اسم التحدي');return}if(!$('#cn_f').value){toast('اختار يوم البداية');return}
   if(!nb.classList.contains('sure')){nb.classList.add('sure');nb.textContent='متأكد؟ الترتيب الحالي بيروح · اضغط مرة ثانية';setTimeout(function(){if(document.body.contains(nb)){nb.classList.remove('sure');nb.textContent='ابدأ التحدي الجديد'}},4000);return}
   nb.disabled=true;api({a:'chal-set',t:$('#cn_t').value,act:$('#cn_a').value,desc:$('#cn_d').value,from:$('#cn_f').value,days:+$('#cn_n').value||7,win:($('#cn_w .on')||{dataset:{}}).dataset.w}).then(function(){toast('🏆 بدأ التحدي الجديد');return load()}).catch(function(){nb.disabled=false;toast('صار خطأ')});return}
+ if(t.closest('#non')){nOn(t.closest('#non'));return}
+ if(t.closest('#noff')){nOff();return}
+ if(t.closest('#ntest')){api({a:'adm-test'}).then(function(d){toast(d.sent?'انرسلت ✅':'ما وصلت، جرّب توقفها وتفعّلها')}).catch(function(){toast('صار خطأ')});return}
  if(t.closest('#bsave')||t.closest('#bclr')){var clr=!!t.closest('#bclr'),tone=($('#btone .on')||{}).dataset;
   api({a:'cfg',banner:clr?'':$('#bt').value,tone:tone&&tone.t}).then(function(){toast(clr?'انشال التنبيه':'انحفظ ✅ يطلع خلال دقيقة');return load()}).catch(function(){toast('صار خطأ')});return}
  if(t.closest('#psave')||t.closest('#pclr')){var c2=!!t.closest('#pclr');
