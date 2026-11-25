@@ -1026,6 +1026,39 @@ html{touch-action:pan-x pan-y}
 .tktoast.out{opacity:0;transform:translate(-50%,-14px);transition:all .45s}
 @keyframes tkTin{from{opacity:0;transform:translate(-50%,-18px) scale(.9)}}
 .tki em,.tkst2 b,.tkbonus b,.tkfl{direction:ltr;unicode-bidi:isolate}
+.chcard{position:relative;display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:14px 14px;border-radius:22px;color:#fff;overflow:hidden;background:radial-gradient(120% 120% at 100% 0,rgba(255,211,110,.35),transparent 55%),linear-gradient(135deg,#0b2a66,#061a45);border:1px solid rgba(255,211,110,.35);box-shadow:0 12px 28px rgba(2,10,30,.35)}
+.chcard::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,236,190,.14) 50%,transparent 65%);animation:shim 3.6s ease-in-out infinite;pointer-events:none}
+.chic{flex:none;width:50px;height:50px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#ffd36e,#f7941d 55%,#e4561b);box-shadow:0 8px 18px rgba(247,148,29,.45);color:#fff}
+.chic svg{width:26px;height:26px}
+.chct{flex:1;min-width:0}.chct small{display:block;font-size:12px;color:#ffd36e;font-weight:800}.chct b{display:block;font-family:var(--disp);font-size:19px;font-weight:800;line-height:1.35}.chct em{display:block;font-style:normal;font-size:12.5px;opacity:.8}
+.chgo2{font-size:24px;font-weight:800;opacity:.7}
+.chtop{position:relative;display:flex;align-items:center;gap:12px}.chtop small{display:block;font-size:12px;color:#ffd36e;font-weight:800}.chtop h2{margin:0;font-family:var(--disp);font-size:24px;font-weight:800;line-height:1.3}
+.chv{position:relative;margin:14px 0 4px;text-align:center;font-size:19px;color:#ffe2a3;font-family:"Amiri","Scheherazade New",serif;line-height:1.9}
+.chd{position:relative;margin:0;text-align:center;font-size:13px;opacity:.8}
+.chjoin,.chact{display:flex;flex-direction:column;gap:8px;margin-top:14px;padding:16px;border-radius:22px;background:var(--card);border:1px solid var(--line2)}
+.chjoin b{font-family:var(--disp);font-size:18px;color:var(--ink)}.chjoin small{color:var(--mut,#8a93a8);font-size:13px;margin-top:-6px}
+.chjoin input{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line2);background:var(--chip);color:var(--ink);font:inherit;font-size:16px}
+.chm{padding:8px 12px;border-radius:12px;background:rgba(229,72,77,.12);color:#e5484d;font-size:13px;font-weight:800;text-align:center}
+.chgo{display:flex;align-items:center;gap:14px;width:100%;padding:16px;border:0;border-radius:18px;background:linear-gradient(135deg,#ffd36e,#f7941d 50%,#e4561b);color:#fff;font:inherit;text-align:right;cursor:pointer;box-shadow:0 12px 26px rgba(247,148,29,.4);animation:tkPulse2 2s ease-in-out infinite}
+@keyframes tkPulse2{50%{box-shadow:0 12px 34px rgba(247,148,29,.65)}}
+.chgo svg{flex:none;width:34px;height:34px}.chgo b{display:block;font-family:var(--disp);font-size:19px}.chgo small{display:block;font-size:12.5px;opacity:.92}
+.chgo:active{transform:scale(.98)}
+.chdone,.chwait{display:flex;align-items:center;gap:12px;padding:6px 2px}
+.chdone>svg{flex:none;width:40px;height:40px;color:#3ecf8e}.chwait>svg{flex:none;width:38px;height:38px;color:#f7941d}
+.chdone div,.chwait div{flex:1}.chdone b,.chwait b{display:block;font-size:15.5px;font-weight:800;color:var(--ink)}.chdone small,.chwait small{display:block;font-size:12.5px;color:var(--mut,#8a93a8)}
+.chundo{flex:none;padding:6px 12px;border-radius:10px;border:1px solid var(--line2);background:none;color:var(--mut,#8a93a8);font:inherit;font-size:12.5px;cursor:pointer}
+.cxls{display:grid;gap:8px;margin-top:8px}
+.cxr{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:18px;background:var(--card);border:1px solid var(--line2)}
+.cxr.me{border-color:#f7941d;box-shadow:0 0 0 1px rgba(247,148,29,.35) inset}
+.cxrk{flex:none;width:32px;height:32px;border-radius:11px;display:grid;place-items:center;background:var(--chip);font-weight:900;color:var(--ink)}
+.cxr.t1 .cxrk{background:linear-gradient(135deg,#ffd36e,#f2a516);color:#5a3a00}.cxr.t2 .cxrk{background:linear-gradient(135deg,#eef2f7,#b8c2d0);color:#2b3545}.cxr.t3 .cxrk{background:linear-gradient(135deg,#f3b38a,#c87a45);color:#4a2510}
+.cxn{flex:1;min-width:0}.cxn b{display:block;font-size:15px;font-weight:800;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cxn em{font-style:normal;font-size:11px;padding:1px 7px;border-radius:99px;background:rgba(247,148,29,.15);color:#f7941d;vertical-align:2px}
+.cxdots{display:flex;gap:4px;margin-top:5px}
+.cxdots i{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:900;color:#fff;background:var(--chip);border:1px solid var(--line2)}
+.cxdots i.ok{background:#3ecf8e;border-color:#3ecf8e}.cxdots i.no{background:rgba(229,72,77,.12);border-color:rgba(229,72,77,.25)}.cxdots i.td{border-color:#ffd36e;animation:tkPulse 1.8s ease-in-out infinite}
+.cxc{flex:none;font-family:var(--disp);font-size:20px;font-weight:900;color:#f7941d}.cxc small{font-size:12px;color:var(--mut,#8a93a8)}
+.chleave{display:block;margin:16px auto 0;padding:8px 14px;border:0;background:none;color:var(--mut,#8a93a8);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer}.chleave.sure{color:#e5484d}
 .tknote{margin-top:12px;font-size:13px;color:var(--mut,#8a93a8);text-align:center}
 .tkfoot{display:block;margin-top:8px;font-size:11.5px;color:var(--mut,#8a93a8);text-align:center;opacity:.85}
 .tkedit{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;padding:13px;border-radius:16px;border:1px dashed var(--line2);background:var(--card);font-weight:800;font-size:15px;color:var(--or)}
@@ -1519,7 +1552,7 @@ function home(){
   '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','الذكريات')+library()+'</div></section>'+
-  '<section class="band"><div class="wrap">'+sh('','صفحتي','أذكارك ونقاطك بمكان واحد')+quickBlock()+'</div></section>'+
+  '<section class="band"><div class="wrap">'+sh('','صفحتي','أذكارك ونقاطك بمكان واحد')+chCard()+quickBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','إنجازاتنا','والقادم أفضل بإذن الله')+
     '<div class="ccs stg">'+row({ href:'#/awards', img:'assets/cv-awards.webp', k:'الدرع الحصين ١٠ · المركز الثالث', t:'منصة التتويج', c:'g', ok:1, st:AW.length+' تتويج' })+'</div>'+
     '<div class="stats rv"><div><b class="cnt" data-to="'+AW.length+'">0</b><span>تتويج</span></div><div><b class="cnt" data-to="46">0</b><span>مشارك</span></div>'+(function(t){ return '<div><b class="cnt" data-to="'+(t.i+t.v)+'">0</b><span>صورة وفيديو</span></div>'; })(mediaTotals())+'</div>'+
@@ -2322,7 +2355,7 @@ document.addEventListener('click', function(ev){ var t = ev.target; if (!t.close
 /* ===================== يومي: مهام يومية + XP + ستريك (محفوظة بجهاز الشخص فقط) ===================== */
 var SV = function(d){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+d+'</svg>'; };
 var TI = {
-  mosque:SV('<path d="M4 21V11l8-6 8 6v10z"/><path d="M10 21v-4a2 2 0 0 1 4 0v4"/><path d="M12 2v3"/>'),
+  mosque:SV('<path d="M3 21h18"/><path d="M5 21v-7a7 7 0 0 1 14 0v7"/><path d="M12 7V3.5"/><path d="M10 21v-3a2 2 0 0 1 4 0v3"/>'),
   sunrise:SV('<path d="M7 17a5 5 0 0 1 10 0"/><path d="M3 17h18M12 5v4M5.6 9.6 7 11M18.4 9.6 17 11M8 21h8"/>'),
   book:SV('<path d="M12 6.5C10 5 7 4.5 3 5v13c4-.5 7 0 9 1.5 2-1.5 5-2 9-1.5V5c-4-.5-7 0-9 1.5z"/><path d="M12 6.5V19"/>'),
   sun:SV('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
@@ -2422,8 +2455,52 @@ document.addEventListener('click', function(ev){ var t = ev.target; if (!t.close
     if (on2 && T2.L.length && T2.n >= T2.L.length){ var dn = document.querySelector('.tkdone'); if (dn) tkBoom(dn); }
     if (lv1.L > lv0){ tkToast('<b>⬆️ مستوى '+ar(lv1.L)+'</b><small>وصلت «'+lv1.name+'» ما شاء الله</small>'); var hx = document.querySelector('.tklvl'); if (hx){ hx.classList.add('up'); tkBoom(hx); } }
     if (on2){ var nb = document.querySelector('[data-tk="'+tid+'"]'); if (nb){ nb.classList.add('pop'); var f = document.createElement('span'); f.className = 'tkfl'; f.textContent = '+١٠ XP'; nb.appendChild(f); setTimeout(function(){ f.remove(); nb.classList.remove('pop'); }, 900); } } } });
-I.target = TI.target; I.edit = TI.edit; I.bell = I.bell || TI.bell; I.trophy = TI.trophy;
+I.target = TI.target; I.edit = TI.edit; I.bell = I.bell || TI.bell; I.trophy = I.trophy || TI.trophy;
 function backMe(){ return '<a class="mego adback" href="#/me">‹ رجوع لصفحتي</a>'; }
+
+/* ===================== التحدي الأسبوعي (رجال الفجر …) ===================== */
+var CHD = null, CHMSG = '';
+var MON = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+function chTok(){ var t = store('chTok'); if (!t || !/^[A-Za-z0-9]{16,64}$/.test(t)){ t = ''; var A = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789'; for (var i = 0; i < 32; i++) t += A[Math.floor(Math.random()*A.length)]; store('chTok', t); } return t; }
+function chDate(k, wd){ var a = k.split('-').map(Number), t = new Date(Date.UTC(a[0], a[1]-1, a[2])); return (wd ? DAYN[t.getUTCDay()]+' ' : '')+ar(a[2])+' '+MON[a[1]-1]; }
+function chHM(h){ var x = Math.round(h*60), H = Math.floor(x/60) % 12 || 12; return ar(H)+':'+ar(String(x % 60).padStart(2,'0')); }
+function chApi(b){ return fetch(PUSH.api+'chal', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(Object.assign({ t:chTok() }, b)) }).then(function(r){ return r.json().then(function(j){ if (!r.ok) throw j; return j; }); }); }
+function chLoad(){ return fetch(PUSH.api+'chal?t='+chTok(), { cache:'no-store' }).then(function(r){ return r.json(); }).then(function(d){ CHD = d; store('chT', d.c.t); chPaint(); }).catch(function(){ var b = document.getElementById('chBox'); if (b && !CHD) b.innerHTML = '<div class="tknote">ما قدرنا نحمّل التحدي، تأكد من النت وارجع</div>'; }); }
+function chPaint(){ var b = document.getElementById('chBox'); if (b && CHD) b.innerHTML = chHTML(CHD); }
+function chRank(L){ var o = L.slice().sort(function(a,b){ return b.d.length - a.d.length || a.n.localeCompare(b.n, 'ar'); }), r = 0, prev = -1;
+  o.forEach(function(x, i){ if (x.d.length !== prev){ r = i + 1; prev = x.d.length; } x.r = r; }); return o; }
+function chHTML(d){ var c = d.c, st = d.st, L = chRank(d.list), me = L.filter(function(x){ return x.me; })[0], doneToday = me && me.d.indexOf(st.today) >= 0, N = st.days.length;
+  var status = st.before ? 'يبدأ '+chDate(st.days[0], 1)+' إن شاء الله' : st.ended ? 'انتهى التحدي · هذي النتائج' : 'اليوم '+ar(st.idx+1)+' من '+ar(N);
+  var h = '<div class="tkhero chhero"><div class="chtop"><span class="chic">'+TI.trophy+'</span><div><small>التحدي الأسبوعي</small><h2>'+e(c.t)+'</h2></div></div>'+
+    '<p class="chv">وَفِي ذَٰلِكَ فَلْيَتَنَافَسِ الْمُتَنَافِسُونَ</p>'+(c.desc ? '<p class="chd">'+e(c.desc)+'</p>' : '')+
+    '<div class="tkst2"><div><b>'+ar(L.length)+'</b><small>مشارك</small></div><div><b>'+(st.ended ? '✓' : st.before ? '—' : ar(st.idx+1)+'/'+ar(N))+'</b><small>'+(st.ended ? 'انتهى' : 'اليوم')+'</small></div><div><b>'+(me ? ar(me.d.length)+'/'+ar(N) : '—')+'</b><small>رصيدك</small></div></div>'+
+    '<div class="tkmsg">'+status+' · '+chDate(st.days[0])+' ← '+chDate(st.days[N-1])+'</div></div>';
+  if (!me && !st.ended) h += '<div class="chjoin"><b>شارك معانا بالتحدي 💪</b><small>اكتب اسمك عشان يطلع بالترتيب مع الشباب</small><input id="chN" maxlength="30" placeholder="اسمك…" autocomplete="name"><button type="button" class="tkab" data-chjoin>'+TI.plus+' شارك معانا</button>'+(CHMSG ? '<div class="chm">'+CHMSG+'</div>' : '')+'</div>';
+  if (me && !st.ended){ var act;
+    if (doneToday) act = '<div class="chdone">'+TI.check+'<div><b>سجّلناها لك اليوم، الله يتقبل 🤍</b><small>'+ar(me.d.length)+' من '+ar(N)+' أيام</small></div>'+(st.open ? '<button type="button" class="chundo" data-chtick="0">تراجع</button>' : '')+'</div>';
+    else if (st.open) act = '<button type="button" class="chgo" data-chtick="1">'+TI.mosque+'<span><b>'+e(c.act || 'أنجزتها اليوم')+'</b><small>اضغط وسجّلها · '+(st.win === 'day' ? 'مفتوح طول اليوم' : 'مفتوح لين '+chHM(st.dhuhr))+'</small></span></button>';
+    else if (st.win === 'day' && st.before) act = '<div class="chwait">'+TI.sunrise+'<div><b>التحدي يبدأ '+chDate(st.days[0], 1)+'</b><small>تقدر تسجّل كل يوم من بدايته لين نهايته</small></div></div>';
+    else act = '<div class="chwait">'+TI.sunrise+'<div><b>'+(st.before ? 'التحدي يبدأ '+chDate(st.days[0], 1) : (new Date(Date.now()+3*3600e3).getUTCHours() + new Date(Date.now()+3*3600e3).getUTCMinutes()/60 < st.fajr ? 'التسجيل يفتح وقت أذان الفجر' : 'انتهى وقت تسجيل اليوم'))+'</b><small>'+(st.before || new Date(Date.now()+3*3600e3).getUTCHours() + new Date(Date.now()+3*3600e3).getUTCMinutes()/60 < st.fajr ? 'من الأذان ('+chHM(st.fajr)+') لين الظهر ('+chHM(st.dhuhr)+')' : 'نشوفك باجر الفجر إن شاء الله 🤍')+'</small></div></div>';
+    h += '<div class="chact">'+(CHMSG ? '<div class="chm">'+CHMSG+'</div>' : '')+act+'</div>'; }
+  h += '<div class="tkprog"><span>الترتيب</span><b>'+ar(L.length)+' مشارك</b></div>';
+  h += L.length ? '<div class="cxls">'+L.map(function(x){ return '<div class="cxr'+(x.me ? ' me' : '')+(x.r <= 3 && x.d.length ? ' t'+x.r : '')+'"><span class="cxrk">'+ar(x.r)+'</span><div class="cxn"><b>'+e(x.n)+(x.me ? ' <em>أنت</em>' : '')+'</b><span class="cxdots">'+st.days.map(function(k, i){
+      var ok = x.d.indexOf(k) >= 0, cls = ok ? 'ok' : (st.ended || i < st.idx || (i === st.idx && !st.open && !ok && new Date(Date.now()+3*3600e3).getUTCHours() >= 12)) ? 'no' : i === st.idx ? 'td' : '';
+      return '<i class="'+cls+'">'+(ok ? '✓' : '')+'</i>'; }).join('')+'</span></div><span class="cxc">'+ar(x.d.length)+'<small>/'+ar(N)+'</small></span></div>'; }).join('')+'</div>'
+    : '<div class="tknote">كن أول واحد يشارك 💪</div>';
+  if (me && !st.ended) h += '<button type="button" class="chleave" data-chleave>انسحب من التحدي</button>';
+  return h; }
+function chalPage(){ return '<div class="page">'+ptop('trophy','صحبة أجيال','التحدي الأسبوعي','نتنافس على الخير مع الشباب')+
+  '<section class="band" style="padding-top:16px"><div class="wrap"><div id="chBox">'+(CHD ? chHTML(CHD) : '<div class="tknote">جاري التحميل…</div>')+'</div>'+homeBtn()+'</div></section></div>'; }
+function chCard(){ var t = store('chT') || 'رجال الفجر'; return '<a class="chcard rv" href="#/challenge"><span class="chic">'+TI.trophy+'</span><span class="chct"><small>التحدي الأسبوعي</small><b>'+e(t)+'</b><em>شارك معانا وتنافس مع الشباب</em></span><span class="chgo2">‹</span></a>'; }
+document.addEventListener('click', function(ev){ var t = ev.target; if (!t.closest) return;
+  var j = t.closest('[data-chjoin]'); if (j){ var n = (document.getElementById('chN').value || '').trim(); if (n.length < 2){ document.getElementById('chN').focus(); return; }
+    j.disabled = true; CHMSG = ''; chApi({ a:'join', n:n }).then(function(d){ CHD = d; CHMSG = ''; chPaint(); var hx = document.querySelector('.chact'); if (hx) tkBoom(hx); })
+      .catch(function(err){ j.disabled = false; CHMSG = err && err.err === 'taken' ? 'هالاسم مسجّل قبل، اكتب اسمك الكامل' : 'صار خطأ، جرّب مرة ثانية'; chPaint(); var i2 = document.getElementById('chN'); if (i2) i2.value = n; }); return; }
+  var k = t.closest('[data-chtick]'); if (k){ var on = k.getAttribute('data-chtick') === '1'; k.disabled = true; CHMSG = '';
+    chApi({ a:'tick', on:on }).then(function(d){ CHD = d; chPaint(); if (on){ var dn = document.querySelector('.chdone'); if (dn) tkBoom(dn); if (navigator.vibrate) try { navigator.vibrate(15); } catch(_){} } })
+      .catch(function(err){ CHMSG = err && err.err === 'closed' ? 'وقت التسجيل مسكّر الحين' : 'صار خطأ، جرّب مرة ثانية'; chLoad(); }); return; }
+  var lv = t.closest('[data-chleave]'); if (lv){ if (!lv.classList.contains('sure')){ lv.classList.add('sure'); lv.textContent = 'متأكد؟ بينحذف رصيدك · اضغط مرة ثانية'; setTimeout(function(){ if (document.body.contains(lv)){ lv.classList.remove('sure'); lv.textContent = 'انسحب من التحدي'; } }, 3500); return; }
+    chApi({ a:'leave' }).then(function(d){ CHD = d; chPaint(); }).catch(function(){}); } });
 
 /* ===================== صفحتي ===================== */
 function meName(){ var n = store('me'); return n && PEOPLE.some(function(p){ return p.n === n; }) ? n : ''; }
@@ -2460,7 +2537,7 @@ function mePage(){
   if (p && p.h){ HALAQAT.cats.forEach(function(c){ var L = rankRows(c.rows), o = L.filter(function(x){ return x.n === p.h; })[0]; if (o) rk = ordTxt(o)+' بالحلقة'; }); }
   var tile = function(cls, href, ic, t, sub, foot){ return '<a class="kt4 mt '+cls+'" href="'+href+'"><span class="ki">'+ic+'</span><b>'+t+'</b><small>'+sub+'</small>'+(foot || '')+'<span class="mtgo">‹</span></a>'; };
   return '<div class="page">'+ptop('user','صحبة أجيال', p ? e(p.n) : 'صفحتي', p ? '<button type="button" class="mechg" data-mechg>مو أنا؟ غيّر الاسم</button>' : 'مهامك، أذكارك، ونقاطك بمكان واحد')+
-    '<section class="band" style="padding-top:16px"><div class="wrap"><div class="qk mhub">'+
+    '<section class="band" style="padding-top:16px"><div class="wrap">'+chCard()+'<div class="qk mhub">'+
       tile('', '#/me/tasks', TI.target, 'يومي', T.L.length ? ar(T.n)+' من '+ar(T.L.length)+' مهام اليوم' : 'اختار مهامك', '<span class="mtp"><i style="width:'+(T.L.length ? Math.round(T.n/T.L.length*100) : 0)+'%"></i></span>'+(sk ? '<span class="mtb">'+TI.fire+' '+ar(sk)+'</span>' : ''))+
       tile('gr', '#/adhkar', I.beads, 'أذكاري', pr ? 'خلصت '+ar(pr)+' من ٤ اليوم' : 'الصباح والمساء والنوم', '<span class="mtp"><i style="width:'+Math.round(pr/4*100)+'%"></i></span>')+
       tile('b', '#/me/points', TI.trophy, 'نقاطي', p ? (rk || 'الحلقة والكورس والتحديات') : 'اختار اسمك وشوف نقاطك')+
@@ -2588,6 +2665,7 @@ function routeNow(){
   else if (id === 'me/tasks'){ html = tasksPage(); title = 'يومي'; tab = 'me'; }
   else if (id === 'me/tasks/edit'){ html = tasksEdit(); title = 'عدّل مهامي'; tab = 'me'; }
   else if (id === 'me/points'){ html = mePoints(); title = 'نقاطي'; tab = 'me'; }
+  else if (id === 'challenge'){ html = chalPage(); title = 'التحدي الأسبوعي'; }
   else if (id === 'me/rem'){ html = remPage(); title = 'التذكيرات'; tab = 'me'; }
   else if (id.indexOf('adhkar/') === 0){ html = adhkarPage(id.slice(7)); tab = 'me'; if (html) title = ADHKAR[id.slice(7)].t; }
   else if (id === 'me'){ html = mePage(); title = 'صفحتي'; tab = 'me'; }
@@ -2602,7 +2680,7 @@ function routeNow(){
   document.body.classList.toggle('inner', id !== '');
   Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(a){ a.classList.toggle('on', a.getAttribute('data-t') === tab && (tab !== '' || id === '')); });
   toTop(); requestAnimationFrame(toTop); setTimeout(toTop, 120); setTimeout(toTop, 400);
-  reveal(); meetStart(); pushCard(); pvSend(id); if (id === 'me/rem') remLoad();
+  reveal(); meetStart(); pushCard(); pvSend(id); if (id === 'me/rem') remLoad(); if (id === 'challenge') chLoad();
 }
 function toTop(){ if (VW.open || VP.open) return; var de = document.documentElement; window.scrollTo(0,0); de.scrollTop = 0; document.body.scrollTop = 0; }
 function stopMomentum(){ var de = document.documentElement; if (VW.open || VP.open) return; de.classList.add('noscroll'); window.scrollTo(0,0); requestAnimationFrame(function(){ if (!VW.open && !VP.open) de.classList.remove('noscroll'); toTop(); }); }
