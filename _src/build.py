@@ -14,8 +14,8 @@ self.addEventListener('fetch', function(e){
   var r = e.request; if (r.method !== 'GET') return;
   var u = new URL(r.url); if (u.origin !== location.origin) return;
   if (r.mode === 'navigate'){ e.respondWith(fetch(r).then(function(res){ var cp = res.clone(); caches.open(C).then(function(c){ c.put('./index.html', cp); }); return res; }).catch(function(){ return caches.match('./index.html'); })); return; }
-  if (/\\.(mp4|m3u8|ts)$/.test(u.pathname) || u.pathname.indexOf('/.netlify/') === 0) return;
-  e.respondWith(caches.match(r).then(function(hit){ return hit || fetch(r).then(function(res){ if (res.ok && /\\/(assets|gal)\\//.test(u.pathname)){ var cp = res.clone(); caches.open(C).then(function(c){ c.put(r, cp); }); } return res; }); }));
+  if (/\\.(mp4|m3u8|ts)$/.test(u.pathname) || /\\/m\\/[^\\/]+\\/v$/.test(u.pathname) || r.headers.has('range') || u.pathname.indexOf('/.netlify/') === 0) return;
+  e.respondWith(caches.match(r).then(function(hit){ return hit || fetch(r).then(function(res){ if (res.ok && /\\/(assets|gal|m)\\//.test(u.pathname)){ var cp = res.clone(); caches.open(C).then(function(c){ c.put(r, cp); }); } return res; }); }));
 });
 /* الإشعارات */
 self.addEventListener('push', function(e){

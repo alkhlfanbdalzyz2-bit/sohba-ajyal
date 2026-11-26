@@ -86,6 +86,26 @@ exports.handler = async (event) => {
     const chs = CH.cs(), old = await CH.cur(chs), f = from.split('-').map(Number).join('-');
     const c = { id: b.keep ? old.id : 'c' + Date.now().toString(36), t, from: f, days, act: String(b.act || '').trim().slice(0, 40) || 'أنجزتها اليوم', desc: String(b.desc || '').trim().slice(0, 160), win: b.win === 'day' ? 'day' : 'fajr' };
     await chs.setJSON('cur', c); return J({ ok: true, c }); }
+  if (a === 'v-chunk') { const id = String(b.id || ''), n = +b.n, buf = MD.toBuf(b.d);
+    if (!MD.ID.test(id) || !(n >= 0 && n < MD.VMAXN) || !buf || !buf.length || buf.length > MD.VCS) return J({ err: 'bad' }, 400);
+    await MD.ms().set('v/' + id + '/' + n, MD.ab(buf)); return J({ ok: true }); }
+  if (a === 'v-done') { const id = String(b.id || ''), n = +b.n, size = +b.size, s = MD.ms();
+    if (!MD.ID.test(id) || !(n >= 1 && n <= MD.VMAXN) || !(size > 0 && size <= n * MD.VCS)) return J({ err: 'bad' }, 400);
+    for (let i = 0; i < n; i++) { const m = await s.getMetadata('v/' + id + '/' + i); if (!m) return J({ err: 'miss', i }, 400); }
+    const type = /^video\/(mp4|quicktime|webm)$/.test(b.type || '') ? b.type : 'video/mp4';
+    await s.setJSON('v/' + id + '/meta', { n, size, cs: MD.VCS, type: type === 'video/quicktime' ? 'video/mp4' : type });
+    const th = MD.toBuf(b.th); if (th && MD.isImg(th) && th.length < 6e5) await s.set('t/' + id, MD.ab(th), { metadata: { type: 'image/jpeg' } });
+    const c = (await ps.get('site-cfg', { type: 'json' })) || {}, V = c.vids = c.vids || [];
+    if (!V.some(v => v.y === 'u_' + id)) V.push({ y: 'u_' + id, t: String(b.t || '').trim().slice(0, 80), w: Math.round(+b.w) || 0, h: Math.round(+b.h) || 0, th: th ? 1 : 0, at: Date.now() });
+    await ps.setJSON('site-cfg', c); return J({ ok: true, vids: V }); }
+  if (a === 'vid-add' || a === 'vid-del' || a === 'vid-mv') {
+    const c = (await ps.get('site-cfg', { type: 'json' })) || {}, V = c.vids = c.vids || [];
+    if (a === 'vid-add') { const m = String(b.url || '').match(/(?:youtu\.be\/|v=|shorts\/|embed\/|live\/)([A-Za-z0-9_-]{11})/) || String(b.url || '').match(/^([A-Za-z0-9_-]{11})$/);
+      if (!m) return J({ err: 'url' }, 400); if (V.some(v => v.y === m[1])) return J({ err: 'dup' }, 409); V.push({ y: m[1], t: String(b.t || '').trim().slice(0, 80), at: Date.now() }); }
+    if (a === 'vid-del') { const i = V.findIndex(v => v.y === String(b.y || '')); if (i < 0) return J({}, 404); V.splice(i, 1); }
+    if (a === 'vid-mv') { const i = V.findIndex(v => v.y === String(b.y || '')), j = i + (b.dir > 0 ? 1 : -1); if (i < 0 || j < 0 || j >= V.length) return J({}, 400); [V[i], V[j]] = [V[j], V[i]]; }
+    await ps.setJSON('site-cfg', c); return J({ ok: true, vids: V });
+  }
   if (a === 'cfg') {
     const c = (await ps.get('site-cfg', { type: 'json' })) || {};
     if ('banner' in b) { const t = String(b.banner || '').trim().slice(0, 140); if (t) c.banner = { t, tone: b.tone === 'warn' ? 'warn' : 'info', at: Date.now() }; else delete c.banner; }

@@ -32,4 +32,5 @@ async function act(a, b){
   return null;
 }
 async function pub(){ const x = await idx(ms()); const items = {}; Object.keys(x.items).forEach(k => { if (x.items[k].length) items[k] = x.items[k].map(o => [o.id, o.at, o.w, o.h]); }); return { albums: x.albums, items }; }
-module.exports = { ms, idx, act, pub, ID };
+const VCS = 3 * 1024 * 1024, VMAXN = 25; // فيديو: قطع ٣ ميجا، أقصى ٧٥ ميجا
+module.exports = { ms, idx, act, pub, ID, toBuf, isImg, ab, VCS, VMAXN };
