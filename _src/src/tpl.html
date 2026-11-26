@@ -1181,7 +1181,7 @@ html{touch-action:pan-x pan-y}
 .zacts button.on{background:rgba(247,148,29,.14);border-color:rgba(247,148,29,.45)}.zacts button.on .ii svg{fill:#f7941d}
 .zacts button.busy{opacity:.5;pointer-events:none}
 .zacts .zplay{flex:1.25;background:linear-gradient(135deg,#f7941d,#e4561b);border:0;color:#fff}.zacts .zplay .tpi{width:22px;height:22px;background:rgba(255,255,255,.25)}.zacts .zplay .tpi svg{width:12px;height:12px}
-.zacts .zplay.on{animation:tAud 1.4s ease-out infinite}
+.zacts .zplay.on{animation:tAud 1.4s ease-out infinite}.zacts .zplay.ld .tpi{animation:zld .8s linear infinite}@keyframes zld{50%{transform:scale(.75);opacity:.6}}
 .zyt{position:relative;display:block;width:100%;aspect-ratio:16/9;margin:0 0 12px;padding:0;border:0;border-radius:16px;overflow:hidden;background:#000;cursor:pointer}
 .zyt img{width:100%;height:100%;object-fit:cover;opacity:.9}.zyt.up{max-height:60vh;margin-inline:auto}.zyt.up video{width:100%;height:100%;object-fit:contain;background:#000;display:block}.zyt iframe{width:100%;height:100%;border:0}
 .zpl{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:#c92a2a;box-shadow:0 10px 30px rgba(0,0,0,.4)}.zpl svg{width:26px;height:26px;margin-left:-3px}.zpl .p2{display:none}
@@ -2704,12 +2704,30 @@ function zVidCard(){ var v = zVid(); if (!v) return ''; var k = 'v:'+v.y;
 function zadBlock(){ var d = zDay(); return '<div class="zad"><div class="zttl"><b>زادك اليوم</b><small>يتجدد كل يوم إن شاء الله</small></div>'+zAyCard(d)+zHadCard(d)+zVidCard()+'</div>'; }
 /* صوت الآية (العفاسي) */
 var ZAUD = null, ZQ = [], ZBTN = null;
+/* صوت الآية: الشيخ أحمد النفيس (جزء الآية من تسجيل السورة، بأوقات mp3quran) — وإذا تعذّر نرجع للعفاسي */
+var ZT = {};
+function zTimes(su){ if (ZT[su]) return ZT[su]; ZT[su] = fetch('.netlify/functions/ayt?s='+su).then(function(r){ if (!r.ok) throw 0; return r.json(); }).catch(function(e){ delete ZT[su]; throw e; }); return ZT[su]; }
+function zStop(){ if (ZAUD){ ZAUD.pause(); ZAUD.removeAttribute('src'); try { ZAUD.load(); } catch(_){} } clearInterval(zPlay.iv); }
 function zPlay(btn){ if (ZAUD && ZBTN === btn && !ZAUD.paused){ ZAUD.pause(); return; }
-  if (ZAUD){ ZAUD.pause(); } var g = +btn.getAttribute('data-zplay'), n = +btn.getAttribute('data-zn') || 1, s = AYAT.filter(function(a){ return a[5] === g; })[0];
-  ZQ = []; for (var i = 0; i < n; i++) ZQ.push('https://everyayah.com/data/Alafasy_128kbps/'+('00'+s[0]).slice(-3)+('00'+(s[1]+i)).slice(-3)+'.mp3');
-  ZBTN = btn; ZAUD = new Audio(); var next = function(){ var u = ZQ.shift(); if (!u){ zUI(false); return; } ZAUD.src = u; ZAUD.play().catch(function(){ zUI(false); }); };
-  ZAUD.addEventListener('ended', next); ZAUD.addEventListener('pause', function(){ if (!ZAUD.ended) zUI(false); }); ZAUD.addEventListener('play', function(){ zUI(true); }); next(); }
-function zUI(on){ if (!ZBTN) return; ZBTN.classList.toggle('on', on); var l = ZBTN.querySelector('.tal'); if (l) l.textContent = on ? 'إيقاف' : 'استمع'; }
+  zStop(); var g = +btn.getAttribute('data-zplay'), n = +btn.getAttribute('data-zn') || 1, s = AYAT.filter(function(a){ return a[5] === g; })[0], tk = {};
+  ZBTN = btn; zPlay.tk = tk; btn.classList.add('ld'); zUI(true);
+  var alafasy = function(){ if (zPlay.tk !== tk) return; btn.classList.remove('ld'); ZQ = []; for (var i = 0; i < n; i++) ZQ.push('https://everyayah.com/data/Alafasy_128kbps/'+('00'+s[0]).slice(-3)+('00'+(s[1]+i)).slice(-3)+'.mp3');
+    ZAUD = new Audio(); var next = function(){ var u = ZQ.shift(); if (!u){ zUI(false); return; } ZAUD.src = u; ZAUD.play().catch(function(){ zUI(false); }); };
+    ZAUD.addEventListener('ended', next); ZAUD.addEventListener('pause', function(){ if (!ZAUD.ended) zUI(false); }); ZAUD.addEventListener('play', function(){ zUI(true); }); next(); };
+  var to = setTimeout(alafasy, 6000);
+  zTimes(s[0]).then(function(d){ if (zPlay.tk !== tk) return;
+    var A = d.t.filter(function(x){ return x[0] === s[1]; })[0], B = d.t.filter(function(x){ return x[0] === s[2]; })[0]; if (!A || !B) throw 0;
+    var mx = Math.max.apply(null, d.t.map(function(x){ return x[2]; })), k = mx / Math.max(1, d.t.length) > 200 ? 1000 : 1, a = A[1]/k, b = B[2]/k; if (!(b > a)) throw 0;
+    var au = ZAUD = new Audio(), started = false; au.preload = 'auto'; au.src = d.src+'#t='+a.toFixed(2);
+    au.addEventListener('loadedmetadata', function(){ try { if (Math.abs(au.currentTime - a) > .5) au.currentTime = a; } catch(_){} });
+    au.addEventListener('playing', function(){ if (!started){ started = true; clearTimeout(to); btn.classList.remove('ld'); } zUI(true); });
+    au.addEventListener('pause', function(){ if (au === ZAUD) zUI(false); });
+    au.addEventListener('timeupdate', function(){ if (au.currentTime >= b - .05){ au.pause(); clearInterval(zPlay.iv); } });
+    au.addEventListener('error', function(){ if (!started){ clearTimeout(to); alafasy(); } });
+    au.play().catch(function(){ if (!started){ clearTimeout(to); alafasy(); } });
+    clearInterval(zPlay.iv); zPlay.iv = setInterval(function(){ if (au.currentTime >= b - .05 && !au.paused){ au.pause(); clearInterval(zPlay.iv); } }, 120);
+  }).catch(function(){ clearTimeout(to); alafasy(); }); }
+function zUI(on){ if (!ZBTN) return; ZBTN.classList.toggle('on', on); if (!on) ZBTN.classList.remove('ld'); var l = ZBTN.querySelector('.tal'); if (l) l.textContent = on ? 'إيقاف' : 'استمع'; }
 /* بطاقة صورة للمشاركة (واتساب/ستوري) */
 function zWrap(ctx, t, w){ var W = t.split(' '), L = [], cur = ''; W.forEach(function(x){ var tr = cur ? cur+' '+x : x; if (ctx.measureText(tr).width > w && cur){ L.push(cur); cur = x; } else cur = tr; }); if (cur) L.push(cur); return L; }
 function zImage(it){ return new Promise(function(res){ var c = document.createElement('canvas'); c.width = 1080; c.height = 1350; var x = c.getContext('2d');
