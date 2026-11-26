@@ -61,7 +61,7 @@ async function chalFajr(s, date){
   const CH = require('../lib/chal'), cs = CH.cs(), c = await CH.cur(cs), st = CH.state(c);
   if (st.idx < 0) return 'no-chal';
   const mark = 'rem-sent/chfajr/' + date; if (await s.get(mark)) return 'already'; await s.set(mark, '1');
-  const P = await CH.people(cs, c), want = new Set(P.filter(p => p.pk && !(p.d && p.d[st.today])).map(p => p.pk));
+  const P = await CH.people(cs, c), want = new Set(P.filter(p => p.pk && !CH.has(p, st.today)).map(p => p.pk));
   if (!want.size) return 'none';
   const payload = JSON.stringify({ title: '🌅 يا رجال الفجر', body: 'صليت الفجر؟ لا تنسى تحط صح بالتحدي 💪 وحافظ عليها', url: './#/challenge', tag: 'chfajr-' + date });
   const r = await broadcast(s, payload, async key => want.has(key));

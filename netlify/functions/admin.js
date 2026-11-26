@@ -36,7 +36,7 @@ async function data(event){
   const sched = (await loadAll(ps, 'sched/')).sort((a, b) => a.at - b.at);
   const cfg = (await ps.get('site-cfg', { type: 'json' })) || {};
   const chs = CH.cs(), chc = await CH.cur(chs), chst = CH.state(chc);
-  const chal = { c: chc, st: chst, list: (await CH.people(chs, chc)).map(p => ({ h: p.h, n: p.n, cnt: chst.days.filter(k => p.d && p.d[k]).length, at: p.at })).sort((x, y) => y.cnt - x.cnt) };
+  const chal = { c: chc, st: chst, list: (await CH.people(chs, chc)).map(p => ({ h: p.h, n: p.n, cnt: chst.days.filter(k => CH.has(p, k)).length, at: p.at })).sort((x, y) => y.cnt - x.cnt) };
   const vk = (await vapid(ps)).publicKey, admN = (await ps.list({ prefix: 'adm/' })).blobs.length;
   const mx = await MD.idx(MD.ms());
   return { media: mx, vk, admN, chal, stats: { today: daily[29][1], week: week.size, all, subs }, daily, hours, pages, clicks, rem, remlog, items, trash, log, sched, cfg };

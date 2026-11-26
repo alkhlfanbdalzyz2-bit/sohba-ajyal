@@ -1,6 +1,6 @@
 // التحدي الأسبوعي للشباب: عرض الترتيب + الانضمام + تسجيل اليوم
 const { connectLambda } = require('@netlify/blobs');
-const { cs, cur, state, th, people } = require('../lib/chal');
+const { cs, cur, state, th, people, has } = require('../lib/chal');
 const { keyOf } = require('../lib/store');
 const J = (o, c) => ({ statusCode: c || 200, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }, body: JSON.stringify(o) });
 const TOK = /^[A-Za-z0-9]{16,64}$/;
@@ -9,7 +9,7 @@ exports.handler = async (event) => {
   try { connectLambda(event); } catch(_){}
   const s = cs(), c = await cur(s), st = state(c);
   const view = async (tok) => { const P = await people(s, c), me = tok && TOK.test(tok) ? th(tok) : '';
-    const list = P.map(p => ({ n: p.n, d: st.days.filter(k => p.d && p.d[k]), me: p.h === me ? 1 : 0 }));
+    const list = P.map(p => ({ n: p.n, d: st.days.filter(k => has(p, k)), me: p.h === me ? 1 : 0 }));
     const mine = list.find(x => x.me) || null;
     return { c: { t: c.t, from: c.from, days: c.days, act: c.act, desc: c.desc, id: c.id, win: c.win === 'day' ? 'day' : 'fajr' }, st, list: list.map(x => ({ n: x.n, d: x.d, me: x.me })), joined: mine ? 1 : 0 }; };
   if (event.httpMethod === 'GET') return J(await view((event.queryStringParameters || {}).t));
