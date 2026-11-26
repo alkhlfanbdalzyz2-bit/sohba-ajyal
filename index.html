@@ -2903,7 +2903,8 @@ function chHTML(d){ var c = d.c, st = d.st, L = chRank(d.list), me = L.filter(fu
   if (!me && !st.ended) h += '<div class="chjoin"><b>شارك معانا بالتحدي 💪</b><small>اكتب اسمك عشان يطلع بالترتيب مع الشباب</small><input id="chN" maxlength="30" placeholder="اسمك…" autocomplete="name"><button type="button" class="tkab" data-chjoin>'+TI.plus+' شارك معانا</button>'+(CHMSG ? '<div class="chm">'+CHMSG+'</div>' : '')+'</div>';
   if (me && !st.ended){ var act;
     if (doneToday) act = '<div class="chdone">'+TI.check+'<div><b>سجّلناها لك اليوم، الله يتقبل 🤍</b><small>'+ar(me.d.length)+' من '+ar(N)+' أيام</small></div>'+(st.open ? '<button type="button" class="chundo" data-chtick="0">تراجع</button>' : '')+'</div>';
-    else if (st.open) act = '<button type="button" class="chgo" data-chtick="1">'+TI.mosque+'<span><b>'+e(c.act || 'أنجزتها اليوم')+'</b><small>اضغط وسجّلها · '+(st.win === 'day' ? 'مفتوح طول اليوم' : 'مفتوح لين '+chHM(st.dhuhr))+'</small></span></button>';
+    else if (st.open) act = '<button type="button" class="chgo" data-chtick="1">'+TI.mosque+'<span><b>'+e(c.act || 'أنجزتها اليوم')+'</b><small>اضغط وسجّلها · '+(st.win === 'day' ? 'مفتوح لين آخر اليوم' : 'مفتوح لين '+chHM(st.dhuhr))+'</small></span></button>';
+    else if (st.early) act = '<div class="chwait">'+TI.sunrise+'<div><b>التسجيل يفتح مع أذان الفجر</b><small>الأذان '+chHM(st.fajr)+' إن شاء الله · '+(st.win === 'day' ? 'ويظل مفتوح لين آخر اليوم' : 'ويظل مفتوح لين الظهر')+'</small></div></div>';
     else if (st.win === 'day' && st.before) act = '<div class="chwait">'+TI.sunrise+'<div><b>التحدي يبدأ '+chDate(st.days[0], 1)+'</b><small>تقدر تسجّل كل يوم من بدايته لين نهايته</small></div></div>';
     else act = '<div class="chwait">'+TI.sunrise+'<div><b>'+(st.before ? 'التحدي يبدأ '+chDate(st.days[0], 1) : (new Date(Date.now()+3*3600e3).getUTCHours() + new Date(Date.now()+3*3600e3).getUTCMinutes()/60 < st.fajr ? 'التسجيل يفتح وقت أذان الفجر' : 'انتهى وقت تسجيل اليوم'))+'</b><small>'+(st.before || new Date(Date.now()+3*3600e3).getUTCHours() + new Date(Date.now()+3*3600e3).getUTCMinutes()/60 < st.fajr ? 'من الأذان ('+chHM(st.fajr)+') لين الظهر ('+chHM(st.dhuhr)+')' : 'نشوفك باجر الفجر إن شاء الله 🤍')+'</small></div></div>';
     h += '<div class="chact">'+(CHMSG ? '<div class="chm">'+CHMSG+'</div>' : '')+act+
@@ -2989,11 +2990,11 @@ function mePage(){
   return '<div class="page mepg"><section class="mehero"><span class="mh-arch"></span><div class="wrap">'+
       '<div class="mh-top"><div><small>'+greet+(first ? '' : ' 🤍')+'</small><h1>'+(first ? 'يا '+first : 'صفحتي')+'</h1><span class="mh-d">'+meHijri()+'</span></div>'+
       (p ? '<button type="button" class="mechg" data-mechg>مو أنا؟</button>' : '<a class="mechg" href="#/me/points">اختار اسمك</a>')+'</div>'+
-      '<div class="mh-np" id="meNP">'+ii('mosque')+'<span>الصلاة الجاية</span><b>'+np.n+' · '+np.at+'</b><em>'+np.left+'</em></div>'+
+      '<div class="mh-np" id="meNP">'+ii('mosque')+'<span>الصلاة القادمة</span><b>'+np.n+' · '+np.at+'</b><em>'+np.left+'</em></div>'+
       '<div class="mh-st"><a href="#/me/tasks"><span class="tkf'+(sk ? ' on' : '')+'">'+TI.fire+'</span><b>'+ar(sk)+'</b><small>ستريك</small></a><a href="#/me/tasks"><span>'+TI.star+'</span><b>'+ar(lv.L)+'</b><small>'+lv.name+'</small></a><a href="#/me/badges"><span>'+TI.medal+'</span><b>'+ar(nb)+'</b><small>وسام</small></a><a href="#/me/tasks"><span>'+TI.target+'</span><b>'+ar(T.n)+'/'+ar(T.L.length)+'</b><small>مهام اليوم</small></a></div>'+
       qa([['or','#/me/tasks',TI.target,'يومي'],['gr','#/adhkar',I.beads,'أذكاري'],['b','#/me/points',TI.trophy,'نقاطي'],['g','#/me/badges',TI.medal,'أوسمتي'],['rd','#/me/saved',TI.bookmark,'محفوظاتي'+(nS ? ' <i>'+ar(nS)+'</i>' : '')],['pu','#/me/rem',TI.bell,'التذكيرات']])+
     '</div></section>'+
-    '<section class="band" style="padding-top:18px"><div class="wrap">'+zadBlock()+chCard()+
+    '<section class="band" style="padding-top:18px"><div class="wrap">'+chCard()+zadBlock()+
     '<div hidden>'+
       tile('', '#/me/tasks', TI.target, 'يومي', T.L.length ? ar(T.n)+' من '+ar(T.L.length)+' مهام اليوم' : 'اختار مهامك', '<span class="mtp"><i style="width:'+(T.L.length ? Math.round(T.n/T.L.length*100) : 0)+'%"></i></span>'+(sk ? '<span class="mtb">'+TI.fire+' '+ar(sk)+'</span>' : ''))+
       tile('gr', '#/adhkar', I.beads, 'أذكاري', pr ? 'خلصت '+ar(pr)+' من ٤ اليوم' : 'الصباح والمساء والنوم', '<span class="mtp"><i style="width:'+Math.round(pr/4*100)+'%"></i></span>')+
