@@ -44,6 +44,7 @@ body.lo header nav,body.lo #rf,body.lo #lo{display:none}.lg-in{max-width:340px;m
 .alb{display:flex;align-items:center;gap:10px;width:100%;padding:12px 4px;border:0;border-top:1px solid var(--ln);background:none;color:var(--t);font:inherit;text-align:right;cursor:pointer}.alb:first-of-type{border-top:0}
 .alb span{flex:1}.alb b{display:block;font-size:15px}.alb small{display:block;color:var(--m);font-size:12px}.alb em{font-style:normal;font-size:12px;color:var(--or);font-weight:800}.alb i{font-style:normal;color:var(--m);font-size:18px}
 input[type=file]{display:none!important}
+.vl{display:grid;gap:8px;margin:10px 0}.vi{display:flex;align-items:center;gap:10px;padding:8px;border-radius:12px;border:1px solid var(--ln);background:var(--bg)}.vi.td{border-color:var(--or)}.vi img{width:88px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;flex:none}.vt{flex:1;min-width:0}.vt b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vt small{color:var(--m);font-size:12px}.va{display:flex;gap:3px}.va button{border:0;background:var(--c2);color:var(--t);border-radius:8px;padding:6px 8px;font:inherit;cursor:pointer}.va button:disabled{opacity:.3}.va .del.sure{background:var(--bad);color:#fff;font-size:11px}
 </style></head><body>
 <header><div class="hd"><div><h1>🎛️ لوحة التحكم</h1><small>صحبة أجيال · كل شي هني بدون نشر · <button class="out" id="lo">خروج</button></small></div><button class="rf" id="rf">↻ تحديث</button></div>
 <nav id="nav"><button data-s="home" class="on">📊 الرئيسية</button><button data-s="sug">📮 الاقتراحات</button><button data-s="push">🔔 الإشعارات</button><button data-s="stats">📈 الإحصائيات</button><button data-s="media">🖼️ الصور</button><button data-s="chal">🏆 التحدي</button><button data-s="site">⚙️ الموقع</button></nav></header>
@@ -51,7 +52,7 @@ input[type=file]{display:none!important}
 <script>
 var D=null,SEC='home';try{SEC=sessionStorage.getItem('sec')||'home'}catch(_){}
 try{var qs=new URLSearchParams(location.search).get('s');if(qs){SEC=qs;history.replaceState(null,'',location.pathname)}}catch(_){}
-document.addEventListener('change',function(e){if(e.target&&e.target.id==='mfile'&&e.target.files.length)mUpload(e.target.files)});
+document.addEventListener('change',function(e){if(e.target&&e.target.id==='mfile'&&e.target.files.length)mUpload(e.target.files);if(e.target&&e.target.id==='vfile'&&e.target.files.length){vUpload(e.target.files[0]);e.target.value=''}});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 var $=function(s){return document.querySelector(s)},esc=function(x){return String(x==null?'':x).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
 var ar=function(n){return String(n).replace(/\d/g,function(c){return'٠١٢٣٤٥٦٧٨٩'[c]})};
@@ -147,8 +148,25 @@ function vChal(){var C=D.chal||{c:{},st:{days:[]},list:[]},c=C.c,st=C.st,N=st.da
  '<div class="row"><div class="sp"><label>يبدأ يوم</label><input type="date" id="cn_f" value="'+tmr()+'"></div><div style="width:90px"><label>كم يوم</label><input type="number" id="cn_n" min="1" max="30" value="7"></div></div>'+
  '<label>وقت التسجيل</label><div class="seg" id="cn_w"><button data-w="fajr" class="on">🌅 من الفجر لين الظهر</button><button data-w="day">☀️ طول اليوم</button></div>'+
  '<button class="btn big" id="cnsave">ابدأ التحدي الجديد</button></div>'}
+function zDay(){var t=new Date(Date.now()+3*3600e3);return Math.floor((Date.UTC(t.getUTCFullYear(),t.getUTCMonth(),t.getUTCDate())-Date.UTC(2026,0,1))/864e5)}
+function vidCard(){var V=((D.cfg||{}).vids)||[],ti=V.length?((zDay()%V.length)+V.length)%V.length:-1;
+ return '<div class="card"><h3>🎬 فيديو اليوم (بصفحتي)</h3><div class="mut">كل يوم يطلع فيديو من القائمة بالترتيب، وترجع من البداية لما تخلص. حط بس فيديوهات بدون موسيقى.</div>'+
+ (V.length?'<div class="vl">'+V.map(function(v,i){return'<div class="vi'+(i===ti?' td':'')+'"><img src="'+(/^u_/.test(v.y)?(v.th?'https://ajyalcl.netlify.app/m/'+v.y.slice(2)+'/t':'logo.webp'):'https://i.ytimg.com/vi/'+v.y+'/mqdefault.jpg')+'" alt=""><div class="vt"><b>'+(/^u_/.test(v.y)?'📱 ':'')+esc(v.t||'بدون عنوان')+'</b><small>'+(i===ti?'🟢 يطلع اليوم':(((i-ti)+V.length)%V.length===1?'باجر':'بعد '+ar(((i-ti)+V.length)%V.length)+' أيام'))+'</small></div><div class="va"><button data-vmv="-1" data-y="'+v.y+'"'+(i?'':' disabled')+'>↑</button><button data-vmv="1" data-y="'+v.y+'"'+(i<V.length-1?'':' disabled')+'>↓</button><button class="del" data-vdel="'+v.y+'">🗑</button></div></div>'}).join('')+'</div>':'<div class="empty">للحين ما فيه فيديوهات، ضيف أول واحد</div>')+
+ '<label>عنوان قصير</label><input id="v_t" maxlength="80" placeholder="مثال: فضل صلاة الفجر">'+
+ '<label class="upz" id="vupz"><input type="file" id="vfile" accept="video/*" hidden><b id="vupb">📤 ارفع فيديو من جوالك</b><small>فيديو قصير (دقيقة تقريبًا) · أقصى حجم ٧٥ ميجا · ما ينحمّل عند الشباب إلا إذا ضغطوا تشغيل</small></label>'+
+ '<div class="mut" style="text-align:center;margin:12px 0 0">أو حط رابط يوتيوب</div><input id="v_u" placeholder="https://youtu.be/..." dir="ltr" style="margin-top:6px"><button class="btn big" id="vadd">إضافة الرابط</button></div>'}
+var VUP=0;function b64of(blob){return new Promise(function(ok,no){var r=new FileReader();r.onload=function(){ok(String(r.result).split(',')[1])};r.onerror=no;r.readAsDataURL(blob)})}
+function vMeta(f){return new Promise(function(ok){var v=document.createElement('video'),u=URL.createObjectURL(f),done=0,fin=function(o){if(done)return;done=1;URL.revokeObjectURL(u);ok(o)};v.muted=true;v.playsInline=true;v.preload='auto';
+ v.onloadedmetadata=function(){var d=v.duration||0;try{v.currentTime=Math.min(1,d/3)}catch(_){fin({w:v.videoWidth,h:v.videoHeight,d:d})}};
+ v.onseeked=function(){var W=v.videoWidth,H=v.videoHeight,k=Math.min(1,720/Math.max(W,H)),c=document.createElement('canvas');c.width=Math.round(W*k);c.height=Math.round(H*k);var th='';try{c.getContext('2d').drawImage(v,0,0,c.width,c.height);th=c.toDataURL('image/jpeg',.8).split(',')[1]}catch(_){}fin({w:W,h:H,d:v.duration,th:th})};
+ v.onerror=function(){fin({})};setTimeout(function(){fin({w:v.videoWidth||0,h:v.videoHeight||0,d:v.duration||0})},8000);v.src=u})}
+function vUpload(f){if(VUP)return;var CS=3*1024*1024,MX=25*CS;if(!/^video\//.test(f.type||'video/')){toast('اختار ملف فيديو');return}if(f.size>MX){toast('الفيديو كبير ('+ar(Math.round(f.size/1048576))+' ميجا) — الأقصى ٧٥');return}
+ var t=($('#v_t')||{}).value||'',n=Math.ceil(f.size/CS),id=Date.now().toString(36)+Math.random().toString(36).slice(2,6),b=$('#vupb'),st=function(x){b=$('#vupb')||b;b.textContent=x};VUP=1;st('⏳ يجهّز الفيديو…');
+ vMeta(f).then(function(m){var i=0;function next(){if(i>=n)return Promise.resolve();st('⏳ يرفع '+ar(Math.round(i/n*100))+'٪');return b64of(f.slice(i*CS,(i+1)*CS)).then(function(d){var tries=0;function go(){return api({a:'v-chunk',id:id,n:i,d:d}).catch(function(e){if(++tries<3)return go();throw e})}return go()}).then(function(){i++;return next()})}
+  return next().then(function(){st('⏳ يثبّت…');return api({a:'v-done',id:id,n:n,size:f.size,type:f.type,t:t,w:m.w,h:m.h,th:m.th||''})})})
+ .then(function(){VUP=0;toast('✅ انرفع الفيديو');return load()}).catch(function(){VUP=0;st('📤 ارفع فيديو من جوالك');toast('ما انرفع، جرب مرة ثانية')})}
 function vSite(){var b=D.cfg.banner||{},p=D.cfg.prog||{};
- return '<div class="card"><h3>📢 شريط تنبيه فوق الموقع</h3><div class="mut">يطلع للكل فوق الصفحة الرئيسية، مثل: «البرنامج اليوم تأجل»</div><label>نص التنبيه</label><input id="bt" maxlength="140" value="'+esc(b.t||'')+'" placeholder="اكتب التنبيه…">'+
+ return vidCard()+'<div class="card"><h3>📢 شريط تنبيه فوق الموقع</h3><div class="mut">يطلع للكل فوق الصفحة الرئيسية، مثل: «البرنامج اليوم تأجل»</div><label>نص التنبيه</label><input id="bt" maxlength="140" value="'+esc(b.t||'')+'" placeholder="اكتب التنبيه…">'+
  '<div class="seg" id="btone"><button data-t="info" class="'+(b.tone!=='warn'?'on':'')+'">💙 عادي</button><button data-t="warn" class="'+(b.tone==='warn'?'on':'')+'">⚠️ مهم</button></div>'+
  '<div class="row" style="margin-top:10px"><button class="btn sp" id="bsave">حفظ ونشره</button>'+(b.t?'<button class="btn dl" id="bclr">شيله</button>':'')+'</div></div>'+
  '<div class="card"><h3>🕐 تعديل وقت البرنامج</h3><div class="mut">يغيّر الوقت والمكان بخانة البرنامج القادم بدون نشر. اتركه فاضي عشان يرجع للأصلي.</div>'+
@@ -200,6 +218,9 @@ document.addEventListener('click',function(e){var t=e.target;
  if(t.closest('#aesave')){api({a:'alb-edit',id:MSEL,t:$('#ae_t').value,s:$('#ae_s').value}).then(function(){toast('انحفظ ✅');return load()}).catch(function(){toast('صار خطأ')});return}
  var ad=t.closest('#aedel');if(ad){if(!ad.classList.contains('sure')){ad.classList.add('sure');ad.textContent='متأكد؟ صوره تروح للمحذوفات';setTimeout(function(){if(document.body.contains(ad)){ad.classList.remove('sure');ad.textContent='حذف الألبوم'}},3500);return}
   api({a:'alb-del',id:MSEL}).then(function(){MSEL=null;toast('انحذف الألبوم');return load()}).catch(function(){toast('صار خطأ')});return}
+ if(t.closest('#vadd')){var u=$('#v_u').value.trim();if(!u){toast('حط رابط الفيديو');return}api({a:'vid-add',url:u,t:$('#v_t').value}).then(function(){toast('✅ انضاف');return load()}).catch(function(e){toast(e&&e.err==='dup'?'هالفيديو موجود':'الرابط مو صحيح')});return}
+ var vm=t.closest('[data-vmv]');if(vm){api({a:'vid-mv',y:vm.dataset.y,dir:+vm.dataset.vmv}).then(load).catch(function(){toast('صار خطأ')});return}
+ var vd=t.closest('[data-vdel]');if(vd){if(!vd.classList.contains('sure')){vd.classList.add('sure');vd.textContent='متأكد؟';setTimeout(function(){if(document.body.contains(vd)){vd.classList.remove('sure');vd.textContent='🗑'}},3000);return}api({a:'vid-del',y:vd.dataset.vdel}).then(function(){toast('انحذف');return load()}).catch(function(){toast('صار خطأ')});return}
  if(t.closest('#non')){nOn(t.closest('#non'));return}
  if(t.closest('#noff')){nOff();return}
  if(t.closest('#ntest')){api({a:'adm-test'}).then(function(d){toast(d.sent?'انرسلت ✅':'ما وصلت، جرّب توقفها وتفعّلها')}).catch(function(){toast('صار خطأ')});return}
