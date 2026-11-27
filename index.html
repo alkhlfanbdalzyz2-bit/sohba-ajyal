@@ -1540,6 +1540,15 @@ html{touch-action:pan-x pan-y}
 .cdn.full .cdb span{margin-top:2px;font-size:11px}
 .cdn.full .ppost{margin-top:14px}
 .tmpc{position:relative;overflow:hidden;text-align:center;padding:20px 16px 18px;border-radius:22px;background:radial-gradient(120% 80% at 85% 0%,rgba(242,153,46,.22),transparent 60%),radial-gradient(100% 70% at 0% 100%,rgba(47,128,237,.2),transparent 60%),linear-gradient(160deg,#0f1630,#0a0f22);color:#fff;border:1px solid rgba(242,153,46,.45)}
+.jum{position:relative;overflow:hidden;padding:18px 14px 14px;border-radius:24px;background:radial-gradient(120% 80% at 90% 0%,rgba(242,153,46,.24),transparent 60%),radial-gradient(90% 70% at 0% 100%,rgba(47,128,237,.2),transparent 60%),linear-gradient(160deg,#10204a,#081430);border:1px solid rgba(243,212,138,.4);color:#fff;box-shadow:0 16px 40px rgba(4,17,47,.3)}
+.jhd{display:flex;align-items:center;gap:14px;margin-bottom:12px}.jtt{flex:1;min-width:0}.jtt .lbl{display:inline-block;font-size:12px;font-weight:800;color:#f5a83a;margin-bottom:2px}.jtt .chd{margin:0;font-size:22px;color:#fff}.jsub{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.6;margin-top:3px}.jsub i{font-style:normal;color:#f5c26b;font-size:11px}
+.jring{--p:0;flex:none;width:70px;height:70px;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(closest-side,#0c1a40 79%,transparent 80% 100%),conic-gradient(#f7941d calc(var(--p)*1%),rgba(255,255,255,.12) 0);transition:background .4s}.jring b{font-size:22px;line-height:1;color:#ffd36e}.jring small{font-size:10.5px;color:rgba(255,255,255,.7)}
+.jls{display:grid;grid-template-columns:1fr 1fr;gap:8px}.jit{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;text-align:start;padding:11px 10px 10px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .25s,border-color .25s,transform .15s}.jit:active{transform:scale(.98)}
+.jic{flex:none;width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#ffb347,#f26a21);box-shadow:0 6px 14px rgba(0,0,0,.25)}.jic svg{width:21px;height:21px;color:#fff;stroke:#fff}
+.jtx{min-width:0;display:grid;gap:3px}.jtx b{font-size:14px;line-height:1.35}.jtx q{quotes:none;font-family:Amiri,serif;font-size:12.5px;line-height:1.65;color:rgba(255,255,255,.85)}.jtx small{font-size:10px;line-height:1.5;color:#f5c26b}
+.jck{position:absolute;top:10px;left:10px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:2px solid rgba(255,255,255,.25);transition:all .3s cubic-bezier(.3,1.6,.4,1)}.jck svg{width:15px;height:15px;opacity:0;transform:scale(.4);transition:all .3s cubic-bezier(.3,1.6,.4,1);stroke:#fff}
+.jit.on{background:rgba(62,207,142,.12);border-color:rgba(62,207,142,.45)}.jit.on .jck{background:#2fbf7f;border-color:#2fbf7f}.jit.on .jck svg{opacity:1;transform:none}.jit.on .jic{background:linear-gradient(135deg,#3ecf8e,#159a6b)}
+.jft{text-align:center;font-size:12.5px;color:rgba(255,255,255,.7);margin-top:11px}
 .tmpc .lbl{display:inline-block;font-size:12px;font-weight:800;color:#f5a83a;letter-spacing:.3px;margin-bottom:4px}
 .tmpc .chd{margin:0;font-size:24px;font-weight:900;color:#fff}
 .tmpc .tsub{margin-top:6px;font-family:var(--disp);font-weight:700;letter-spacing:0;font-size:14px;color:#dfe6ff}
@@ -1783,7 +1792,7 @@ function home(){
     '<figure class="grp"><img src="assets/hero.webp" alt="شباب صحبة أجيال" fetchpriority="high"></figure></div></section>'+
   '<div id="cfgBan" class="wrap">'+cfgBanner()+'</div>'+
   '<div id="pushSlot" class="wrap"></div>'+
-  tempBlock()+
+  tempBlock()+jumBlock()+
   '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+qa([['or','#/me',TI.sparkle,'زادك اليوم'],['gr','#/adhkar',I.beads,'أذكاري'],['b','#/me/tasks',TI.target,'يومي'],['g','#/challenge',TI.trophy,'رجال الفجر'],['pu','#/me/saved',TI.bookmark,'محفوظاتي'],['rd','#/',MAILI,'اقتراح','data-sug']])+chCard()+'</div></section>'+
@@ -2260,6 +2269,30 @@ function favPage(){
 /* ===================== تذكير مؤقت (يختفي تلقائياً عند until) ===================== */
 var TEMP = { until:'2026-11-20T16:51:00+03:00', lbl:'سيّد الأيام', t:'سنن يوم الجمعة', sub:'لا تنسون الكهف والصلاة على النبي ﷺ', img:'assets/jumuah-2011.jpg', th:'assets/jumuah-2011-t.jpg' };
 function tempOn(){ return TEMP && Date.now() < new Date(TEMP.until).getTime(); }
+/* ===================== سنن يوم الجمعة (تطلع يوم الجمعة بس، بأول الرئيسية) ===================== */
+var JSV = function(d){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+d+'</svg>'; };
+function JUML(){ return [
+  ['ghusl', JSV('<path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/><path d="M9.5 14.5a2.6 2.6 0 0 0 2.5 2.5"/>'), 'الاغتسال', '«غُسلُ يومِ الجمعةِ واجبٌ على كلِّ محتلم»', 'البخاري ومسلم'],
+  ['tib', TI.sparkle, 'التطيّب والادّهان', '«…ويدَّهنُ من دُهنِه، أو يمسُّ من طيبِ بيته، ثم يخرج…»', 'البخاري'],
+  ['siwak', JSV('<path d="M4 20 15 9"/><path d="M15 9l2.5-2.5a2.1 2.1 0 0 1 3 3L18 12"/><path d="M16 7l1 1M18 9l1 1"/>'), 'السواك', '«…وأن يستنَّ، وأن يمسَّ طيبًا إن وجد»', 'البخاري ومسلم'],
+  ['bukur', TI.mosque, 'التبكير للمسجد', '«من اغتسلَ يومَ الجمعة… ثم راحَ فكأنما قرَّب بدنة»', 'البخاري ومسلم'],
+  ['insat', JSV('<path d="M6 10a6 6 0 1 1 12 0c0 3-2 4-3 5.5S14 19 12 20a2.5 2.5 0 0 1-3-2"/><path d="M9.5 10a2.5 2.5 0 0 1 5 0"/>'), 'الإنصات للخطبة', '«إذا قلتَ لصاحبك يومَ الجمعة: أنصت، والإمامُ يخطب، فقد لغوت»', 'البخاري ومسلم'],
+  ['kahf', TI.book, 'سورة الكهف', '«من قرأ سورةَ الكهفِ يومَ الجمعة أضاءَ له من النورِ ما بين الجمعتين»', 'الحاكم والبيهقي · صححه الألباني'],
+  ['salat', I.beads, 'الإكثار من الصلاة على النبي ﷺ', '«إنَّ من أفضلِ أيامكم يومَ الجمعة… فأكثِروا عليَّ من الصلاةِ فيه»', 'أبو داود · صححه الألباني'],
+  ['saa', TI.clock, 'ساعة الإجابة', '«فيه ساعةٌ لا يوافقها عبدٌ مسلم… يسأل اللهَ شيئًا إلا أعطاه إيّاه»', 'البخاري ومسلم']
+]; }
+function jumIs(){ return new Date(Date.now() + 3*3600e3).getUTCDay() === 5; }
+function jumGet(){ try { var o = JSON.parse(localStorage.getItem('jum') || '{}'); return o.d === kwDate() ? (o.k || []) : []; } catch(_){ return []; } }
+function jumSet(k){ try { localStorage.setItem('jum', JSON.stringify({ d:kwDate(), k:k })); } catch(_){} }
+function jumSaa(){ var t = new Date(Date.now() + 3*3600e3), P = pTimes(t.getUTCFullYear(), t.getUTCMonth()+1, t.getUTCDate()); return 'آخر ساعة قبل المغرب · من '+chHM(P[3] - 1)+' لين '+chHM(P[3]); }
+function jumBlock(){ if (!jumIs()) return ''; var done = jumGet(), n = done.length, N = JUML().length, pc = Math.round(n/N*100);
+  return '<section class="band" id="jumB"><div class="wrap"><div class="jum frame rv"><span class="cglow"></span>'+
+    '<div class="jhd"><div class="jring" style="--p:'+pc+'"><b>'+ar(n)+'</b><small>من '+ar(N)+'</small></div><div class="jtt"><span class="lbl">يوم الجمعة</span><h2 class="chd">سنن يوم الجمعة</h2><div class="jsub">قال ﷺ: «خيرُ يومٍ طلعت عليه الشمسُ يومُ الجمعة» <i>مسلم</i></div></div></div>'+
+    '<div class="jls">'+JUML().map(function(x){ var on = done.indexOf(x[0]) > -1; return '<button type="button" class="jit'+(on ? ' on' : '')+'" data-jum="'+x[0]+'" aria-pressed="'+on+'"><span class="jic">'+x[1]+'</span><span class="jtx"><b>'+x[2]+'</b><q>'+x[3]+'</q><small>'+(x[0] === 'saa' ? jumSaa()+' · ' : '')+x[4]+'</small></span><span class="jck">'+TI.check+'</span></button>'; }).join('')+'</div>'+
+    '<div class="jft">'+(n === N ? '🤍 ما شاء الله، أتممت سنن الجمعة. تقبّل الله منك' : 'اضغط على السنّة إذا سوّيتها')+'</div></div></div></section>'; }
+document.addEventListener('click', function(ev){ var b = ev.target.closest && ev.target.closest('[data-jum]'); if (!b) return;
+  var k = jumGet(), id = b.getAttribute('data-jum'), i = k.indexOf(id); if (i > -1) k.splice(i, 1); else { k.push(id); if (navigator.vibrate) try { navigator.vibrate(10); } catch(_){} }
+  jumSet(k); var B = document.getElementById('jumB'); if (B){ var w = document.createElement('div'); w.innerHTML = jumBlock(); var nb = w.firstChild; nb.querySelector('.rv').classList.add('in'); B.replaceWith(nb); if (k.length === JUML().length && i < 0 && typeof tkBoom === 'function') try { tkBoom(); } catch(_){} } });
 function tempBlock(){ if (!tempOn()) return '';
   return '<section class="band" id="tmpB"><div class="wrap"><div class="tmpc frame rv"><span class="cglow"></span><span class="lbl">'+TEMP.lbl+'</span><h2 class="chd">'+TEMP.t+'</h2><div class="tsub">'+TEMP.sub+'</div>'+
     '<button type="button" class="ppost" data-tempimg><img src="'+TEMP.th+'" alt="'+TEMP.t+'" loading="lazy"><em>اضغط لعرض الصورة</em></button></div></div></section>'; }
