@@ -1727,7 +1727,7 @@ function home(){
   '<div id="cfgBan" class="wrap">'+cfgBanner()+'</div>'+
   '<div id="pushSlot" class="wrap"></div>'+
   tempBlock()+jumBlock()+
-  '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>'+
+  (PROG_OFF ? '' : '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>')+
   '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+qa([['or','#/me',TI.sparkle,'زادك اليوم'],['gr','#/adhkar',I.beads,'أذكاري'],['b','#/me/tasks',TI.target,'يومي'],['g','#/challenge',TI.trophy,'رجال الفجر'],['pu','#/me/saved',TI.bookmark,'محفوظاتي'],['rd','#/',MAILI,'اقتراح','data-sug']])+chCard()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','الذكريات')+library()+'</div></section>'+
@@ -1817,7 +1817,7 @@ function challengesPage(){
     }).join('')+'</div>'+homeBtn()+'</div></section></div>';
 }
 function coursePage(){
-  return '<div class="page">'+ptop('book','الكورس الحالي','كورس على خطاه ﷺ','',COURSE.poster)+'<section class="band" style="padding-top:16px"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section><section class="band"><div class="wrap">'+courseBlock()+shareBtn('khutah')+homeBtn()+'</div></section></div>';
+  return '<div class="page">'+ptop('book','الكورس الحالي','كورس على خطاه ﷺ','',COURSE.poster)+''+(PROG_OFF ? '' : '<section class="band" style="padding-top:16px"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>')+'<section class="band"'+(PROG_OFF ? ' style="padding-top:16px"' : '')+'><div class="wrap">'+courseBlock()+shareBtn('khutah')+homeBtn()+'</div></section></div>';
 }
 function galleryPage(){
   return '<div class="page">'+ptop('pic','صحبة أجيال','الذكريات','الدروس والفلوقات والكورسات وصور الصحبة')+'<section class="band" style="padding-top:16px"><div class="wrap">'+library()+shareBtn('memories')+homeBtn()+'</div></section></div>';
@@ -2268,6 +2268,7 @@ function progState(){
 /* عدّاد إعلان الرحلة الختامية (يختفي بعد الموعد بـ٣ ساعات) */
 var TRIP = { at:'2026-11-27T11:36:00+03:00', t:'الرحلة الختامية', sub:'العد التنازلي ليوم الجمعة · وقت صلاة الجمعة' };
 /* إعلان الرحلة الختامية: عدّاد للتجمع + تفاصيل + بوستر تضغط على آيته أو الشعار وتسمع التلاوة */
+var PROG_OFF = true; // الكورس خلص: قسم «البرنامج القادم» مخفي بالرئيسية وصفحة الكورس
 var TRIPX = { at:'2026-11-27T10:00:00+03:00', end:'2026-11-28T21:30:00+03:00', motto:'فبهداهم اقتده', place:'شاليه لؤلؤة القرين', img:'assets/trip-final.webp', th:'assets/trip-final-t.webp', audio:'assets/an3am-90.mp3',
   verse:'أُولَٰئِكَ الَّذِينَ هَدَى اللَّهُ ۖ فَبِهُدَاهُمُ اقْتَدِهْ', notes:['لا تنسى ملابس الرياضة وأغراضك الشخصية','لا يوجد سباحة بالشاليه','تحديات الكورس مستمرة حتى يوم السبت'],
   ch:['أفضل طبق موالح','فيديو مفيد','تلخيص كتاب','تقديم الخاطرة'] };
