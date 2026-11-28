@@ -3,6 +3,10 @@ const { store } = require('../lib/store');
 const { broadcast } = require('../lib/broadcast');
 const RK = require('../lib/remkeys');
 const { times, kwNow } = require('../lib/prayer');
+const ZAD = require('../lib/zad');
+// زادك اليوم: «سورة X» + حديث اليوم (يتقصّ إذا طويل)
+function zadMsg(){ const z = ZAD.today(), h = z.h; let t = h[0]; if (t.length > 120){ t = t.slice(0, 120); t = t.slice(0, t.lastIndexOf(' ')) + '…'; }
+  return { title: '📖 زادك اليوم', body: 'آية اليوم من سورة ' + z.a[4] + '، وحديث اليوم: ' + (h[2] ? t : '«' + t + '»') + ' 🤍', url: './#/me' }; }
 const R = {
   fajr:     { title: '🌅 سنة الفجر', body: 'أذّن الفجر، لا تفوّت ركعتي السنة؛ قال ﷺ: «ركعتا الفجر خيرٌ من الدنيا وما فيها» 🤍', url: './#/me' },
   duha:     { title: '🌤️ صلاة الضحى', body: 'ركعتين من الضحى تجزي عن صدقة كل مفاصل جسمك 🤍 لا تفوّتها', url: './#/me' },
@@ -38,6 +42,7 @@ exports.handler = async (event) => {
   if (n.dow === 5 && win(t.maghrib - 1)) due.push('istijaba');
   if ((n.dow === 0 || n.dow === 3) && win(21)) due.push('siyam');
   if (win(22.5)) due.push('nawm');
+  if (n.h >= 10 && n.h < 22) due.push('zad'); // آية وحديث اليوم: الساعة ١٠ الصبح (ولو تأخر التشغيل يرسل أول ما يقدر لين ١٠ الليل، مرة باليوم)
   const sh = Math.floor(n.h); if (sh % 2 === 0 && sh >= 8 && sh <= 22 && n.h < sh + 0.5) due.push('salawat'); // كل ساعتين ٨ص–١٠م (ولا شي من ١١م لين ٦ص)
   const lastThird = t.fajr - (t.fajr + 24 - t.maghrib) / 3; // بداية الثلث الأخير (بعد نص الليل)
   if (win(lastThird)) due.push('witr');
@@ -50,7 +55,7 @@ exports.handler = async (event) => {
     const mark = 'rem-sent/' + k + '/' + date + (k === 'salawat' ? '/' + sh : '');
     if (await s.get(mark)) { out[k] = 'already'; continue; }
     await s.set(mark, '1');
-    const r = R[k], payload = JSON.stringify({ title: r.title, body: r.body, url: r.url, tag: 'rem-' + k });
+    const r = k === 'zad' ? zadMsg() : R[k], payload = JSON.stringify({ title: r.title, body: r.body, url: r.url, tag: 'rem-' + k });
     out[k] = await broadcast(s, payload, async key => RK.on(prefs[key], k)); // الافتراضي: كله مفعّل
     try { const lg = (await s.get('rem-log', { type: 'json' })) || []; lg.unshift({ k, at: Date.now(), sent: (out[k] && out[k].sent) || 0 }); await s.setJSON('rem-log', lg.slice(0, 40)); } catch(_){}
   }
