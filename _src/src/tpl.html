@@ -1526,6 +1526,7 @@ html{touch-action:pan-x pan-y}
 .jck{position:absolute;top:10px;left:10px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:2px solid rgba(255,255,255,.25);transition:all .3s cubic-bezier(.3,1.6,.4,1)}.jck svg{width:15px;height:15px;opacity:0;transform:scale(.4);transition:all .3s cubic-bezier(.3,1.6,.4,1);stroke:#fff}
 .jit.on{background:rgba(62,207,142,.12);border-color:rgba(62,207,142,.45)}.jit.on .jck{background:#2fbf7f;border-color:#2fbf7f}.jit.on .jck svg{opacity:1;transform:none}.jit.on .jic{background:linear-gradient(135deg,#3ecf8e,#159a6b)}
 .jft{text-align:center;font-size:12.5px;color:rgba(255,255,255,.7);margin-top:11px}
+.sugtop{margin-top:18px}.sugtop .sugc{margin:0}
 .tmpc .lbl{display:inline-block;font-size:12px;font-weight:800;color:#f5a83a;letter-spacing:.3px;margin-bottom:4px}
 .tmpc .chd{margin:0;font-size:24px;font-weight:900;color:#fff}
 .tmpc .tsub{margin-top:6px;font-family:var(--disp);font-weight:700;letter-spacing:0;font-size:14px;color:#dfe6ff}
@@ -1725,13 +1726,13 @@ function home(){
     '<div class="tags"><span>قرآني</span><span>تربوي</span><span>ترفيهي</span></div>'+
     '<figure class="grp"><img src="assets/hero.webp" alt="شباب صحبة أجيال" fetchpriority="high"></figure></div></section>'+
   '<div id="cfgBan" class="wrap">'+cfgBanner()+'</div>'+
+  '<div class="wrap sugtop">'+sugCard()+'</div>'+
   '<div id="pushSlot" class="wrap"></div>'+
   tempBlock()+jumBlock()+
   (PROG_OFF ? '' : '<section class="band"><div class="wrap">'+sh('','البرنامج القادم')+meetBlock()+'</div></section>')+
   '<section class="band"><div class="wrap">'+courseBlock()+'</div></section>'+
   '<section class="band"><div class="wrap">'+qa([['or','#/me',TI.sparkle,'زادك اليوم'],['gr','#/adhkar',I.beads,'أذكاري'],['b','#/me/tasks',TI.target,'يومي'],['g','#/challenge',TI.trophy,'رجال الفجر'],['pu','#/me/saved',TI.bookmark,'محفوظاتي'],['rd','#/',MAILI,'اقتراح','data-sug']])+chCard()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','الذكريات')+library()+'</div></section>'+
-  '<section class="band"><div class="wrap">'+sh('','رأيك يهمنا','اقتراحك يوصلنا بدون اسمك')+sugCard()+'</div></section>'+
   '<section class="band"><div class="wrap">'+sh('','إنجازاتنا','والقادم أفضل بإذن الله')+
     '<div class="ccs stg">'+row({ href:'#/awards', img:'assets/cv-awards.webp', k:'الدرع الحصين ١٠ · المركز الثالث', t:'منصة التتويج', c:'g', ok:1, st:AW.length+' تتويج' })+'</div>'+
     '<div class="stats rv"><div><b class="cnt" data-to="'+AW.length+'">0</b><span>تتويج</span></div><div><b class="cnt" data-to="46">0</b><span>مشارك</span></div>'+(function(t){ return '<div><b class="cnt" data-to="'+(t.i+t.v)+'">0</b><span>صورة وفيديو</span></div>'; })(mediaTotals())+'</div>'+
